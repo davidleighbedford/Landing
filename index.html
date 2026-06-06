@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leigh-Bedford</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            transition: 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .card h2 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Leigh-Bedford</h1>
+        <p class="subtitle">HTML Projects & Tools</p>
+    </header>
+
+    <main class="container">
+        <div class="projects">
+
+            <a href="calculator/" class="card">
+                <div class="icon">🧮</div>
+                <h2>Calculator</h2>
+                <p>Simple calculator application.</p>
+            </a>
+
+            <a href="todo/" class="card">
+                <div class="icon">📝</div>
+                <h2>To-Do List</h2>
+                <p>Task management and reminders.</p>
+            </a>
+
+            <a href="weather/" class="card">
+                <div class="icon">☀️</div>
+                <h2>Weather App</h2>
+                <p>Current weather information.</p>
+            </a>
+
+            <a href="game/" class="card">
+                <div class="icon">🎮</div>
+                <h2>Game</h2>
+                <p>Interactive browser game.</p>
+            </a>
+
+            <!-- Add more projects below -->
+
+        </div>
+    </main>
+
+    <footer>
+        © 2026 Leigh-Bedford
+    </footer>
+
+</body>
+</html>
