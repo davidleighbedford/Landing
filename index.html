@@ -62,8 +62,10 @@
         }
 
         .icon {
-            font-size: 2rem;
+            width: 60px;
+            height: 60px;
             margin-bottom: 12px;
+            object-fit: contain;
         }
 
         .card h2 {
@@ -108,43 +110,17 @@
     <main class="container">
         <div class="projects">
 
-            <a href="calculator/" class="card">
-                <div class="icon">🧮</div>
-                <h2>Calculator</h2>
-                <p>Simple calculator application.</p>
-            </a>
-
-            <a href="todo/" class="card">
-                <div class="icon">📝</div>
-                <h2>To-Do List</h2>
-                <p>Task management and reminders.</p>
-            </a>
-
-            <a href="weather/" class="card">
-                <div class="icon">☀️</div>
-                <h2>Weather App</h2>
-                <p>Current weather information.</p>
-            </a>
-
-            <a href="game/" class="card">
-                <div class="icon">🎮</div>
-                <h2>Game</h2>
-                <p>Interactive browser game.</p>
-            </a>
-
             <a href="https://arlo.leighbedford.com" class="card">
-                <div class="icon">🍼</div>
+                <img src="https://raw.githubusercontent.com/davidleighbedford/arlo/main/icon-192.png" alt="Arlo" class="icon">
                 <h2>Arlo</h2>
                 <p>Play & progress guide for Arlo.</p>
             </a>
 
             <a href="https://training.leighbedford.com" class="card featured">
-                <div class="icon">🚴</div>
+                <div class="icon" style="font-size: 2rem; display: flex; align-items: center; justify-content: center;">🚴</div>
                 <h2>Power Plan</h2>
                 <p>13-week personalized training program.</p>
             </a>
-
-            <!-- Add more projects below -->
 
         </div>
     </main>
