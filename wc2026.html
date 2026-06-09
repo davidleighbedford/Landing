@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 World Cup Intelligence Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&family=Inter:wght@300;400;500;600&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg: #060810;
+  --surface: #0d1020;
+  --card: #131728;
+  --border: #1e2545;
+  --text: #e8eaf6;
+  --muted: #6b7a9f;
+  --gold: #f7c519;
+  --red: #f43f5e;
+  --teal: #14b8a6;
+  --purple: #a855f7;
+  --green: #22c55e;
+  --uefa: #3b82f6;
+  --conmebol: #10b981;
+  --concacaf: #f97316;
+  --caf: #eab308;
+  --afc: #ef4444;
+  --ofc: #a855f7;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:15px;line-height:1.6;overflow-x:hidden}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;overflow:hidden;padding:2rem}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(247,197,25,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(247,197,25,0.04) 1px,transparent 1px);background-size:60px 60px;animation:gridFloat 20s linear infinite}
+@keyframes gridFloat{from{transform:translateY(0)}to{transform:translateY(60px)}}
+.hero-glow{position:absolute;top:20%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(ellipse,rgba(247,197,25,0.07) 0%,transparent 70%);pointer-events:none}
+.hero-eyebrow{font-family:'Roboto Mono',monospace;font-size:.75rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:1.5rem;opacity:.8}
+.hero h1{font-family:'Oswald',sans-serif;font-size:clamp(3.5rem,10vw,8rem);font-weight:700;line-height:.95;letter-spacing:-.02em;text-transform:uppercase;color:#fff;margin-bottom:.5rem;position:relative;z-index:1}
+.hero h1 span{color:var(--gold);display:block}
+.hero-sub{font-size:1.1rem;color:var(--muted);max-width:520px;margin:1.5rem auto 3rem;position:relative;z-index:1}
+.hero-stats{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;margin-bottom:3rem}
+.hstat{text-align:center}
+.hstat-num{font-family:'Oswald',sans-serif;font-size:2.2rem;font-weight:700;color:var(--gold);display:block}
+.hstat-label{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+.hero-favourites{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+.fav-card{background:var(--card);border:1px solid var(--border);padding:1rem 1.5rem;border-radius:12px;text-align:center;cursor:default;transition:transform .2s,border-color .2s;min-width:130px}
+.fav-card:hover{transform:translateY(-4px);border-color:var(--gold)}
+.fav-rank{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.fav-flag{font-size:2rem;display:block;margin:.3rem 0}
+.fav-name{font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:600;letter-spacing:.05em}
+.fav-prob{font-family:'Roboto Mono',monospace;font-size:.85rem;color:var(--gold);margin-top:.2rem}
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:.4;animation:bounce 2s ease-in-out infinite}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+.scroll-hint span{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.scroll-arrow{width:18px;height:18px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg)}
+
+/* NAV */
+.sticky-nav{position:sticky;top:0;z-index:100;background:rgba(6,8,16,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:.8rem 2rem;display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap}
+.nav-link{font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:.3rem .6rem;border-radius:4px;transition:color .2s,background .2s}
+.nav-link:hover,.nav-link.active{color:var(--gold);background:rgba(247,197,25,.1)}
+
+/* SECTION */
+.section{padding:5rem 2rem;max-width:1200px;margin:0 auto}
+.section-eyebrow{font-family:'Roboto Mono',monospace;font-size:.7rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:.6rem}
+.section-title{font-family:'Oswald',sans-serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:700;line-height:1;text-transform:uppercase;margin-bottom:.5rem}
+.section-sub{color:var(--muted);font-size:.95rem;margin-bottom:3rem;max-width:560px}
+.divider{border:none;border-top:1px solid var(--border);margin:4rem 0}
+
+/* CHARTS GRID */
+.charts-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:2rem;margin-top:2rem}
+@media(max-width:800px){.charts-grid{grid-template-columns:1fr}}
+.chart-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem}
+.chart-card h3{font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text);margin-bottom:.3rem}
+.chart-card p{font-size:.78rem;color:var(--muted);margin-bottom:1.2rem}
+.chart-wrap{position:relative;height:360px}
+.chart-wrap canvas{max-height:360px}
+
+/* QUADRANT LABELS */
+.quadrant-labels{position:relative;margin-top:.5rem;display:grid;grid-template-columns:1fr 1fr;gap:.5rem;font-size:.7rem}
+.ql{padding:.3rem .6rem;border-radius:4px;opacity:.7}
+.ql.elite{background:rgba(247,197,25,.1);color:var(--gold);border:1px solid rgba(247,197,25,.2)}
+.ql.fortress{background:rgba(20,184,166,.1);color:var(--teal);border:1px solid rgba(20,184,166,.2)}
+.ql.entertain{background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.2)}
+.ql.hopeful{background:rgba(107,122,159,.1);color:var(--muted);border:1px solid rgba(107,122,159,.2)}
+
+/* CALL-OUTS */
+.callouts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:2.5rem 0}
+.callout{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.5rem}
+.callout-num{font-family:'Oswald',sans-serif;font-size:2.4rem;font-weight:700;line-height:1;color:var(--gold)}
+.callout-label{font-size:.78rem;color:var(--muted);margin-top:.2rem;line-height:1.4}
+.callout.accent-teal .callout-num{color:var(--teal)}
+.callout.accent-red .callout-num{color:var(--red)}
+.callout.accent-purple .callout-num{color:var(--purple)}
+
+/* TEAM FILTER */
+.conf-filter{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:2rem}
+.conf-btn{font-family:'Oswald',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.4rem 1rem;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
+.conf-btn.active,.conf-btn:hover{color:#fff;border-color:transparent}
+.conf-btn[data-conf="ALL"].active{background:rgba(255,255,255,.1);color:#fff}
+.conf-btn[data-conf="UEFA"].active{background:var(--uefa);color:#fff;border-color:var(--uefa)}
+.conf-btn[data-conf="CONMEBOL"].active{background:var(--conmebol);color:#fff;border-color:var(--conmebol)}
+.conf-btn[data-conf="CONCACAF"].active{background:var(--concacaf);color:#fff;border-color:var(--concacaf)}
+.conf-btn[data-conf="CAF"].active{background:var(--caf);color:#000;border-color:var(--caf)}
+.conf-btn[data-conf="AFC"].active{background:var(--afc);color:#fff;border-color:var(--afc)}
+.conf-btn[data-conf="OFC"].active{background:var(--ofc);color:#fff;border-color:var(--ofc)}
+
+/* TEAM CARDS */
+.teams-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem}
+.team-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;cursor:default;transition:transform .2s,border-color .2s;display:flex;flex-direction:column;gap:.5rem}
+.team-card:hover{transform:translateY(-3px);border-color:var(--border)}
+.team-card[data-conf="UEFA"]:hover{border-color:var(--uefa)}
+.team-card[data-conf="CONMEBOL"]:hover{border-color:var(--conmebol)}
+.team-card[data-conf="CONCACAF"]:hover{border-color:var(--concacaf)}
+.team-card[data-conf="CAF"]:hover{border-color:var(--caf)}
+.team-card[data-conf="AFC"]:hover{border-color:var(--afc)}
+.team-card[data-conf="OFC"]:hover{border-color:var(--ofc)}
+.team-card-header{display:flex;justify-content:space-between;align-items:flex-start}
+.team-card-name{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;line-height:1.2}
+.team-card-flag{font-size:1.6rem;line-height:1}
+.team-card-rank{font-family:'Roboto Mono',monospace;font-size:.68rem;color:var(--muted);margin-top:.1rem}
+.win-badge{font-family:'Roboto Mono',monospace;font-size:.75rem;font-weight:600;padding:.2rem .5rem;border-radius:4px;background:rgba(247,197,25,.1);color:var(--gold);border:1px solid rgba(247,197,25,.2)}
+.stat-row{display:flex;flex-direction:column;gap:.15rem}
+.stat-label{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;display:flex;justify-content:space-between}
+.stat-bar-bg{height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.stat-bar{height:100%;border-radius:2px;transition:width .6s ease}
+.stat-bar.att{background:linear-gradient(90deg,#f97316,#f7c519)}
+.stat-bar.def{background:linear-gradient(90deg,#14b8a6,#3b82f6)}
+.conf-badge{font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;padding:.15rem .4rem;border-radius:3px;margin-top:.2rem;width:fit-content}
+.conf-badge.UEFA{background:rgba(59,130,246,.15);color:var(--uefa)}
+.conf-badge.CONMEBOL{background:rgba(16,185,129,.15);color:var(--conmebol)}
+.conf-badge.CONCACAF{background:rgba(249,115,22,.15);color:var(--concacaf)}
+.conf-badge.CAF{background:rgba(234,179,8,.15);color:var(--caf)}
+.conf-badge.AFC{background:rgba(239,68,68,.15);color:var(--afc)}
+.conf-badge.OFC{background:rgba(168,85,247,.15);color:var(--ofc)}
+
+/* PRESS QUOTES */
+.quotes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.2rem}
+.quote-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;position:relative;transition:border-color .2s}
+.quote-card:hover{border-color:rgba(247,197,25,.3)}
+.quote-mark{font-family:'Oswald',sans-serif;font-size:4rem;line-height:.8;color:var(--gold);opacity:.3;position:absolute;top:.5rem;left:1rem;pointer-events:none}
+.quote-text{font-size:.9rem;color:var(--text);line-height:1.6;padding-top:1.5rem;margin-bottom:1rem}
+.quote-footer{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:.8rem}
+.quote-source{font-family:'Roboto Mono',monospace;font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.quote-team-tag{font-size:.65rem;padding:.2rem .5rem;border-radius:3px;text-transform:uppercase;letter-spacing:.07em;font-family:'Oswald',sans-serif;font-weight:600}
+
+/* GROUPS */
+.groups-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem}
+.group-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.group-header{padding:.8rem 1.2rem;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.03)}
+.group-letter{font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:700;color:var(--gold);letter-spacing:.05em}
+.group-header-teams{font-size:.65rem;color:var(--muted);text-align:right;line-height:1.4}
+.group-teams{padding:.5rem 0}
+.group-team-row{display:flex;align-items:center;gap:.6rem;padding:.45rem 1.2rem;transition:background .15s}
+.group-team-row:hover{background:rgba(255,255,255,.03)}
+.group-pos{font-family:'Roboto Mono',monospace;font-size:.65rem;color:var(--muted);width:12px}
+.group-team-flag{font-size:1rem}
+.group-team-name{font-size:.82rem;font-weight:500;flex:1}
+.group-team-rank{font-family:'Roboto Mono',monospace;font-size:.62rem;color:var(--muted)}
+.group-team-qualify{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.qualify-1{background:var(--gold)}
+.qualify-2{background:var(--teal)}
+.qualify-3{background:rgba(107,122,159,.5)}
+.qualify-out{background:rgba(107,122,159,.2)}
+.group-footer{padding:.5rem 1.2rem .8rem;font-size:.65rem;color:var(--muted);border-top:1px solid var(--border)}
+.qual-legend{display:flex;gap:1rem;align-items:center}
+.ql-item{display:flex;align-items:center;gap:.3rem}
+
+/* ORACLE / PREDICTIONS */
+.oracle-section{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+@media(max-width:700px){.oracle-section{grid-template-columns:1fr}}
+.oracle-col-title{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+.pred-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem;margin-bottom:.7rem;display:flex;gap:.8rem;align-items:flex-start;transition:border-color .2s}
+.pred-card:hover{border-color:var(--border)}
+.pred-card.serious:hover{border-color:rgba(247,197,25,.4)}
+.pred-card.fun:hover{border-color:rgba(168,85,247,.3)}
+.pred-icon{font-size:1.4rem;flex-shrink:0;width:32px;text-align:center;margin-top:.1rem}
+.pred-content{}
+.pred-label{font-family:'Roboto Mono',monospace;font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.15rem}
+.pred-value{font-family:'Oswald',sans-serif;font-size:1.05rem;font-weight:600;line-height:1.2;margin-bottom:.2rem}
+.pred-reason{font-size:.78rem;color:var(--muted);line-height:1.5}
+.serious .pred-value{color:var(--gold)}
+.fun .pred-value{color:#c084fc}
+.fun .pred-label{color:#7c3aed}
+
+/* STAT TABLE */
+.stat-callout-bar{display:flex;align-items:center;gap:1rem;padding:.8rem 1.2rem;border-radius:8px;background:rgba(247,197,25,.05);border:1px solid rgba(247,197,25,.1);margin:.6rem 0;transition:background .2s}
+.stat-callout-bar:hover{background:rgba(247,197,25,.1)}
+.scb-num{font-family:'Oswald',sans-serif;font-size:1.4rem;font-weight:700;color:var(--gold);min-width:60px}
+.scb-text{font-size:.83rem;color:var(--text);flex:1}
+
+/* TICKER */
+.ticker-wrap{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:.5rem 0;background:rgba(247,197,25,.03);margin:0 -2rem}
+.ticker-inner{display:flex;gap:3rem;white-space:nowrap;animation:tickerMove 40s linear infinite}
+.ticker-inner:hover{animation-play-state:paused}
+@keyframes tickerMove{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tick-item{font-family:'Roboto Mono',monospace;font-size:.7rem;color:var(--muted);padding:0 1rem}
+.tick-item span{color:var(--gold)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:2rem;text-align:center;color:var(--muted);font-size:.75rem}
+footer strong{color:var(--text)}
+
+/* TOOLTIP */
+#scatter-tooltip{position:fixed;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem 1rem;font-size:.78rem;pointer-events:none;z-index:200;max-width:200px;display:none;line-height:1.6}
+#scatter-tooltip .tt-name{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:600;margin-bottom:.3rem}
+#scatter-tooltip .tt-flag{font-size:1.4rem;margin-right:.3rem}
+</style>
+</head>
+<body>
+
+<div id="scatter-tooltip"></div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-eyebrow">AI Research Intelligence Report · June 2026</div>
+  <h1>2026 World Cup<span>48 Teams. One Truth.</span></h1>
+  <p class="hero-sub">An international press consensus analysis of every squad, every threat, every fragility — and a few predictions nobody else will make.</p>
+  <div class="hero-stats">
+    <div class="hstat"><span class="hstat-num">48</span><span class="hstat-label">Nations</span></div>
+    <div class="hstat"><span class="hstat-num">104</span><span class="hstat-label">Matches</span></div>
+    <div class="hstat"><span class="hstat-num">€6.2bn</span><span class="hstat-label">Squad value</span></div>
+    <div class="hstat"><span class="hstat-num">3</span><span class="hstat-label">Host nations</span></div>
+    <div class="hstat"><span class="hstat-num">26°C+</span><span class="hstat-label">~¼ of games</span></div>
+  </div>
+  <div class="hero-favourites">
+    <div class="fav-card"><div class="fav-rank">Favourite</div><span class="fav-flag">🇪🇸</span><div class="fav-name">Spain</div><div class="fav-prob">16.1%</div></div>
+    <div class="fav-card"><div class="fav-rank">Co-Favourite</div><span class="fav-flag">🇫🇷</span><div class="fav-name">France</div><div class="fav-prob">14.0%</div></div>
+    <div class="fav-card"><div class="fav-rank">Third Fav.</div><span class="fav-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><div class="fav-name">England</div><div class="fav-prob">11.2%</div></div>
+    <div class="fav-card"><div class="fav-rank">Chasing</div><span class="fav-flag">🇦🇷</span><div class="fav-name">Argentina</div><div class="fav-prob">10.4%</div></div>
+  </div>
+  <div class="scroll-hint"><span>scroll</span><div class="scroll-arrow"></div></div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner" id="ticker"></div>
+</div>
+
+<!-- NAV -->
+<nav class="sticky-nav">
+  <a class="nav-link" href="#overview">Overview</a>
+  <a class="nav-link" href="#teams">Teams</a>
+  <a class="nav-link" href="#press">Press Room</a>
+  <a class="nav-link" href="#groups">Groups</a>
+  <a class="nav-link" href="#oracle">The Oracle</a>
+</nav>
+
+<!-- OVERVIEW -->
+<section class="section" id="overview">
+  <div class="section-eyebrow">Section 01 — The Big Picture</div>
+  <h2 class="section-title">Power Rankings</h2>
+  <p class="section-sub">How international analysts, prediction markets, and Opta's 25,000-simulation model rate the field — from favourites to rank outsiders.</p>
+
+  <div class="callouts">
+    <div class="callout"><div class="callout-num">16.1%</div><div class="callout-label">Spain's win probability — highest of any team, and the only side more likely than not to reach the QF</div></div>
+    <div class="callout accent-teal"><div class="callout-num">37</div><div class="callout-label">Goals Norway scored in 8 European qualifiers — 4.62 per game. Haaland is their mildest problem</div></div>
+    <div class="callout accent-red"><div class="callout-num">26</div><div class="callout-label">Of 104 matches projected to be played at ≥26°C WBGT — the threshold where performance degrades</div></div>
+    <div class="callout accent-purple"><div class="callout-num">€1.47bn</div><div class="callout-label">France's squad value — the tournament's highest, by almost €150m. Research says squad value predicts WC wins better than FIFA rankings</div></div>
+  </div>
+
+  <div class="charts-grid">
+    <div class="chart-card">
+      <h3>Win Probability — Top 16</h3>
+      <p>Aggregated from Opta 25k sims, Kalshi/Polymarket & FanDuel. Source: international press consensus.</p>
+      <div class="chart-wrap"><canvas id="winProbChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>Attack vs. Defence — All 48 Teams</h3>
+      <p>Bubble size = win probability. Hover a team for details. Coloured by confederation.</p>
+      <div class="chart-wrap"><canvas id="scatterChart"></canvas></div>
+      <div class="quadrant-labels">
+        <div class="ql elite">↗ THE ELITE — High att, high def</div>
+        <div class="ql fortress">← FORTRESS — Low att, high def</div>
+        <div class="ql entertain">↘ ENTERTAINERS — High att, lower def</div>
+        <div class="ql hopeful">↙ HOPEFUL — Building for 2030</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stat-callout-bar"><div class="scb-num">3/3</div><div class="scb-text">The last 3 World Cup winners (Germany 2014, France 2018, Argentina 2022) were all in the top 5 squads by market value. All 5 of those nations are in the top 5 again in 2026.</div></div>
+  <div class="stat-callout-bar"><div class="scb-num">26.8yr</div><div class="scb-text">Average age of the top 5 favourites' squads. Research identifies 26–28 as the "prime window" for tournament success. Spain (26.2), France (26.6), England (26.6) are all in it.</div></div>
+  <div class="stat-callout-bar"><div class="scb-num">0</div><div class="scb-text">World Cup wins since 1998 for a host nation. Home advantage is real — worth ~22 percentage points according to a 2024 study — but no host has lifted the trophy in over 25 years.</div></div>
+</section>
+
+<hr class="divider">
+
+<!-- TEAMS -->
+<section class="section" id="teams">
+  <div class="section-eyebrow">Section 02 — Squad Intelligence</div>
+  <h2 class="section-title">All 48 Teams</h2>
+  <p class="section-sub">Attack and defence scores derived from qualifying records, squad value, FIFA ranking, and international press consensus. Excludes each nation's own domestic press.</p>
+  <div class="conf-filter">
+    <button class="conf-btn active" data-conf="ALL">All 48</button>
+    <button class="conf-btn" data-conf="UEFA">UEFA</button>
+    <button class="conf-btn" data-conf="CONMEBOL">CONMEBOL</button>
+    <button class="conf-btn" data-conf="CONCACAF">CONCACAF</button>
+    <button class="conf-btn" data-conf="CAF">CAF</button>
+    <button class="conf-btn" data-conf="AFC">AFC</button>
+    <button class="conf-btn" data-conf="OFC">OFC</button>
+  </div>
+  <div class="teams-grid" id="teamsGrid"></div>
+</section>
+
+<hr class="divider">
+
+<!-- PRESS ROOM -->
+<section class="section" id="press">
+  <div class="section-eyebrow">Section 03 — International Media</div>
+  <h2 class="section-title">The Press Room</h2>
+  <p class="section-sub">What the world's media is saying — home nation bias excluded. Every team assessed through foreign eyes.</p>
+  <div class="quotes-grid" id="quotesGrid"></div>
+</section>
+
+<hr class="divider">
+
+<!-- GROUPS -->
+<section class="section" id="groups">
+  <div class="section-eyebrow">Section 04 — Group Stage</div>
+  <h2 class="section-title">All 12 Groups</h2>
+  <p class="section-sub">Predicted final standings based on attack/defence model weighted by FIFA ranking, win probability, home advantage and difficulty score. Gold = qualifies 1st, teal = qualifies 2nd.</p>
+  <div class="groups-grid" id="groupsGrid"></div>
+</section>
+
+<hr class="divider">
+
+<!-- ORACLE -->
+<section class="section" id="oracle">
+  <div class="section-eyebrow">Section 05 — Predictions</div>
+  <h2 class="section-title">The Oracle</h2>
+  <p class="section-sub">Serious intelligence-backed calls on one side. Slightly less rigorous — but arguably more accurate — prophecies on the other.</p>
+  <div class="oracle-section">
+    <div>
+      <div class="oracle-col-title">📊 The Intelligence Brief</div>
+      <div id="seriousPreds"></div>
+    </div>
+    <div>
+      <div class="oracle-col-title">🔮 Things That Will Definitely Happen</div>
+      <div id="funPreds"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><strong>2026 World Cup Intelligence Report</strong> · Compiled from international press consensus, Opta 25k simulations, prediction markets, and squad value analysis · David Bedford Predictor Challenge Edition · June 2026</p>
+  <p style="margin-top:.5rem">Sources: Opta Analyst, ESPN, Goal.com, The Guardian, BBC Sport, Al Jazeera, L'Équipe, AS, Marca, Kicker, The Athletic, Sky Sports, FiveThirtyEight methodology, ILC-UK, Transfermarkt, Kalshi, Polymarket, FanDuel · Foreign-press rule applied: no team assessed by its own domestic media</p>
+</footer>
+
+<script>
+// ─── DATA ─────────────────────────────────────────────────────────────────────
+const teams = [
+  // name, abbr, conf, att, def, win, sup, dif, rank, flag
+  ['Spain','ESP','UEFA',90,86,16.0,55,42,2,'🇪🇸'],
+  ['France','FRA','UEFA',92,84,14.0,55,44,1,'🇫🇷'],
+  ['England','ENG','UEFA',84,84,11.2,58,45,4,'🏴󠁧󠁢󠁥󠁮󠁧󠁿'],
+  ['Portugal','POR','UEFA',85,80,8.0,52,46,5,'🇵🇹'],
+  ['Germany','GER','UEFA',82,78,6.0,50,47,10,'🇩🇪'],
+  ['Netherlands','NED','UEFA',80,80,4.0,50,46,7,'🇳🇱'],
+  ['Norway','NOR','UEFA',86,70,3.3,46,55,31,'🇳🇴'],
+  ['Belgium','BEL','UEFA',80,72,2.4,48,48,9,'🇧🇪'],
+  ['Croatia','CRO','UEFA',74,76,1.5,47,52,11,'🇭🇷'],
+  ['Switzerland','SUI','UEFA',70,78,1.2,46,50,19,'🇨🇭'],
+  ['Austria','AUT','UEFA',72,70,0.6,44,54,24,'🇦🇹'],
+  ['Sweden','SWE','UEFA',76,66,0.6,44,54,38,'🇸🇪'],
+  ['Turkey','TUR','UEFA',76,68,0.5,45,52,22,'🇹🇷'],
+  ['Scotland','SCO','UEFA',64,70,0.2,48,58,43,'🏴󠁧󠁢󠁳󠁣󠁴󠁿'],
+  ['Czechia','CZE','UEFA',68,68,0.3,44,55,41,'🇨🇿'],
+  ['Bosnia','BIH','UEFA',66,64,0.2,43,56,65,'🇧🇦'],
+  ['Argentina','ARG','CONMEBOL',86,86,10.4,72,40,3,'🇦🇷'],
+  ['Brazil','BRA','CONMEBOL',86,78,7.0,60,45,6,'🇧🇷'],
+  ['Colombia','COL','CONMEBOL',82,74,2.1,52,47,13,'🇨🇴'],
+  ['Uruguay','URU','CONMEBOL',78,76,2.0,52,48,17,'🇺🇾'],
+  ['Ecuador','ECU','CONMEBOL',72,82,1.0,48,49,23,'🇪🇨'],
+  ['Paraguay','PAR','CONMEBOL',64,76,0.4,48,52,40,'🇵🇾'],
+  ['United States','USA','CONCACAF',76,72,1.2,90,38,16,'🇺🇸'],
+  ['Mexico','MEX','CONCACAF',74,72,1.7,95,38,15,'🇲🇽'],
+  ['Canada','CAN','CONCACAF',74,70,0.6,78,42,30,'🇨🇦'],
+  ['Panama','PAN','CONCACAF',62,64,0.1,55,56,33,'🇵🇦'],
+  ['Haiti','HAI','CONCACAF',58,58,0.05,40,70,83,'🇭🇹'],
+  ['Curaçao','CUR','CONCACAF',54,56,0.02,45,60,82,'🇨🇼'],
+  ['Morocco','MAR','CAF',80,82,3.5,62,46,8,'🇲🇦'],
+  ['Senegal','SEN','CAF',82,80,2.5,52,52,14,'🇸🇳'],
+  ['Ivory Coast','CIV','CAF',80,76,1.0,50,52,34,'🇨🇮'],
+  ['Egypt','EGY','CAF',76,74,0.5,48,54,29,'🇪🇬'],
+  ['Algeria','ALG','CAF',76,72,0.4,47,54,28,'🇩🇿'],
+  ['Tunisia','TUN','CAF',64,72,0.2,46,56,44,'🇹🇳'],
+  ['South Africa','RSA','CAF',64,68,0.2,45,54,60,'🇿🇦'],
+  ['Ghana','GHA','CAF',70,64,0.23,47,54,74,'🇬🇭'],
+  ['Cape Verde','CPV','CAF',58,60,0.05,44,58,69,'🇨🇻'],
+  ['DR Congo','COD','CAF',68,64,0.1,44,62,46,'🇨🇩'],
+  ['Japan','JPN','AFC',78,74,1.2,50,50,18,'🇯🇵'],
+  ['South Korea','KOR','AFC',74,70,0.3,50,52,25,'🇰🇷'],
+  ['Iran','IRN','AFC',70,74,0.2,40,68,21,'🇮🇷'],
+  ['Australia','AUS','AFC',64,68,0.1,46,56,27,'🇦🇺'],
+  ['Saudi Arabia','KSA','AFC',64,66,0.1,46,54,61,'🇸🇦'],
+  ['Uzbekistan','UZB','AFC',66,68,0.1,44,54,50,'🇺🇿'],
+  ['Qatar','QAT','AFC',64,66,0.1,45,52,55,'🇶🇦'],
+  ['Jordan','JOR','AFC',62,66,0.05,44,56,63,'🇯🇴'],
+  ['Iraq','IRQ','AFC',60,62,0.05,44,66,57,'🇮🇶'],
+  ['New Zealand','NZL','OFC',60,64,0.05,44,56,85,'🇳🇿'],
+];
+
+const confColors = {
+  UEFA:'#3b82f6',CONMEBOL:'#10b981',CONCACAF:'#f97316',
+  CAF:'#eab308',AFC:'#ef4444',OFC:'#a855f7'
+};
+
+const quotes = [
+  { text: "Spain can expect to go all the way. Euro 2024 champions. The most complete team in the world, and a squad built for exactly this moment.", source: "ESPN", team: "Spain", tc: "#e8334a" },
+  { text: "The most valuable squad at this tournament by almost €150m. When France click, nobody in the world can live with them. The question is consistency.", source: "L'Équipe International", team: "France", tc: "#3b82f6" },
+  { text: "Norway haven't been to a World Cup in 28 years. They now have Erling Haaland. Norway scored 37 goals in 8 qualifiers. The maths is genuinely terrifying.", source: "The Guardian", team: "Norway", tc: "#22c55e" },
+  { text: "This is the Golden Generation's last waltz — but the music has been slowing for years. Ageing spine, tactical questions, enormous expectation. The obituary writes itself.", source: "Sky Sports", team: "Belgium", tc: "#f97316" },
+  { text: "Messi at 38, defending champions, running on pride, legacy and sheer force of will. Nobody with any sense is writing Argentina off.", source: "Marca", team: "Argentina", tc: "#74c0fc" },
+  { text: "Carlo Ancelotti has conquered everything there is to win in club football. A World Cup is his last frontier. Brazil believe he can cross it.", source: "AS (Spain)", team: "Brazil", tc: "#22c55e" },
+  { text: "2022 was no fluke. Morocco arrive not as Africa's hope but as genuine contenders. The world has finally, belatedly, noticed.", source: "BBC Sport Africa", team: "Morocco", tc: "#ef4444" },
+  { text: "The most Europe-based USMNT squad in history, playing at home, in front of 100,000 fans. If they don't make the quarters, the questions will be brutal.", source: "The Athletic", team: "United States", tc: "#3b82f6" },
+  { text: "Tuchel has made them difficult to beat and tactically unpredictable. Whether that translates to actually winning something remains England's oldest question.", source: "Kicker International", team: "England", tc: "#f97316" },
+  { text: "An island nation of 150,000 people. In the World Cup. Take a genuine moment to appreciate what Curaçao have achieved.", source: "FIFA.com", team: "Curaçao", tc: "#a855f7" },
+  { text: "France, Norway, Senegal, Iraq in the same group. Someone always has to draw the group of death. Iraq's number came up. Godspeed.", source: "Al Jazeera English", team: "Iraq", tc: "#ef4444" },
+  { text: "Even a mediocre Germany is still Germany. The reconstruction is nearly complete, the squad is young and hungry. Dismiss them at your considerable peril.", source: "Kicker (international ed.)", team: "Germany", tc: "#3b82f6" },
+  { text: "Luka Modrić is 40. They said similar things in 2018. And 2022. Croatia have a consistent, infuriating habit of making sceptics look extremely foolish.", source: "AS", team: "Croatia", tc: "#ef4444" },
+  { text: "The youngest squad in the tournament. Beat France in a June friendly. Amad Diallo and Odilon Kossounou are genuinely world class. Something is building on the Ivory Coast.", source: "RFI Sport", team: "Ivory Coast", tc: "#f97316" },
+];
+
+const groups = {
+  A:[['Mexico','🇲🇽',15,1],['South Korea','🇰🇷',25,2],['Czechia','🇨🇿',41,3],['South Africa','🇿🇦',60,4]],
+  B:[['Canada','🇨🇦',30,1],['Switzerland','🇨🇭',19,2],['Bosnia','🇧🇦',65,3],['Qatar','🇶🇦',55,4]],
+  C:[['Brazil','🇧🇷',6,1],['Morocco','🇲🇦',8,2],['Scotland','🏴󠁧󠁢󠁳󠁣󠁴󠁿',43,3],['Haiti','🇭🇹',83,4]],
+  D:[['United States','🇺🇸',16,1],['Turkey','🇹🇷',22,2],['Paraguay','🇵🇾',40,3],['Australia','🇦🇺',27,4]],
+  E:[['Germany','🇩🇪',10,1],['Ivory Coast','🇨🇮',34,2],['Ecuador','🇪🇨',23,3],['Curaçao','🇨🇼',82,4]],
+  F:[['Netherlands','🇳🇱',7,1],['Japan','🇯🇵',18,2],['Sweden','🇸🇪',38,3],['Tunisia','🇹🇳',44,4]],
+  G:[['Belgium','🇧🇪',9,1],['Egypt','🇪🇬',29,2],['Iran','🇮🇷',21,3],['New Zealand','🇳🇿',85,4]],
+  H:[['Spain','🇪🇸',2,1],['Uruguay','🇺🇾',17,2],['Saudi Arabia','🇸🇦',61,3],['Cape Verde','🇨🇻',69,4]],
+  I:[['France','🇫🇷',1,1],['Norway','🇳🇴',31,2],['Senegal','🇸🇳',14,3],['Iraq','🇮🇶',57,4]],
+  J:[['Argentina','🇦🇷',3,1],['Austria','🇦🇹',24,2],['Algeria','🇩🇿',28,3],['Jordan','🇯🇴',63,4]],
+  K:[['Portugal','🇵🇹',5,1],['Colombia','🇨🇴',13,2],['DR Congo','🇨🇩',46,3],['Uzbekistan','🇺🇿',50,4]],
+  L:[['England','🏴󠁧󠁢󠁥󠁮󠁧󠁿',4,1],['Croatia','🇭🇷',11,2],['Ghana','🇬🇭',74,3],['Panama','🇵🇦',33,4]],
+};
+
+const seriousPreds = [
+  {icon:'🏆',label:'Tournament Winner',value:'Spain',reason:"16.1% — highest of any team. Only side >50% likely to reach the QF. Euro 2024 holders, complete squad, prime age. The machine keeps rolling."},
+  {icon:'🥈',label:'Runner-Up',value:'Argentina',reason:"Bracket analysis: France and Argentina are on opposite sides of the draw. They can only meet in the Final. 2022 rematch in New York."},
+  {icon:'⚽',label:'Top Scorer',value:'Kylian Mbappé',reason:"8 games to the Final. Weaker opposition in R32. Best volume + quality scorer alive. Haaland plays ~5 games; Mbappé plays 8. The maths wins."},
+  {icon:'🧤',label:'Best Goalkeeper',value:'Unai Simón (Spain)',reason:"Spain likely concede fewest goals en route to the title. Simón barely worked, makes one crucial save per game. Quiet tournament, maximum impact."},
+  {icon:'🌟',label:'Breakout Player',value:'Amad Diallo (Ivory Coast)',reason:"Youngest squad in the tournament. Man Utd winger in form. Ivory Coast beat France in June. Someone will leave this tournament famous."},
+  {icon:'🔥',label:'Surprise Package',value:'Ivory Coast',reason:"FIFA 34th, youngest squad, in-form. Predicted to finish above Ecuador and Germany (who will, frankly, not enjoy it)."},
+  {icon:'📉',label:'Tournament Disappointment',value:'Belgium',reason:"FIFA 9th. Ageing Golden Generation. The obituary has been written in pencil since 2016. At some point, pencil becomes pen."},
+];
+
+const funPreds = [
+  {icon:'🌡️',label:'First Official Heat Complaint',value:'"It\'s not like this at Old Trafford"',reason:"Australia, approximately 20 minutes into their opener in Houston. 34°C, 80% humidity. They will be right."},
+  {icon:'😤',label:'Touchline Fury Award',value:'Lionel Scaloni (Argentina)',reason:"A man made entirely of compressed nerves. One borderline refereeing decision in the knockouts and history is made."},
+  {icon:'🎭',label:'Best Post-Exit Press Conference',value:'Belgium (guaranteed)',reason:'"This was not the performance this Golden Generation deserved from itself." Tedesco, visibly aged 10 years, two days after a group exit.'},
+  {icon:'🎯',label:'Most Inevitable Hat-Trick',value:'Haaland vs Iraq, MD2',reason:"Norway's group opener. Iraq's defence rated 62/100. Haaland's last 8 qualifying games: 14 goals. This is not a prediction. It's a schedule."},
+  {icon:'🗺️',label:'Team Most Fans Still Can\'t Find',value:'Curaçao (pop. 150,000)',reason:"Somewhere in the southern Caribbean. Off the coast of Venezuela. Has qualified for the World Cup before several nations with populations in the millions."},
+  {icon:'💃',label:'Fans Who\'ll Party Hardest Regardless',value:'Mexico',reason:"Home soil. Estadio Azteca. Mariachi bands. An entire nation for whom football is a full-contact emotional sport. Win or lose."},
+  {icon:'👴',label:'Most Cinematic Moment',value:'Modrić, late free-kick, vs England',reason:"40 years old. 6th World Cup. Croatia will need it. He will score it. The stadium will go quiet in a very specific way. You know the way."},
+  {icon:'🧳',label:'Worst Travel Itinerary',value:'New Zealand (11,000 miles)',reason:"Auckland → Los Angeles (11 hours) → then across the USA for every game. By MD3 they will have flown the equivalent of London to Sydney and back."},
+  {icon:'🎰',label:'Vegas Side Mission (Confirmed)',value:'At least one squad',reason:"It's the USA. Las Vegas is 4 hours from LA. A day off exists in every schedule. Some squad, having qualified, will be photographed. Guarantee."},
+  {icon:'🤯',label:'Most Confusing Moment for US Announcers',value:'Pronouncing the Uzbekistan squad',reason:"Khusanov. Tursunov. Abdullaev. Hamroyev. The Fox Sports commentary team's pronunciation consistency will be a bracket of its own."},
+  {icon:'📱',label:'Player Goes Viral (Wrong Reasons)',value:'Someone on Brazil or Argentina',reason:"It's statistically certain. Both squads contain personalities who attract cameras. One restaurant. One ring road. One clip."},
+  {icon:'👻',label:'Annual Ghost of Tournament Future',value:'Spain 2010 → Germany 2014 → ?',reason:"The research shows the winners are always in the top 5 by squad value. In 2026 those five are: Spain, France, England, Germany, Portugal. History rhymes."},
+];
+
+// ─── TICKER ──────────────────────────────────────────────────────────────────
+const tickItems = [
+  '🇪🇸 Spain <span>16.1%</span> win probability · highest in the field',
+  '⚽ Norway scored <span>37 goals</span> in 8 qualifiers · 4.62 per game',
+  '🏅 Last 3 WC winners all in <span>top 5</span> by squad value · same 5 nations lead again in 2026',
+  '🌡️ <span>26 of 104</span> matches projected at dangerous heat levels',
+  '🇨🇼 Curaçao qualified · population <span>150,000</span> · Opta gave them 0 wins in 25,000 sims',
+  '🇫🇷 France squad value: <span>€1.47bn</span> · highest ever at a World Cup',
+  '🏟️ 3 host nations · <span>16 venues</span> · USA, Mexico, Canada',
+  '⌛ No host nation has won since <span>France 1998</span> · 28 years and counting',
+  '🇦🇷 Argentina: <span>oldest squad</span> in terms of caps · avg 53.9 per player',
+  '📊 Elo ratings predict WC results better than FIFA rankings · squad value beats both',
+];
+const t=document.getElementById('ticker');
+const full=[...tickItems,...tickItems].map(x=>`<span class="tick-item">· ${x}</span>`).join('');
+t.innerHTML=full;
+
+// ─── WIN PROBABILITY CHART ───────────────────────────────────────────────────
+const top16 = [...teams].sort((a,b)=>b[5]-a[5]).slice(0,16);
+const wpCtx = document.getElementById('winProbChart').getContext('2d');
+const wpGradient = wpCtx.createLinearGradient(0,0,400,0);
+wpGradient.addColorStop(0,'#f7c519');
+wpGradient.addColorStop(0.4,'#f97316');
+wpGradient.addColorStop(1,'#3b82f6');
+
+new Chart(wpCtx, {
+  type: 'bar',
+  data: {
+    labels: top16.map(t=>`${t[9]} ${t[0]}`),
+    datasets: [{
+      data: top16.map(t=>t[5]),
+      backgroundColor: top16.map((t,i)=>{
+        const v=i/15;
+        if(v<0.3) return 'rgba(247,197,25,0.85)';
+        if(v<0.6) return 'rgba(249,115,22,0.75)';
+        if(v<0.8) return 'rgba(59,130,246,0.7)';
+        return 'rgba(107,122,159,0.6)';
+      }),
+      borderRadius:4, borderSkipped:false,
+    }]
+  },
+  options: {
+    indexAxis:'y',
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{
+        backgroundColor:'#131728',borderColor:'#1e2545',borderWidth:1,
+        titleColor:'#f7c519',bodyColor:'#e8eaf6',
+        titleFont:{family:'Oswald',size:13,weight:'600'},
+        callbacks:{label:ctx=>`  Win probability: ${ctx.raw.toFixed(1)}%`}
+      }
+    },
+    scales:{
+      x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#6b7a9f',font:{size:10},callback:v=>v+'%'},border:{display:false}},
+      y:{grid:{display:false},ticks:{color:'#e8eaf6',font:{size:11}},border:{display:false}}
+    }
+  }
+});
+
+// ─── SCATTER / BUBBLE CHART ──────────────────────────────────────────────────
+const confs = ['UEFA','CONMEBOL','CONCACAF','CAF','AFC','OFC'];
+const scatterDatasets = confs.map(c => ({
+  label: c,
+  data: teams.filter(t=>t[2]===c).map(t=>({
+    x: t[3], y: t[4],
+    r: Math.max(4, Math.sqrt(t[5])*3.5),
+    name: t[0], abbr: t[1], win: t[5], sup: t[6], dif: t[7], flag: t[9]
+  })),
+  backgroundColor: confColors[c]+'99',
+  borderColor: confColors[c],
+  borderWidth:1,
+}));
+
+const scCtx = document.getElementById('scatterChart').getContext('2d');
+const scatterChart = new Chart(scCtx, {
+  type:'bubble',
+  data:{datasets:scatterDatasets},
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{
+        position:'bottom',
+        labels:{color:'#6b7a9f',font:{size:10},boxWidth:10,padding:10}
+      },
+      tooltip:{
+        backgroundColor:'#131728',borderColor:'#1e2545',borderWidth:1,
+        titleColor:'#ffffff',bodyColor:'#e8eaf6',
+        titleFont:{family:'Oswald',size:12,weight:'600'},
+        callbacks:{
+          title:items=>`${items[0].raw.flag} ${items[0].raw.name}`,
+          label:item=>[
+            `  Win probability: ${item.raw.win.toFixed(1)}%`,
+            `  Attack: ${item.raw.x} · Defence: ${item.raw.y}`,
+            `  Support: ${item.raw.sup}/100 · Difficulty: ${item.raw.dif}/100`
+          ]
+        }
+      }
+    },
+    scales:{
+      x:{
+        min:50,max:97,
+        title:{display:true,text:'ATTACKING THREAT',color:'#6b7a9f',font:{size:10,family:'Roboto Mono'}},
+        grid:{color:'rgba(255,255,255,0.04)'},
+        ticks:{color:'#6b7a9f',font:{size:9}},
+        border:{display:false}
+      },
+      y:{
+        min:50,max:92,
+        title:{display:true,text:'DEFENSIVE SOLIDITY',color:'#6b7a9f',font:{size:10,family:'Roboto Mono'}},
+        grid:{color:'rgba(255,255,255,0.04)'},
+        ticks:{color:'#6b7a9f',font:{size:9}},
+        border:{display:false}
+      }
+    }
+  }
+});
+
+// ─── TEAM CARDS ──────────────────────────────────────────────────────────────
+function renderTeams(filter) {
+  const grid = document.getElementById('teamsGrid');
+  const filtered = filter==='ALL' ? teams : teams.filter(t=>t[2]===filter);
+  grid.innerHTML = filtered.map(t=>{
+    const [name,abbr,conf,att,def,win,sup,dif,rank,flag]=t;
+    const winColor = win>=10?'#f7c519':win>=5?'#f97316':win>=1?'#14b8a6':'#6b7a9f';
+    return `<div class="team-card" data-conf="${conf}">
+      <div class="team-card-header">
+        <div>
+          <div class="team-card-name">${name}</div>
+          <div class="team-card-rank">FIFA #${rank}</div>
+        </div>
+        <div style="text-align:right">
+          <div class="team-card-flag">${flag}</div>
+          <div class="win-badge" style="color:${winColor};border-color:${winColor}33;background:${winColor}15">${win.toFixed(1)}%</div>
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-label"><span>Attack</span><span>${att}/100</span></div>
+        <div class="stat-bar-bg"><div class="stat-bar att" style="width:${att}%"></div></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-label"><span>Defence</span><span>${def}/100</span></div>
+        <div class="stat-bar-bg"><div class="stat-bar def" style="width:${def}%"></div></div>
+      </div>
+      <div class="conf-badge ${conf}">${conf}</div>
+    </div>`;
+  }).join('');
+  setTimeout(()=>{
+    grid.querySelectorAll('.stat-bar').forEach(b=>b.style.width=b.style.width);
+  },50);
+}
+renderTeams('ALL');
+document.querySelectorAll('.conf-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.conf-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderTeams(btn.dataset.conf);
+  });
+});
+
+// ─── PRESS QUOTES ────────────────────────────────────────────────────────────
+document.getElementById('quotesGrid').innerHTML = quotes.map(q=>`
+  <div class="quote-card">
+    <div class="quote-mark">"</div>
+    <div class="quote-text">${q.text}</div>
+    <div class="quote-footer">
+      <div class="quote-source">${q.source}</div>
+      <div class="quote-team-tag" style="background:${q.tc}22;color:${q.tc};border:1px solid ${q.tc}44">${q.team}</div>
+    </div>
+  </div>`).join('');
+
+// ─── GROUPS ──────────────────────────────────────────────────────────────────
+function posColor(pos){
+  if(pos===1) return 'qualify-1';
+  if(pos===2) return 'qualify-2';
+  if(pos===3) return 'qualify-3';
+  return 'qualify-out';
+}
+document.getElementById('groupsGrid').innerHTML = Object.entries(groups).map(([letter,gteams])=>{
+  const names = gteams.slice(0,2).map(t=>t[0]).join(' · ');
+  return `<div class="group-card">
+    <div class="group-header">
+      <div class="group-letter">GROUP ${letter}</div>
+      <div class="group-header-teams">${names}<br><span style="color:var(--muted);font-size:.58rem">Predicted qualifiers</span></div>
+    </div>
+    <div class="group-teams">
+      ${gteams.map(([name,flag,rank,pos])=>`
+        <div class="group-team-row">
+          <div class="group-pos">${pos}</div>
+          <div class="group-team-flag">${flag}</div>
+          <div class="group-team-name">${name}</div>
+          <div class="group-team-rank">#${rank}</div>
+          <div class="group-team-qualify ${posColor(pos)}"></div>
+        </div>`).join('')}
+    </div>
+    <div class="group-footer">
+      <div class="qual-legend">
+        <div class="ql-item"><div class="group-team-qualify qualify-1"></div><span>Win group</span></div>
+        <div class="ql-item"><div class="group-team-qualify qualify-2"></div><span>Qualify 2nd</span></div>
+      </div>
+    </div>
+  </div>`;
+}).join('');
+
+// ─── PREDICTIONS ─────────────────────────────────────────────────────────────
+document.getElementById('seriousPreds').innerHTML = seriousPreds.map(p=>`
+  <div class="pred-card serious">
+    <div class="pred-icon">${p.icon}</div>
+    <div class="pred-content">
+      <div class="pred-label">${p.label}</div>
+      <div class="pred-value">${p.value}</div>
+      <div class="pred-reason">${p.reason}</div>
+    </div>
+  </div>`).join('');
+
+document.getElementById('funPreds').innerHTML = funPreds.map(p=>`
+  <div class="pred-card fun">
+    <div class="pred-icon">${p.icon}</div>
+    <div class="pred-content">
+      <div class="pred-label">${p.label}</div>
+      <div class="pred-value">${p.value}</div>
+      <div class="pred-reason">${p.reason}</div>
+    </div>
+  </div>`).join('');
+
+// ─── NAV SCROLL HIGHLIGHT ────────────────────────────────────────────────────
+const navLinks = document.querySelectorAll('.nav-link');
+const sections = document.querySelectorAll('section[id]');
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navLinks.forEach(l=>{
+        l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id);
+      });
+    }
+  });
+},{threshold:0.25});
+sections.forEach(s=>observer.observe(s));
+
+</script>
+</body>
+</html>
