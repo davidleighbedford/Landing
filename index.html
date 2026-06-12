@@ -1,145 +1,519 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leigh-Bedford</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#05060f">
+<title>Leigh-Bedford</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+html, body { overflow-x:hidden; }
+body {
+  font-family:'Inter', Arial, sans-serif;
+  background:#05060f;
+  color:#e8e8f0;
+  min-height:100vh;
+  position:relative;
+}
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+/* ───────────────────────── FIXED CITY SCENE ───────────────────────── */
+.scene { position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
+.layer { position:absolute; inset:0; will-change:transform; }
+.layer svg { position:absolute; bottom:0; left:-5%; width:110%; height:100%; display:block; }
+.l-sky svg { height:100%; }
+/* sink each layer by its parallax travel so buildings never lift off the road */
+.l-far svg { bottom:-4vh; }
+.l-mid svg { bottom:-9vh; }
+.l-near svg { bottom:-16vh; }
+.haze {
+  position:absolute; left:0; right:0; bottom:0; height:55vh;
+  background:linear-gradient(to top, rgba(245,166,35,0.07), rgba(99,102,241,0.04) 45%, transparent);
+}
+.road {
+  position:absolute; left:0; right:0; bottom:0; height:11vh; min-height:64px;
+  background:linear-gradient(#0d101e, #07090f);
+  border-top:2px solid #1c2240;
+}
+.road::before {
+  content:""; position:absolute; left:0; right:0; top:46%; height:3px;
+  background:repeating-linear-gradient(90deg, #353d6b 0 42px, transparent 42px 84px);
+  opacity:.75;
+}
+.car {
+  position:absolute; bottom:18%; left:0; font-size:clamp(1.3rem, 2.6vw, 2rem);
+  filter:drop-shadow(0 0 10px rgba(255,212,121,0.35));
+  transform:translateX(-120px);
+}
+.car.flip { transform:translateX(-120px) scaleX(-1); }
+.spotlight {
+  position:fixed; top:0; left:0; width:52vmax; height:52vmax;
+  margin:-26vmax 0 0 -26vmax; border-radius:50%;
+  background:radial-gradient(circle, rgba(255,214,130,0.10) 0%, rgba(125,211,252,0.05) 35%, transparent 65%);
+  mix-blend-mode:screen; pointer-events:none; opacity:0;
+}
+@media (hover:none) { .spotlight { display:none; } }
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f7fa;
-            color: #333;
-            min-height: 100vh;
-        }
+/* ───────────────────────── WALKING ROUTE ───────────────────────── */
+.walkpath { position:absolute; top:0; left:0; z-index:1; pointer-events:none; }
+#routeGlow { fill:none; stroke:rgba(245,166,35,0.18); stroke-width:9; stroke-linecap:round; }
+#route { fill:none; stroke:#f5a623; stroke-width:2.5; stroke-linecap:round;
+  stroke-dasharray:1 0; filter:drop-shadow(0 0 6px rgba(245,166,35,0.8)); }
+#walker { fill:rgba(245,166,35,0.25); }
+#walkerCore { fill:#ffd479; filter:drop-shadow(0 0 8px #ffd479); }
 
-        header {
-            text-align: center;
-            padding: 60px 20px 40px;
-        }
+/* ───────────────────────── CONTENT ───────────────────────── */
+main { position:relative; z-index:2; }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
+.hero {
+  min-height:100vh; display:flex; flex-direction:column;
+  justify-content:center; align-items:center; text-align:center;
+  padding:24px; position:relative;
+}
+.eyebrow {
+  font-family:'Oswald', sans-serif; font-size:.8rem; letter-spacing:.45em;
+  color:#7dd3fc; text-transform:uppercase; margin-bottom:14px; opacity:.85;
+}
+h1.neon {
+  font-family:'Oswald', sans-serif; font-weight:700;
+  font-size:clamp(2.6rem, 9vw, 6.5rem); line-height:.98;
+  letter-spacing:.04em; text-transform:uppercase; color:#fff;
+  text-shadow:0 0 8px rgba(245,166,35,.55), 0 0 28px rgba(245,166,35,.35), 0 0 70px rgba(245,166,35,.22);
+}
+h1.neon span {
+  display:block; color:#f5a623; font-size:.52em; letter-spacing:.42em; margin-top:8px;
+}
+.hero .sub { color:#9aa3c7; max-width:480px; margin-top:22px; font-size:1.02rem; }
+.scroll-hint {
+  position:absolute; bottom:13vh; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:8px; opacity:.55;
+}
+.scroll-hint small {
+  font-family:'Oswald', sans-serif; letter-spacing:.3em; font-size:.65rem;
+  text-transform:uppercase; color:#9aa3c7;
+}
+.scroll-hint .chev {
+  width:14px; height:14px; border-right:2px solid #f5a623; border-bottom:2px solid #f5a623;
+  transform:rotate(45deg); animation:dip 1.8s ease-in-out infinite;
+}
+@keyframes dip { 0%,100%{transform:rotate(45deg) translate(0,0)} 50%{transform:rotate(45deg) translate(5px,5px)} }
 
-        .subtitle {
-            color: #666;
-            font-size: 1.1rem;
-        }
+/* stops */
+.stop { min-height:105vh; display:flex; align-items:center; padding:0 7vw; }
+.stop.right { justify-content:flex-end; }
+.stop-inner { display:flex; flex-direction:column; gap:14px; max-width:380px; width:100%; }
+.stop-marker { display:flex; align-items:center; gap:10px; }
+.stop.right .stop-marker { flex-direction:row-reverse; }
+.stop-no {
+  font-family:'Oswald', sans-serif; font-size:.72rem; letter-spacing:.35em;
+  color:#9aa3c7; text-transform:uppercase;
+  border:1px solid #2a3050; padding:5px 12px 4px; border-radius:4px;
+  background:rgba(10,13,26,.7);
+}
+.stop-dot {
+  width:12px; height:12px; border-radius:50%; background:#f5a623;
+  box-shadow:0 0 12px rgba(245,166,35,.9); flex-shrink:0;
+}
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+/* neon shop sign cards */
+.sign {
+  display:block; text-decoration:none; color:inherit;
+  background:rgba(9,12,24,0.82); backdrop-filter:blur(6px);
+  border:1px solid var(--neon); border-radius:14px; padding:26px;
+  box-shadow:0 0 14px color-mix(in srgb, var(--neon) 30%, transparent),
+             inset 0 0 22px color-mix(in srgb, var(--neon) 8%, transparent);
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.sign:hover, .sign:focus-visible {
+  transform:translateY(-5px);
+  box-shadow:0 0 30px color-mix(in srgb, var(--neon) 55%, transparent),
+             inset 0 0 28px color-mix(in srgb, var(--neon) 12%, transparent);
+}
+.sign-icon {
+  width:58px; height:58px; margin-bottom:14px; display:flex;
+  align-items:center; justify-content:center; font-size:2rem;
+  border-radius:12px; background:color-mix(in srgb, var(--neon) 12%, transparent);
+  border:1px solid color-mix(in srgb, var(--neon) 35%, transparent);
+}
+.sign-icon img { width:42px; height:42px; object-fit:contain; }
+.sign h2 {
+  font-family:'Oswald', sans-serif; font-size:1.35rem; font-weight:600;
+  letter-spacing:.05em; text-transform:uppercase; color:var(--neon);
+  text-shadow:0 0 10px color-mix(in srgb, var(--neon) 65%, transparent);
+}
+.badge {
+  display:inline-block; font-family:'Oswald', sans-serif; font-size:.6rem;
+  letter-spacing:.22em; text-transform:uppercase; vertical-align:middle;
+  border:1px solid color-mix(in srgb, var(--neon) 50%, transparent);
+  color:var(--neon); border-radius:4px; padding:3px 7px 2px; margin-left:8px;
+  opacity:.85;
+}
+.sign p { color:#9aa3c7; font-size:.93rem; margin-top:8px; line-height:1.55; }
+.visit {
+  display:inline-block; margin-top:16px; font-family:'Oswald', sans-serif;
+  font-size:.78rem; letter-spacing:.25em; text-transform:uppercase; color:#e8e8f0;
+  opacity:.7; transition:opacity .2s, letter-spacing .2s;
+}
+.sign:hover .visit { opacity:1; letter-spacing:.32em; }
 
-        .projects {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
+footer {
+  min-height:55vh; display:flex; flex-direction:column;
+  justify-content:center; align-items:center; gap:10px;
+  text-align:center; padding:40px 20px 16vh; color:#9aa3c7; font-size:.9rem;
+}
+.end-dot { width:14px; height:14px; border-radius:50%; background:#f5a623;
+  box-shadow:0 0 16px rgba(245,166,35,.9); margin-bottom:8px; }
+footer .end {
+  font-family:'Oswald', sans-serif; letter-spacing:.35em; font-size:.72rem;
+  text-transform:uppercase; color:#f5a623;
+}
 
-        .card {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            text-decoration: none;
-            color: inherit;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            transition: 0.2s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-        }
-
-        .icon {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 12px;
-            object-fit: contain;
-        }
-
-        .card h2 {
-            font-size: 1.2rem;
-            margin-bottom: 8px;
-        }
-
-        .card p {
-            color: #666;
-            font-size: 0.95rem;
-        }
-
-        .card.featured {
-            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
-            color: #e8e8f0;
-            box-shadow: 0 4px 15px rgba(245, 166, 35, 0.2);
-        }
-
-        .card.featured h2 {
-            color: #f5a623;
-        }
-
-        .card.featured p {
-            color: #a8a8c8;
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: #888;
-            font-size: 0.9rem;
-        }
-    </style>
+@media (max-width:640px) {
+  .stop { padding:0 22px; min-height:92vh; }
+  .stop, .stop.right { justify-content:center; }
+  .stop-inner { max-width:420px; }
+  .stop.right .stop-marker { flex-direction:row; }
+  .scroll-hint { bottom:15vh; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior:auto; }
+  .scroll-hint .chev { animation:none; }
+}
+</style>
 </head>
 <body>
 
-    <header>
-        <h1>Leigh-Bedford</h1>
-        <p class="subtitle">HTML Projects & Tools</p>
-    </header>
+<!-- fixed city backdrop -->
+<div class="scene" aria-hidden="true">
+  <div class="layer l-sky"><svg id="skySvg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice"></svg></div>
+  <div class="layer l-far"><svg id="farSvg" viewBox="0 0 1400 400" preserveAspectRatio="xMidYMax slice"></svg></div>
+  <div class="layer l-mid"><svg id="midSvg" viewBox="0 0 1400 460" preserveAspectRatio="xMidYMax slice"></svg></div>
+  <div class="haze"></div>
+  <div class="layer l-near"><svg id="nearSvg" viewBox="0 0 1400 520" preserveAspectRatio="xMidYMax slice"></svg></div>
+  <div class="road">
+    <div class="car" id="carA">🚕</div>
+    <div class="car flip" id="carB">🚗</div>
+  </div>
+  <div class="spotlight" id="spotlight"></div>
+</div>
 
-    <main class="container">
-        <div class="projects">
+<!-- glowing walking route, drawn as you scroll -->
+<svg class="walkpath" id="walkpath" aria-hidden="true">
+  <path id="routeGlow" d=""></path>
+  <path id="route" d=""></path>
+  <circle id="walker" r="9"></circle>
+  <circle id="walkerCore" r="3.5"></circle>
+</svg>
 
-            <a href="https://arlo.leighbedford.com" class="card">
-                <img src="https://raw.githubusercontent.com/davidleighbedford/arlo/main/icon-192.png" alt="Arlo" class="icon">
-                <h2>Arlo</h2>
-                <p>Play & progress guide for Arlo.</p>
-            </a>
+<main id="content">
 
-            <a href="/household-budget.html" class="card">
-                <div class="icon" style="font-size: 2rem; display: flex; align-items: center; justify-content: center;">💰</div>
-                <h2>Household Budget Tool (in development)</h2>
-                <p>Plan and track household income and expenses.</p>
-            </a>
+  <header class="hero">
+    <p class="eyebrow">Welcome to</p>
+    <h1 class="neon">Leigh-Bedford<span>Street</span></h1>
+    <p class="sub">HTML tools &amp; pages, four stops down the block. Scroll to take a walk.</p>
+    <div class="scroll-hint"><small>Start walking</small><div class="chev"></div></div>
+  </header>
 
-            <a href="https://training.leighbedford.com" class="card featured">
-                <div class="icon" style="font-size: 2rem; display: flex; align-items: center; justify-content: center;">🚴</div>
-                <h2>Power Plan</h2>
-                <p>13-week personalized training program.</p>
-            </a>
+  <section class="stop left">
+    <div class="stop-inner">
+      <div class="stop-marker"><span class="stop-no">Stop 01</span><span class="stop-dot"></span></div>
+      <a class="sign" style="--neon:#7dd3fc" href="https://arlo.leighbedford.com">
+        <div class="sign-icon"><img src="https://raw.githubusercontent.com/davidleighbedford/arlo/main/icon-192.png" alt=""></div>
+        <h2>Arlo</h2>
+        <p>Play &amp; progress guide for Arlo.</p>
+        <span class="visit">Step inside →</span>
+      </a>
+    </div>
+  </section>
 
-            <a href="/wc2026.html" class="card featured">
-                <div class="icon" style="font-size: 2rem; display: flex; align-items: center; justify-content: center;">🏆</div>
-                <h2>WC 2026 Intelligence Report</h2>
-                <p>48 teams, press consensus, power rankings & predictions.</p>
-            </a>
+  <section class="stop right">
+    <div class="stop-inner">
+      <div class="stop-marker"><span class="stop-no">Stop 02</span><span class="stop-dot"></span></div>
+      <a class="sign" style="--neon:#34d399" href="/household-budget.html">
+        <div class="sign-icon">💰</div>
+        <h2>Household Budget Tool<span class="badge">In development</span></h2>
+        <p>Plan and track household income and expenses.</p>
+        <span class="visit">Step inside →</span>
+      </a>
+    </div>
+  </section>
 
-        </div>
-    </main>
+  <section class="stop left">
+    <div class="stop-inner">
+      <div class="stop-marker"><span class="stop-no">Stop 03</span><span class="stop-dot"></span></div>
+      <a class="sign" style="--neon:#f5a623" href="https://training.leighbedford.com">
+        <div class="sign-icon">🚴</div>
+        <h2>Power Plan</h2>
+        <p>13-week personalized training program.</p>
+        <span class="visit">Step inside →</span>
+      </a>
+    </div>
+  </section>
 
-    <footer>
-        © 2026 Leigh-Bedford
-    </footer>
+  <section class="stop right">
+    <div class="stop-inner">
+      <div class="stop-marker"><span class="stop-no">Stop 04</span><span class="stop-dot"></span></div>
+      <a class="sign" style="--neon:#f472b6" href="/wc2026.html">
+        <div class="sign-icon">🏆</div>
+        <h2>WC 2026 Intelligence Report</h2>
+        <p>48 teams, press consensus, power rankings &amp; predictions.</p>
+        <span class="visit">Step inside →</span>
+      </a>
+    </div>
+  </section>
 
+  <footer>
+    <div class="end-dot" id="endDot"></div>
+    <p class="end">End of the street</p>
+    <p>© 2026 Leigh-Bedford</p>
+  </footer>
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  'use strict';
+  var NS = 'http://www.w3.org/2000/svg';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  var hasGsap = typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined';
+
+  // deterministic rng so the skyline is identical on every visit
+  function rng(seed) {
+    return function () {
+      seed = (seed * 1664525 + 1013904223) >>> 0;
+      return seed / 4294967296;
+    };
+  }
+  function el(name, attrs, parent) {
+    var n = document.createElementNS(NS, name);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+
+  /* ── sky: stars + moon ── */
+  var litWindows = [];
+  var stars = [];
+  (function buildSky() {
+    var svg = document.getElementById('skySvg');
+    var r = rng(7);
+    var grad = el('radialGradient', { id: 'moonGlow', cx: '50%', cy: '50%', r: '50%' }, el('defs', {}, svg));
+    el('stop', { offset: '0%', 'stop-color': 'rgba(230,235,255,0.35)' }, grad);
+    el('stop', { offset: '100%', 'stop-color': 'rgba(230,235,255,0)' }, grad);
+    for (var i = 0; i < 110; i++) {
+      stars.push(el('circle', {
+        cx: (r() * 1200).toFixed(1),
+        cy: (r() * 520).toFixed(1),
+        r: (0.5 + r() * 1.1).toFixed(2),
+        fill: '#cdd6f4',
+        opacity: (0.15 + r() * 0.7).toFixed(2)
+      }, svg));
+    }
+    el('circle', { cx: 950, cy: 130, r: 110, fill: 'url(#moonGlow)' }, svg);
+    el('circle', { cx: 950, cy: 130, r: 34, fill: '#e6ebff', opacity: 0.92 }, svg);
+    el('circle', { cx: 938, cy: 122, r: 6, fill: '#c3cbe8', opacity: 0.5 }, svg);
+    el('circle', { cx: 962, cy: 142, r: 4, fill: '#c3cbe8', opacity: 0.4 }, svg);
+  })();
+
+  /* ── skyline layers ── */
+  function buildCity(svgId, opts) {
+    var svg = document.getElementById(svgId);
+    var r = rng(opts.seed);
+    var vbW = 1400, vbH = opts.vbH;
+    var x = -40;
+    while (x < vbW + 40) {
+      var w = opts.minW + r() * (opts.maxW - opts.minW);
+      var h = opts.minH + r() * (opts.maxH - opts.minH);
+      el('rect', { x: x.toFixed(1), y: (vbH - h).toFixed(1), width: w.toFixed(1), height: h.toFixed(1), fill: opts.color }, svg);
+      if (r() < 0.3) { // antenna
+        el('rect', { x: (x + w / 2).toFixed(1), y: (vbH - h - 14 - r() * 18).toFixed(1), width: 2, height: 30, fill: opts.color }, svg);
+      }
+      if (opts.windows) {
+        var cols = Math.floor((w - 12) / 15);
+        var rows = Math.floor((h - 20) / 19);
+        for (var c = 0; c < cols; c++) {
+          for (var row = 0; row < rows; row++) {
+            if (r() < opts.litChance) {
+              var win = el('rect', {
+                x: (x + 8 + c * 15).toFixed(1),
+                y: (vbH - h + 10 + row * 19).toFixed(1),
+                width: 6, height: 9,
+                fill: r() < 0.18 ? '#7dd3fc' : '#ffd479',
+                opacity: (0.35 + r() * 0.55).toFixed(2)
+              }, svg);
+              litWindows.push(win);
+            }
+          }
+        }
+      }
+      x += w + 3 + r() * 12;
+    }
+  }
+  buildCity('farSvg',  { seed: 11, vbH: 400, minW: 50, maxW: 110, minH: 110, maxH: 320, color: '#0a0d1c', windows: false });
+  buildCity('midSvg',  { seed: 23, vbH: 460, minW: 70, maxW: 150, minH: 130, maxH: 380, color: '#10142a', windows: true, litChance: 0.10 });
+  buildCity('nearSvg', { seed: 42, vbH: 520, minW: 110, maxW: 220, minH: 150, maxH: 430, color: '#161b36', windows: true, litChance: 0.16 });
+
+  /* ── walking route through the stops ── */
+  var routeEl = document.getElementById('route');
+  var glowEl = document.getElementById('routeGlow');
+  var walker = document.getElementById('walker');
+  var walkerCore = document.getElementById('walkerCore');
+  var pathSvg = document.getElementById('walkpath');
+  var routeLen = 0;
+
+  function buildRoute() {
+    var docH = document.getElementById('content').scrollHeight;
+    var w = document.documentElement.clientWidth;
+    pathSvg.setAttribute('width', w);
+    pathSvg.setAttribute('height', docH);
+    pathSvg.setAttribute('viewBox', '0 0 ' + w + ' ' + docH);
+
+    var pts = [];
+    var hero = document.querySelector('.hero');
+    pts.push([w / 2, hero.offsetTop + hero.offsetHeight * 0.86]);
+    document.querySelectorAll('.stop-dot').forEach(function (dot) {
+      var rect = dot.getBoundingClientRect();
+      pts.push([rect.left + rect.width / 2 + window.scrollX, rect.top + rect.height / 2 + window.scrollY]);
+    });
+    var end = document.getElementById('endDot');
+    var er = end.getBoundingClientRect();
+    pts.push([er.left + er.width / 2 + window.scrollX, er.top + er.height / 2 + window.scrollY]);
+
+    var d = 'M ' + pts[0][0].toFixed(1) + ' ' + pts[0][1].toFixed(1);
+    for (var i = 1; i < pts.length; i++) {
+      var midY = (pts[i - 1][1] + pts[i][1]) / 2;
+      d += ' C ' + pts[i - 1][0].toFixed(1) + ' ' + midY.toFixed(1) +
+           ', ' + pts[i][0].toFixed(1) + ' ' + midY.toFixed(1) +
+           ', ' + pts[i][0].toFixed(1) + ' ' + pts[i][1].toFixed(1);
+    }
+    routeEl.setAttribute('d', d);
+    glowEl.setAttribute('d', d);
+    routeLen = routeEl.getTotalLength();
+    routeEl.style.strokeDasharray = routeLen;
+    glowEl.style.strokeDasharray = routeLen;
+    setRouteProgress(reduceMotion || !hasGsap ? 1 : 0);
+  }
+
+  function setRouteProgress(p) {
+    var off = routeLen * (1 - p);
+    routeEl.style.strokeDashoffset = off;
+    glowEl.style.strokeDashoffset = off;
+    if (routeLen > 0) {
+      var pt = routeEl.getPointAtLength(routeLen * p);
+      walker.setAttribute('cx', pt.x); walker.setAttribute('cy', pt.y);
+      walkerCore.setAttribute('cx', pt.x); walkerCore.setAttribute('cy', pt.y);
+    }
+  }
+
+  buildRoute();
+
+  if (!hasGsap || reduceMotion) {
+    // no-JS-library / reduced-motion fallback: everything visible, route fully drawn
+    document.getElementById('spotlight').style.display = 'none';
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* route draws itself + walker follows, smoothed by scrub */
+  var proxy = { p: 0 };
+  gsap.to(proxy, {
+    p: 1, ease: 'none',
+    scrollTrigger: { trigger: '#content', start: 'top top', end: 'bottom bottom', scrub: 0.6 },
+    onUpdate: function () { setRouteProgress(proxy.p); }
+  });
+
+  /* parallax: layers drift at different depths while you walk */
+  [['.l-far', -4], ['.l-mid', -9], ['.l-near', -16], ['.l-sky', -2]].forEach(function (pair) {
+    gsap.to(pair[0], {
+      yPercent: pair[1], ease: 'none',
+      scrollTrigger: { trigger: '#content', start: 'top top', end: 'bottom bottom', scrub: 0.8 }
+    });
+  });
+
+  /* hero entrance: neon sign flickering on */
+  gsap.timeline()
+    .from('.eyebrow', { opacity: 0, y: 12, duration: 0.6, ease: 'power2.out' })
+    .fromTo('h1.neon', { opacity: 0 }, { keyframes: { opacity: [0, 1, 0.25, 1, 0.6, 1] }, duration: 1.1 }, '-=0.2')
+    .from('.hero .sub', { opacity: 0, y: 16, duration: 0.6, ease: 'power2.out' }, '-=0.4')
+    .from('.scroll-hint', { opacity: 0, duration: 0.6 }, '-=0.2');
+
+  /* each stop: marker slides in, sign flickers on like a shop neon */
+  document.querySelectorAll('.stop').forEach(function (stop) {
+    var sign = stop.querySelector('.sign');
+    var marker = stop.querySelector('.stop-marker');
+    gsap.timeline({ scrollTrigger: { trigger: stop, start: 'top 68%' } })
+      .from(marker, { opacity: 0, x: stop.classList.contains('right') ? 30 : -30, duration: 0.5, ease: 'power2.out' })
+      .fromTo(sign, { opacity: 0, y: 56 },
+        { keyframes: { opacity: [0, 1, 0.3, 1], y: [56, 0, 0, 0] }, duration: 0.85, ease: 'power2.out' }, '-=0.25');
+  });
+  gsap.from('footer', {
+    opacity: 0, y: 30, duration: 0.8,
+    scrollTrigger: { trigger: 'footer', start: 'top 80%' }
+  });
+
+  /* ambient: windows flicker, stars twinkle */
+  setInterval(function () {
+    if (litWindows.length === 0) return;
+    var win = litWindows[Math.floor(Math.random() * litWindows.length)];
+    gsap.to(win, { opacity: Math.random() < 0.35 ? 0.05 : 0.35 + Math.random() * 0.55, duration: 0.4 });
+  }, 600);
+  stars.forEach(function (s) {
+    gsap.to(s, {
+      opacity: 0.1 + Math.random() * 0.8,
+      duration: 1.5 + Math.random() * 3,
+      repeat: -1, yoyo: true, ease: 'sine.inOut', delay: Math.random() * 3
+    });
+  });
+
+  /* traffic */
+  function drive(car, dir, dur, delay) {
+    var vw = window.innerWidth;
+    gsap.fromTo(car,
+      { x: dir > 0 ? -140 : vw + 140 },
+      { x: dir > 0 ? vw + 140 : -140, duration: dur, ease: 'none',
+        delay: delay, repeat: -1, repeatDelay: 5 + Math.random() * 6 });
+  }
+  drive(document.getElementById('carA'), 1, 9, 1.5);
+  drive(document.getElementById('carB'), -1, 12, 6);
+
+  /* mouse: depth parallax + light spotlight that wakes the street up */
+  if (finePointer) {
+    var spot = document.getElementById('spotlight');
+    var toFar = gsap.quickTo('.l-far', 'x', { duration: 0.9, ease: 'power2.out' });
+    var toMid = gsap.quickTo('.l-mid', 'x', { duration: 0.7, ease: 'power2.out' });
+    var toNear = gsap.quickTo('.l-near', 'x', { duration: 0.5, ease: 'power2.out' });
+    var spotX = gsap.quickTo(spot, 'x', { duration: 0.4, ease: 'power2.out' });
+    var spotY = gsap.quickTo(spot, 'y', { duration: 0.4, ease: 'power2.out' });
+    window.addEventListener('pointermove', function (e) {
+      var nx = e.clientX / window.innerWidth - 0.5;
+      toFar(nx * 10); toMid(nx * 20); toNear(nx * 34);
+      spotX(e.clientX); spotY(e.clientY);
+      if (spot.style.opacity !== '1') gsap.to(spot, { opacity: 1, duration: 0.6 });
+    });
+  }
+
+  /* keep the route accurate on resize / orientation change */
+  var resizeT;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeT);
+    resizeT = setTimeout(function () {
+      buildRoute();
+      setRouteProgress(proxy.p);
+      ScrollTrigger.refresh();
+    }, 200);
+  });
+  window.addEventListener('load', function () {
+    buildRoute();
+    setRouteProgress(proxy.p);
+    ScrollTrigger.refresh();
+  });
+})();
+</script>
 </body>
 </html>

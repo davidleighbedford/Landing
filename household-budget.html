@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="Budget" />
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20180%20180%22%3E%3Crect%20width%3D%22180%22%20height%3D%22180%22%20rx%3D%2240%22%20fill%3D%22%239b5de5%22%2F%3E%3Ctext%20x%3D%2290%22%20y%3D%22120%22%20font-size%3D%2290%22%20text-anchor%3D%22middle%22%20fill%3D%22white%22%20font-family%3D%22Georgia%2Cserif%22%3E%C2%A3%3C%2Ftext%3E%3C%2Fsvg%3E" />
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,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" />
 <!-- Fully offline: system font stacks, no external resources -->
 <style>
   :root{
@@ -45,6 +45,8 @@
   .toggle .pill{position:absolute;top:3px;bottom:3px;width:calc(50% - 3px);background:var(--ink);border-radius:999px;transition:transform .28s cubic-bezier(.5,1.3,.4,1);z-index:1}
   .toggle.annual .pill{transform:translateX(100%)}
 
+  .csv-close-btn{flex:0 0 auto;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--line);background:var(--card);color:var(--ink-soft);font-size:11px;cursor:pointer;padding:0;display:inline-flex;align-items:center;justify-content:center;order:99}
+  .csv-close-btn:hover{border-color:var(--over);color:var(--over)}
   .csv-info-btn{flex:0 0 auto;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line);background:var(--card);color:var(--ink-soft);font-size:12px;line-height:1;cursor:pointer;padding:0;display:inline-flex;align-items:center;justify-content:center}
   .csv-info-btn:hover{border-color:var(--clay);color:var(--clay)}
   .csv-bar-flash{animation:csvFlash 1.2s ease}
@@ -320,6 +322,11 @@
   .txn-recat:focus{outline:none;border-color:var(--clay)}
   .det-lbl{font-family:"SF Mono",ui-monospace,"Cascadia Code","Roboto Mono",Menlo,Consolas,monospace;font-size:10px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.03em}
   .arow-open{background:var(--card-2);border-radius:12px;padding:8px 10px;margin:4px -10px}
+  .flag-caret{border:none;background:transparent;font-size:13px;color:var(--ink-soft);cursor:pointer;padding:0 2px;line-height:1}
+  .flag-subs{margin-top:8px;border-left:2px solid var(--line-soft);padding-left:10px;display:flex;flex-direction:column;gap:10px}
+  .flag-sub-main{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+  .flag-sub-d{font-size:11px;color:var(--ink-soft);flex:1}
+  .flag-sub-amt{font-family:"SF Mono",ui-monospace,monospace;font-size:12px;font-weight:600}
   .pot-group{padding:10px 0;border-top:1px solid var(--line-soft)}
   .pot-group:first-of-type{border-top:0}
   .pot-group-hd{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
@@ -389,7 +396,7 @@
   .v-suggest-new:hover .newpill,.v-suggest-accept:hover .acceptpill{background:rgba(255,255,255,.25);color:#fff}
   .newpill{font-size:8.5px;letter-spacing:.06em;background:var(--savings);color:#fff;border-radius:4px;padding:1px 5px;font-weight:700}
   .acceptpill{font-size:8.5px;letter-spacing:.04em;background:var(--paper-2);color:var(--ink-soft);border-radius:4px;padding:1px 5px;font-weight:600}
-  .rq-chips{display:flex;flex-wrap:wrap;gap:7px}
+  .rq-chips{display:flex;flex-wrap:wrap;gap:7px;max-height:230px;overflow-y:auto;padding-bottom:4px}
   .rq-chip{font-family:system-ui,-apple-system,sans-serif;font-size:13px;border:1.5px solid var(--line);background:var(--card);border-radius:10px;padding:9px 13px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all .12s}
   .rq-chip:hover{border-color:var(--clay);background:var(--card-2)}
   .rq-chip-primary{border-color:var(--clay);background:rgba(155,93,229,.08);font-weight:600}
@@ -436,7 +443,7 @@
   </div>
 
   <div id="mainContent">
-  <div class="csv-bar" id="csvBar" hidden><span id="csvStatus">No statement loaded</span><button class="csv-info-btn" id="csvInfoBtn" title="Supported files" aria-label="Supported files">&#9432;</button><span id="csvUploadWrap" style="position:relative;display:inline-flex;margin-left:8px"><button type="button" class="tool" id="csvUploadBtn">&#8613; Upload statement</button><input type="file" id="txnFile" accept=".csv,.tsv,text/csv,text/tab-separated-values,text/plain" style="position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:0;"></span><button class="tool" id="exampleCsvBtn" style="margin-left:6px">&#9728; Try sample data</button><button class="tool" id="csvClearBtn" hidden style="color:var(--over)">&#10005; Clear</button><button class="tool" id="addCsvBtn" hidden style="margin-left:6px">&#8613; Add file</button></div>
+  <div class="csv-bar" id="csvBar" hidden><button class="csv-close-btn" id="csvCloseBtn" title="Close" aria-label="Close upload panel">&#10005;</button><span id="csvStatus">No statement loaded</span><button class="csv-info-btn" id="csvInfoBtn" title="Supported files" aria-label="Supported files">&#9432;</button><span id="csvUploadWrap" style="position:relative;display:inline-flex;margin-left:8px"><button type="button" class="tool" id="csvUploadBtn">&#8613; Upload statement</button><input type="file" id="txnFile" accept=".csv,.tsv,text/csv,text/tab-separated-values,text/plain" style="position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:0;"></span><button class="tool" id="exampleCsvBtn" style="margin-left:6px">&#9728; Try sample data</button><button class="tool" id="csvClearBtn" hidden style="color:var(--over)">&#10005; Clear</button><button class="tool" id="addCsvBtn" hidden style="margin-left:6px">&#8613; Add file</button></div>
   <div class="tabs" id="tabsHost"></div>
   <div class="scn-bar"><button class="scn-link" id="scnManageBtn">&#9881; Manage scenarios</button></div>
   <div class="scn-panel" id="scnPanel" hidden>
@@ -492,7 +499,7 @@
   </div>
 </div>
 <div class="backdrop" id="howtoBackdrop">
-  <div class="modal-card">
+  <div class="modal-card" id="howtoCard">
     <div class="grab"></div>
     <div class="modal-head"><h2>How to use &amp; save</h2><button class="mclose" id="howtoClose">Close &times;</button></div>
     <div class="howto">
@@ -1642,9 +1649,6 @@ function wirePotToggle(sc){
     wirePotSliders();
     document.getElementById('detailClose').onclick=closeLineDetail;
     bd.onclick=e=>{ if(e.target===bd) closeLineDetail(); };
-    const grab=document.getElementById('detailGrab'); let gsy=null;
-    grab.onpointerdown=e=>{gsy=e.clientY;};
-    grab.onpointerup=e=>{if(gsy!=null&&e.clientY-gsy>60)closeLineDetail();gsy=null;};
   }; });
 }
 let _outSwipeCtrl=null;
@@ -1761,9 +1765,6 @@ function openLineDetail(oid, sc){
   document.getElementById('detailClose').onclick=closeLineDetail;
   bd.onclick=e=>{ if(e.target===bd) closeLineDetail(); };
   // Swipe down on grab to close
-  const grab=document.getElementById('detailGrab'); let gsy=null;
-  grab.onpointerdown=e=>{gsy=e.clientY;};
-  grab.onpointerup=e=>{if(gsy!=null&&e.clientY-gsy>60)closeLineDetail();gsy=null;};
 }
 function wireMonthFilter(oid,sc){
   document.querySelectorAll('.det-month-chart rect[data-month]').forEach(r=>{
@@ -1800,7 +1801,7 @@ function wireIncomeSwipe(sc){
     const dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy;
     sx=null; locked=false;
     if(Math.abs(dx)<30||Math.abs(dx)<Math.abs(dy)) return;
-    const n=sc.people.length; sc.personIdx=(sc.personIdx+(dx<0?1:n-1))%n; reflow();
+    const n=sc.people.length; sc.personIdx=(sc.personIdx+(dx<0?n-1:1))%n; reflow();
   },{signal:_incSwipeCtrl.signal});
 }
 
@@ -1843,9 +1844,21 @@ function wireModal(){
   document.getElementById("mclose").onclick=closeModal;
   document.getElementById("backdrop").addEventListener("click",e=>{ if(e.target.id==="backdrop") closeModal(); });
   document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&modalOpen) closeModal(); });
-  const card=document.getElementById("modalCard"); let sy=null,dy=0,drag=false;
-  function end(){ if(!drag) return; drag=false; card.style.transition=""; if(dy>80) closeModal(); card.style.transform=""; dy=0; sy=null; }
-  card.addEventListener("pointerdown",e=>{ if(e.target.closest(".mclose")) return; const fromTop=e.target.closest(".grab")||e.target.closest(".modal-head"); if(!fromTop&&card.scrollTop>0) return; sy=e.clientY; drag=true; dy=0; card.style.transition="none"; try{card.setPointerCapture(e.pointerId);}catch(_){} });
+  enableDragClose(document.getElementById("modalCard"), closeModal);
+}
+// Reusable bottom-sheet drag-to-close. Drag begins on the grab handle / header,
+// or anywhere when the card isn't scrolled. Release past 80px closes.
+function enableDragClose(card, closeFn){
+  if(!card || card._dragWired) return; card._dragWired=true;
+  let sy=null,dy=0,drag=false;
+  const end=()=>{ if(!drag) return; drag=false; card.style.transition=""; if(dy>80){ card.style.transform=""; closeFn(); } else card.style.transform=""; dy=0; sy=null; };
+  card.addEventListener("pointerdown",e=>{
+    if(e.target.closest(".mclose,button,input,select,textarea,a,.rq-chip,.v-suggest")) return;
+    const fromTop=e.target.closest(".grab")||e.target.closest(".modal-head");
+    if(!fromTop && card.scrollTop>0) return;
+    sy=e.clientY; drag=true; dy=0; card.style.transition="none";
+    try{card.setPointerCapture(e.pointerId);}catch(_){}
+  });
   card.addEventListener("pointermove",e=>{ if(!drag||sy==null) return; dy=Math.max(0,e.clientY-sy); card.style.transform=`translateY(${dy}px)`; });
   card.addEventListener("pointerup",end); card.addEventListener("pointercancel",end);
 }
@@ -1901,6 +1914,16 @@ function wireTools(){
   // Review queue backdrop
   const rvbd=document.getElementById('reviewBackdrop');
   if(rvbd) rvbd.onclick=e=>{ if(e.target===rvbd) closeReviewQueue(); };
+  // Drag-to-close for all bottom-sheet modals
+  const close=id=>{ const b=document.getElementById(id); if(b) b.classList.remove('show'); };
+  enableDragClose(document.getElementById('howtoCard'), ()=>close('howtoBackdrop'));
+  enableDragClose(document.getElementById('settingsCard'), ()=>close('settingsBackdrop'));
+  enableDragClose(document.getElementById('installCard'), ()=>close('installBackdrop'));
+  enableDragClose(document.getElementById('fmtCard'), ()=>close('fmtBackdrop'));
+  enableDragClose(document.getElementById('reviewCard'), closeReviewQueue);
+  enableDragClose(document.getElementById('detailCard'), closeLineDetail);
+  // Close the upload-actuals bar
+  if($("csvCloseBtn")) $("csvCloseBtn").onclick=()=>{ const bar=$("csvBar"); if(bar) bar.hidden=true; };
   // Supported-files info modal
   const fmtBd=$("fmtBackdrop");
   if($("csvInfoBtn")) $("csvInfoBtn").onclick=()=>fmtBd.classList.add("show");
@@ -1921,7 +1944,10 @@ function wireTools(){
   $("howtoBtn").onclick=()=>{ if(sb) sb.classList.remove("show"); hb.classList.add("show"); };
   $("howtoClose").onclick=()=>hb.classList.remove("show");
   hb.addEventListener("click",e=>{ if(e.target===hb) hb.classList.remove("show"); });
-  document.addEventListener("keydown",e=>{ if(e.key==="Escape") hb.classList.remove("show"); });
+  document.addEventListener("keydown",e=>{ if(e.key!=="Escape") return;
+    ["howtoBackdrop","settingsBackdrop","installBackdrop","fmtBackdrop","reviewBackdrop","detailBackdrop"].forEach(id=>{ const b=document.getElementById(id); if(b) b.classList.remove("show"); });
+    _detailOpen=false; window._detailMonthFilter=null;
+  });
 }
 
 /* ---- migration ---- */
@@ -2244,46 +2270,6 @@ function analyseTxns(rows, sc) {
   return {byCat,byLine,vendorList,byMo,top10,flagged,total:total*scaleFactor,months:scaleFactor===1?months:12,fullMonths:Math.round(fullMonths*10)/10,minD,maxD,potIn,totalPotIn:totalPotIn*scaleFactor,isPartialYear,scaleFactor};
 }
 
-function buildTxnUI(a,sc){
-  const {byLine,byMo,top10,flagged,total,months,minD,maxD}=a;
-  const fmt=n=>gbp(Math.round(n));
-  const d2=d=>d.toLocaleDateString('en-GB',{month:'short',year:'numeric'});
-  const mo=Object.keys(byMo).sort(), maxMo=Math.max(...Object.values(byMo),1);
-  const budgetMo=(sc.outgoings.reduce((s,o)=>s+annual(o),0)+sc.allowance.reduce((s,a)=>s+annual(a),0))/12;
-  const totalMo=total/months, diff=totalMo-budgetMo;
-  const lineRows=sc.outgoings.map(o=>{
-    const bmo=annual(o)/12, rawAct=a.byLine[o.name], amo=rawAct!=null?rawAct/a.months:null;
-    const otherAcc=amo==null&&bmo>=50;
-    const diff2=amo!=null?amo-bmo:null, pct=diff2!=null&&bmo?Math.round(diff2/bmo*100):null;
-    const rag=amo==null?'n':diff2>bmo*.2?'r':diff2>0?'a':'g';
-    const col={r:'var(--over)',a:'var(--wants)',g:'var(--good)',n:'var(--line)'};
-    const barW=amo!=null?Math.min(200,Math.round(amo/Math.max(bmo,.01)*100)):0;
-    const pctTxt=pct!=null?(pct>0?'+':'')+pct+'%':'';
-    return `<div class="txnrow"><div class="txn-info"><div class="txn-name">${esc(o.name)}</div><div class="txn-sub">Budget ${gbp(Math.round(bmo))}&thinsp;/&thinsp;mo &middot; ${amo!=null?'Actual '+gbp(Math.round(amo)):otherAcc?'paid from other account':'no transactions matched'}</div></div><div class="ar-bar-wrap" style="flex:0 0 80px"><div class="ar-bar-fill" style="width:${barW}%;background:${col[rag]}"></div></div><span class="ar-pct" style="color:${col[rag]}">${pctTxt}</span><span class="rag-dot rag-${rag}"></span></div>`;
-  }).join('');
-  const trend=mo.map(m=>{const v=byMo[m],p=Math.round(v/maxMo*100);const l=m.substring(5)+'/'+m.substring(2,4);return `<div class="tr-col"><div class="tr-bar" style="height:${p}%" title="${l} ${fmt(v)}"></div><span class="tr-lbl">${l}</span></div>`;}).join('');
-  const merch=top10.map(([n,v])=>`<div class="merch-row"><span>${esc(n)}</span><span>${fmt(v)}</span></div>`).join('');
-  const mapped=Object.keys(S.vendorMap||{}).length+Object.keys(S.txnAssign||{}).length;
-  const mapNote=mapped?`${mapped} payee${mapped>1?'s':''} mapped`:`<span style="color:var(--over)">No payees mapped yet</span>`;
-  const unmapped2=Object.entries(byLine).filter(([k])=>!sc.outgoings.some(o=>o.name===k)&&!sc.savings.some(o=>o.name===k)).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="txnrow"><div class="txn-info"><div class="txn-name" style="color:var(--over)">${esc(k)}</div><div class="txn-sub">No matching budget line — assign in Categorise</div></div><span class="ar-pct" style="color:var(--over)">${fmt(v/months)}</span><span class="rag-dot rag-r"></span></div>`).join('');
-  return `<p class="txn-range">${d2(minD)} – ${d2(maxD)} · ${months.toFixed(1)} months · <b>${TXNS.length}</b> rows</p>
-    <div class="txn-metrics"><div class="hero"><div class="h-l">Actual spend / mo</div><div class="h-v">${fmt(totalMo)}</div></div><div class="hero"><div class="h-l">Budget / mo</div><div class="h-v">${fmt(budgetMo)}</div></div>
-      <div class="hero accent"><div class="h-l">Difference</div><div class="h-v" style="color:${diff>0?'var(--over)':'var(--good)'}">${diff>0?'+':''}${fmt(diff)}/mo</div></div></div>
-    <div class="secttl">Budget line comparison <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:11px;margin-left:6px">${mapNote} &mdash; <button class="scn-link" id="openCatBtn">Categorise →</button></span></div>
-    ${lineRows}${unmapped2?`<div style="margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)">${unmapped2}</div>`:''}
-    <div class="secttl" style="margin-top:18px">Monthly trend</div>
-    <div class="trend-wrap"><div class="trend">${trend}</div></div>
-    <div class="secttl" style="margin-top:18px">Top 10 payees (period total)</div>
-    <div class="merch">${merch}</div>
-    <button class="tool" id="txnClear" style="margin-top:16px">Clear transactions</button>`;
-}
-function panelTransactions(sc){
-  const open=sc.open.transactions, loaded=TXNS!==null;
-  const a=loaded?getAnalysis(sc):null;
-  const sum=loaded?`${TXNS.length} rows`:'No data';
-  const inner=loaded&&a?buildTxnUI(a,sc):`<p class="note" style="margin:0;border:0;padding:0;margin-bottom:14px">Use the <b>Upload statement</b> button. Parsed on your device only &mdash; transaction data is never saved unless you back it up.</p>`;
-  return `<section class="panel ${open?'open':''}" data-panel="transactions"><button class="phead" data-acc="transactions"><h2>Transactions</h2><span class="sum" data-head="transactions">${sum}</span><span class="chev"></span></button><div class="pbody"><div class="pinner">${inner}</div></div></section>`;
-}
 function updateCsvBar(){
   const st=document.getElementById('csvStatus'), clr=document.getElementById('csvClearBtn');
   if(!st) return;
@@ -2310,9 +2296,6 @@ function wireTxn(){
   if(wrap) wrap.style.display=TXNS?'none':'inline-flex';
   const clr=document.getElementById('csvClearBtn'); if(clr) clr.onclick=()=>{TXNS=null;_rawCsvText=null;invalidateCache();updateCsvBar();render();const bar=document.getElementById('csvBar');if(bar)bar.hidden=true;};
   updateCsvBar();
-  const clr2=document.getElementById('txnClear'); if(clr2) clr2.onclick=()=>{TXNS=null;_rawCsvText=null;invalidateCache();updateCsvBar();render();};
-  const ocb=document.getElementById('openCatBtn'); if(ocb) ocb.onclick=()=>showCatPage(SC());
-  const ocb2=document.getElementById('openCatBtn2'); if(ocb2) ocb2.onclick=()=>showCatPage(SC());
   const exb=document.getElementById('exampleCsvBtn'); if(exb) exb.onclick=()=>{ try{ _rawCsvText=EXAMPLE_CSV; TXNS=parseTxns(EXAMPLE_CSV); invalidateCache(); const _ac=autoCategorise(SC()); updateCsvBar(); render(); flagBusy(false,'Sample data loaded'); if(_ac.assigned||_ac.created.length){ showToast(`Auto-categorised ${_ac.assigned} payees${_ac.created.length?', added '+_ac.created.length+' new lines':''}`); } }catch(e){ console.error(e); flagBusy(false,'Sample load failed'); } };
 }
 
@@ -2437,17 +2420,41 @@ function catPageInner(sc){
     return `<div class="pot-group"><div class="pot-group-hd"><span class="pot-gname">${esc(pg.name)}</span><span class="pot-gtot">${gbp(Math.round(pg.total))} &middot; ${pg.count}×</span></div>${lineDropdown('data-flagassign',firstId,cur,sc)}<div class="mono" style="font-size:10px;color:var(--ink-soft);margin-top:4px">Assigns all transfers to this pot</div></div>`;
   }).join('');
   const openFlags=window._openFlagInfos||(window._openFlagInfos=new Set());
-  const otherRows=otherLarge.map(r=>{
-    const tid=r['Transaction ID']; const cur=(S.txnAssign||{})[tid]||'';
-    const flagOpen=openFlags.has(tid);
-    let flagDetail='';
-    if(flagOpen&&TXNS){
-      const same=TXNS.filter(x=>x.Name===r.Name&&parseFloat(x.Amount||0)<0).sort((a,b)=>b.Date.localeCompare(a.Date));
-      const sameTot=same.reduce((s,x)=>s+Math.abs(parseFloat(x.Amount)),0);
-      const rows=same.slice(0,8).map(x=>{const xid=x['Transaction ID'];const xex=(S.txnAssign||{})[xid]==='__exclude__';return `<div class="v-txn-row"><span class="v-tn">${esc(x.Date)}</span><span class="v-td">${esc(x.Description||x.Name)}</span><span class="v-ta">${gbp(Math.abs(parseFloat(x.Amount)))}</span><label style="display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--ink-soft)"><input type="checkbox" data-txexclude="${esc(xid)}" ${xex?'checked':''} style="width:13px;height:13px;accent-color:var(--over)"> ignore</label></div>`;}).join('');
-      flagDetail=`<div class="v-detail" style="grid-column:1/-1"><div class="v-detail-stat">${same.length} transactions &middot; total ${gbp(Math.round(sameTot))}</div>${rows}</div>`;
+  const openFlagGroups=window._openFlagGroups||(window._openFlagGroups=new Set());
+  // Group "other large transfers" by payee name (like pots)
+  const otherGroups={};
+  otherLarge.forEach(r=>{ const n=r.Name||'Unknown'; if(!otherGroups[n]) otherGroups[n]={name:n,type:r.Type,total:0,txns:[]}; otherGroups[n].total+=Math.abs(parseFloat(r.Amount||0)); otherGroups[n].txns.push(r); });
+  const otherRows=Object.values(otherGroups).sort((a,b)=>b.total-a.total).map(g=>{
+    const gid='flaggrp:'+g.name;
+    const open=openFlagGroups.has(gid);
+    const multi=g.txns.length>1;
+    const firstId=g.txns[0]['Transaction ID'];
+    const grpCur=(S.txnAssign||{})[firstId]||'';
+    // Collapsed header: name (own line), total, count, expand caret if multiple
+    const header=`<div class="pot-group-hd"><span class="pot-gname" title="${esc(g.name)}">${esc(g.name)} <span class="v-cat">${esc(g.type)}</span></span><span class="pot-gtot">${gbp(Math.round(g.total))}${multi?' &middot; '+g.txns.length+'\u00d7':''}</span>${multi?`<button class="flag-caret" data-flaggrp="${esc(gid)}" aria-label="Expand">${open?'\u25b4':'\u25be'}</button>`:''}</div>`;
+    if(!multi || !open){
+      // Single, or collapsed group → one dropdown assigns the WHOLE group
+      const note=multi?`<div class="mono" style="font-size:10px;color:var(--ink-soft);margin-top:4px">Assigns all ${g.txns.length} transactions \u2014 tap \u25be to set individually</div>`:'';
+      const info=!multi?`<button class="v-info-btn" data-flaginfo="${esc(firstId)}" title="Show history" style="margin-left:6px">i</button>`:'';
+      let single='';
+      if(!multi && openFlags.has(firstId) && TXNS){
+        const r=g.txns[0];
+        const same=TXNS.filter(x=>x.Name===r.Name&&parseFloat(x.Amount||0)<0).sort((a,b)=>b.Date.localeCompare(a.Date));
+        single=`<div style="margin-top:6px">${same.slice(0,8).map(x=>{const xid=x['Transaction ID'];const xex=(S.txnAssign||{})[xid]==='__exclude__';return `<div class="v-txn-row"><span class="v-tn">${esc(x.Date)}</span><span class="v-td">${esc(x.Description||x.Name)}</span><span class="v-ta">${gbp(Math.abs(parseFloat(x.Amount)))}</span><label style="display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--ink-soft)"><input type="checkbox" data-txexclude="${esc(xid)}" ${xex?'checked':''} style="width:13px;height:13px;accent-color:var(--over)"> ignore</label></div>`;}).join('')}</div>`;
+      }
+      return `<div class="pot-group">${header}<div style="display:flex;align-items:center;gap:6px">${lineDropdown('data-flaggroupassign',gid,grpCur,sc)}${info}</div>${note}${single}</div>`;
     }
-    return `<div class="flag-row" style="display:grid;grid-template-columns:1fr auto auto auto;gap:8px;align-items:center;flex-wrap:wrap"><span class="flag-name" title="${esc(r.Name)}">${esc(r.Name||'Unknown')} <span class="v-cat">${esc(r.Type)}</span></span><span class="flag-amt">${gbp(Math.abs(parseFloat(r.Amount)))}</span><button class="v-info-btn" data-flaginfo="${esc(tid)}" title="Show history">i</button>${lineDropdown('data-flagassign',tid,cur,sc)}${flagDetail?`<div style="grid-column:1/-1">${flagDetail}</div>`:''}</div>`;
+    // Expanded multi group → one row per transaction with its own dropdown + info
+    const rows=g.txns.sort((a,b)=>b.Date.localeCompare(a.Date)).map(r=>{
+      const tid=r['Transaction ID']; const cur=(S.txnAssign||{})[tid]||'';
+      const iOpen=openFlags.has(tid);
+      let detail='';
+      if(iOpen&&TXNS){
+        detail=`<div class="v-txn-row" style="grid-column:1/-1"><span class="v-tn">${esc(r.Date)}</span><span class="v-td">${esc(r.Description||r.Name)}</span><span class="v-ta">${gbp(Math.abs(parseFloat(r.Amount)))}</span></div>`;
+      }
+      return `<div class="flag-sub"><div class="flag-sub-main"><span class="flag-sub-d mono">${esc(r.Date)}</span><span class="flag-sub-amt">${gbp(Math.abs(parseFloat(r.Amount)))}</span><button class="v-info-btn" data-flaginfo="${esc(tid)}" title="Show this transaction">i</button></div>${lineDropdown('data-flagassign',tid,cur,sc)}${detail}</div>`;
+    }).join('');
+    return `<div class="pot-group">${header}<div class="flag-subs">${rows}</div></div>`;
   }).join('');
   const flagSection=potRows||otherRows?`${potRows?`<div class="secttl" style="margin-top:14px">Pot transfers</div><div>${potRows}</div>`:''}${otherRows?`<div class="secttl" style="margin-top:14px">Other large transfers (\u2265\u00a3100)</div><div>${otherRows}</div>`:''}`:
     `<p class="nodata">${TXNS?'None to review.':'Upload a CSV first.'}</p>`;
@@ -2480,7 +2487,9 @@ function reviewQueueList(sc){
     .sort((x,y)=>y.total-x.total);
 }
 function openReviewQueue(sc){
+  if(!TXNS){ showToast('Upload a bank statement first to review payees'); return; }
   window._reviewIdx=0;
+  window._reviewTotal=reviewQueueList(sc).length;
   renderReviewQueue(sc);
   const bd=document.getElementById('reviewBackdrop'); if(bd) bd.classList.add('show');
 }
@@ -2503,6 +2512,8 @@ function renderReviewQueue(sc){
     return;
   }
   const idx=Math.min(window._reviewIdx||0, totalLeft-1);
+  const origTotal=Math.max(window._reviewTotal||totalLeft, totalLeft);
+  const done=origTotal-totalLeft;
   const v=queue[idx];
   const a=getAnalysis(sc);
   const moAvg=v.total/(a?a.months:12);
@@ -2513,8 +2524,8 @@ function renderReviewQueue(sc){
   if(sInfo){
     chips.push({line:sInfo.line, isNew:sInfo.isNew, primary:true});
   }
-  // Add up to 6 existing lines as quick chips (excluding the suggestion)
-  lines.filter(n=>!sInfo||n!==sInfo.line).slice(0,8).forEach(n=>chips.push({line:n, isNew:false}));
+  // ALL existing lines as chips (excluding the suggestion) — container scrolls
+  lines.filter(n=>!sInfo||n!==sInfo.line).forEach(n=>chips.push({line:n, isNew:false}));
   const chipHTML=chips.map(ch=>
     `<button class="rq-chip ${ch.primary?'rq-chip-primary':''}" data-rqline="${esc(ch.line)}" data-rqnew="${ch.isNew?'1':'0'}">${ch.isNew?'+ ':''}${esc(ch.line)}${ch.isNew?' <span class="newpill">NEW</span>':''}${ch.primary&&!ch.isNew?' <span class="acceptpill">suggested</span>':''}</button>`
   ).join('');
@@ -2523,10 +2534,10 @@ function renderReviewQueue(sc){
   const sample=vtxns.map(r=>`<div style="display:flex;justify-content:space-between;font-size:11.5px;color:var(--ink-soft);padding:2px 0"><span>${esc(r.Date)}</span><span>${esc((r.Description||r.Name).slice(0,28))}</span><span>${gbp(Math.abs(parseFloat(r.Amount)))}</span></div>`).join('');
   body.innerHTML=`
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
-      <span style="font-family:'SF Mono',ui-monospace,monospace;font-size:11px;color:var(--ink-soft)">${idx+1} of ${totalLeft} left</span>
+      <span style="font-family:'SF Mono',ui-monospace,monospace;font-size:11px;color:var(--ink-soft)">${done} of ${origTotal} done \u00b7 ${totalLeft} left</span>
       <button id="reviewClose" style="border:none;background:transparent;font-size:20px;color:var(--ink-soft);cursor:pointer;line-height:1">\u00d7</button>
     </div>
-    <div style="height:4px;background:var(--line-soft);border-radius:2px;margin-bottom:14px;overflow:hidden"><div style="height:100%;width:${Math.round(idx/totalLeft*100)}%;background:var(--clay)"></div></div>
+    <div style="height:4px;background:var(--line-soft);border-radius:2px;margin-bottom:14px;overflow:hidden"><div style="height:100%;width:${Math.round(done/origTotal*100)}%;background:var(--clay);transition:width .25s"></div></div>
     <div class="v-name" style="font-size:18px;font-weight:600;margin-bottom:2px">${esc(v.name)}</div>
     <div style="display:flex;gap:12px;font-size:12px;color:var(--ink-soft);margin-bottom:6px"><span>${esc(v.monzoCat||'')}</span><span>${gbp(Math.round(v.total))} total</span><span>${gbp(Math.round(moAvg))}/mo</span><span>${v.count} txns</span></div>
     <div style="background:var(--card-2);border-radius:10px;padding:6px 10px;margin-bottom:14px">${sample}</div>
@@ -2650,6 +2661,20 @@ function wireCategorise(){
   };
   wireTxExclude(null);
   // Flag info buttons
+  // Expand/collapse an "other large transfers" group
+  document.querySelectorAll('[data-flaggrp]').forEach(btn=>{ btn.onclick=()=>{
+    const gs=window._openFlagGroups||(window._openFlagGroups=new Set());
+    const gid=btn.dataset.flaggrp; gs.has(gid)?gs.delete(gid):gs.add(gid); refreshCatPage();
+  }; });
+  // Assign an ENTIRE other-transfers group at once
+  document.querySelectorAll('[data-flaggroupassign]').forEach(sel=>{ sel.onchange=()=>noJump(()=>{
+    if(!S.txnAssign) S.txnAssign={};
+    const gid=sel.dataset.flaggroupassign; const name=gid.replace(/^flaggrp:/,'');
+    if(TXNS){ TXNS.filter(r=>r.Type!=='Pot transfer'&&(r.Name||'Unknown')===name).forEach(r=>{
+      if(sel.value) S.txnAssign[r['Transaction ID']]=sel.value; else delete S.txnAssign[r['Transaction ID']];
+    }); }
+    invalidateCache(); save(); refreshCatPage();
+  }); });
   document.querySelectorAll('[data-flaginfo]').forEach(btn=>{ btn.onclick=()=>{
     const os=window._openFlagInfos||(window._openFlagInfos=new Set());
     const tid=btn.dataset.flaginfo; os.has(tid)?os.delete(tid):os.add(tid); refreshCatPage();
@@ -3267,55 +3292,21 @@ function updateNameSpans(){
 
 
 
-/* ---- offline service worker (only when hosted over http/https) ---- */
-(function(){
-  if(!('serviceWorker' in navigator)) return;
-  if(location.protocol!=='http:'&&location.protocol!=='https:') return; // file:// can't use SW
-  try{
-    const swCode=`
-      const CACHE='budget-app-v1';
-      self.addEventListener('install',e=>{ self.skipWaiting(); });
-      self.addEventListener('activate',e=>{ e.waitUntil(self.clients.claim()); });
-      self.addEventListener('fetch',e=>{
-        if(e.request.method!=='GET') return;
-        e.respondWith(
-          caches.open(CACHE).then(cache=>
-            cache.match(e.request).then(hit=>{
-              const net=fetch(e.request).then(resp=>{
-                if(resp&&resp.status===200&&resp.type==='basic') cache.put(e.request,resp.clone());
-                return resp;
-              }).catch(()=>hit);
-              return hit||net;
-            })
-          )
-        );
-      });
-    `;
-    const blob=new Blob([swCode],{type:'text/javascript'});
-    const url=URL.createObjectURL(blob);
-    navigator.serviceWorker.register(url).then(()=>{
-      // Cache the current page so it loads with no connection
-      if(navigator.serviceWorker.controller===null){
-        // first load — controller attaches after reload; cache proactively
-      }
-      caches.open('budget-app-v1').then(cache=>{ cache.add(location.href).catch(()=>{}); });
-    }).catch(e=>console.warn('SW register failed',e));
-  }catch(e){ console.warn('SW setup failed',e); }
-})();
-
 /* ---- PWA install support ---- */
 (function(){
   // Inject web app manifest as a blob (keeps the tool single-file)
   try{
-    const icon='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20512%20512%22%3E%3Crect%20width%3D%22512%22%20height%3D%22512%22%20rx%3D%22112%22%20fill%3D%22%239b5de5%22%2F%3E%3Ctext%20x%3D%22256%22%20y%3D%22340%22%20font-size%3D%22260%22%20text-anchor%3D%22middle%22%20fill%3D%22white%22%20font-family%3D%22Georgia%2Cserif%22%3E%C2%A3%3C%2Ftext%3E%3C%2Fsvg%3E';
+    const icon192='data:image/png;base64,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';
+    const icon512='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAULUlEQVR4nO3dW4yc91nA4Xd2Zr3Z9drxOk4aYic0zaEgJ+kxbSkBtSCKhFqEFKpWQCRaqUICod5ygbjjtpcIFEEuIlEJ5QIUDoW2UGiBJqnSpq2TtKSxksZOYiexvd7NenfnwIWz6brxYXf2m+/0Po9UWT1pvvmvnPc37zcz2wlq6f77jo2qvgaAInzuwYOdqq+Bt/JDqYgBD3CeQKiGQy+BYQ+wPaJg8hzwBBj4AMUSBMVzoAUw8AHKJQh2zgGOydAHqAcxMB6Htg2GPkC9iYGtc1BXYOgDNJMYuDyHcwkGP0A7CIGLcyibGPoA7SYGfsJBhMEPkI0QSB4ABj9AbplDIOUTN/gB2CxjCKR6wgY/AJeTKQRSPFGDH4DtyBACU1VfwKQZ/gBsV4bZ0drCyfDDA2Dy2roNaN2TMvgBmIS2hUCrbgEY/gBMSttmTCtqpm0/FADqrQ3bgMZvAAx/AMrWhtnT6ABoww8AgGZq+gxq5Aqj6YcOQLs08ZZA4zYAhj8AddPE2dSoAGjiAQOQQ9NmVCNWFk07VABya8ItgdpvAAx/AJqmCbOr1gHQhAMEgIup+wyrbQDU/eAA4ErqPMtqGQB1PjAA2I66zrTaBUBdDwoAxlXH2VarAKjjAQFAEeo242oTAHU7GAAoWp1mXS0CoE4HAgCTVJeZV3kA1OUgAKAsdZh9lQZAHQ4AAKpQ9QysLACqfuIAULUqZ2ElAWD4A8B5Vc3E0gPA8AeAC1UxG0sNAMMfAC6u7BlZWgAY/gBweWXOylICwPAHgK0pa2ZW/j0AAED5Jh4AXv0DwPaUMTsnGgCGPwCMZ9IzdGIBYPgDwM5McpZ6DwAAJDSRAPDqHwCKMamZWngAGP4AUKxJzNZCA8DwB4DJKHrGeg8AACRUWAB49Q8Ak1XkrC0kAAx/AChHUTPXLQAASGjHAeDVPwCUq4jZawMAAAntKAC8+geAaux0Bo8dAIY/AFRrJ7PYLQAASGisAPDqHwDqYdyZbAMAAAltOwC8+geAehlnNtsAAEBC2woAr/4BoJ62O6NtAAAgoS0HgFf/AFBv25nVNgAAkNCWAsCrfwBohq3ObBsAAEhIAABAQlcMAOt/AGiWrcxuGwAASOiyAeDVPwA005VmuA0AACQkAAAgoUsGgPU/ADTb5Wa5DQAAJCQAACChiwaA9T8AtMOlZroNAAAkJAAAIKG3BID1PwC0y8Vmuw0AACQkAAAgIQEAAAldEADu/wNAO/30jLcBAICEBAAAJCQAACChNwPA/X8AaLfNs94GAAASEgAAkJAAAICEBAAAJDQV4Q2AAJDFxsy3AQCAhAQAACQkAAAgIQEAAAkJAABISAAAQEICAAAS6vgOAADIxwYAABISAACQkAAAgIQEAAAkJAAAICEBAAAJCQAASEgAAEBCAgAAEhIAAJCQAACAhAQAACQkAAAgIQEAAAkJAABISAAAQEICAAASEgAAkJAAAICEBAAAJCQAACAhAQAACQkAAEhIAABAQgIAABISAACQkAAAgIQEAAAkJAAAICEBAAAJCQAASEgAAEBCAgAAEhIAAJCQAACAhAQAACQkAAAgoV7VFwDUw8z8VOxe6MbcvqmY29eN2Tf+nNs3FbN7u9Gb6UR3uhPd6YjudCd60xv/vhMREcPhKIb9iOFgFMPB+T/7q6NYXxnF2sow1lZGsb4yjLXXR7GyOIyVM4N4/fQbf545/+doWPEhQCICAJLp7erEvoO92H/jdOw/1IuFG6dj/43TMbt3ZwvB7lQnur2IiM5Y///RMGLp1UGcPdGPxRODOHuyH4svD+LMS/04/WI/hv3Rjq4PuJAAgJbrzXTiZ35uJg4e3hU3HJ6JhUPT0RlvRk9UZypiz7Xd2HNtN244fOF/NxyM4syLg3jtx+vx2gvrcerH/Th5dC1WzlgZwLgEALTQNT87HTe956o4eHgmrrt1Oqa6NZz42zDV7cTCoV4sHOrFLTH75n9+9pVBnHhmLU7+aC1OPLMerzy3blMAWyQAoCXm9nXj1g/Pxm33zMXCoRx/tfcc6MaeA7Nxy4fOR0F/bRQv/WAtjh9ZjWNHVuPV59cj9ABcVI5/SkBLTXU7cfPdV8Vt98zFwTtmopP8cz29XZ04dOdMHLpzJiIiVpeGcezIajz/7XPx4ydWY3XZLQPYIACggaZ6nbj9l+bi3Z+Yj/kD3aovp7Zm5qfiHR+cjXd8cDaGg4iXfrAazz1+Lp57/FwsvTKo+vKgUp377ztmQQYN0e114p0fmYt3fXw+du83+Me1fGoQX/z8y1VfBlTKBgAa4tYPz8YHPrU35hYMfmDnBADU3J4D3fjFz+x78742QBEEANRUpxNx+GO74/2/vTd6M83+GB9QPwIAamj3/m786h8vxHW37Kr6UoCWEgBQM9fduit+7fP7Y/bq5J/pAyZKAECN3P7Lc3HP718dUz0rf2CyBADUQKcT8cHfuTru+PXdVV/KBc6eHMTJZ9fi7MlBnD05iKVX+rH82iD6q6Por73xr9VRTHU70d11/jcFXrXnjd8quNCNq6/vxTU3Tcf+m3oxt8+nF6BOBABUrRNxz2f2xTs/Mlf1lcTyqUEcffRcvPT0arz8zNZ/2c6gP4rBG9/Bv3JmGKde6L/lf7P3ul4cunMmDt45EzfeNWPLARUTAFCxX/jdqysd/uvnRvHMf78eP/rmSrz0w7WJfXf+4ol+PPnVfjz51eWYmZ+KWz88Gz//0d2x76B/DEEV/M2DCt39yb1x+GPVrP3XXh/GkS8vx/f/dTlWl8r9jvzVpWEc+bflePLLy3HzB2bjPb+1JxaEAJTK3zioyLt/cz7e9Yn50h93NIp46ivL8dhDi7G+Uu03gY9GEc8+shJHH1uJOz42H++7d4/vPICSCACowKG7ZuL99+4t/XFPH+/H1//6dLz8f2ulP/bljIYR3/vSUhz91kr8yh/5/gMogw8aQ8l2L3TjI3+wEFHyC92jj67E3//ZydoN/82WXhnEP/75q/H0fyxXfSnQejYAUKLOVMRH/3AhrtpTbns/8fBSPPbQ4sTe4FekYX8U33jgTCy/Noz33bun6suB1hIAUKL337s3rn9nuevtb/7tYnz/S0ulPmYRvv0PZ2M4HMXdnyz/Vglk4BYAlOTA26fjro+X+6a/7/7TUiOH/4YnHl6Kp/7d7QCYBAEAJfnQ710dnRLv+z/zPyvx6N8tlveAE/K/Dy7Gi0/X930L0FQCAEpwy4dm4/rby1v9L77cj288cLoR9/yvZDgYxdf+8lTlH1mEthEAMGG9XZ24+1Pl3cceDSO+9leno7/anoG5/NogHvnimaovA1pFAMCE3fkb8zF/TXm/COe7/7wUJ55p38r86a+9Hq8cXa/6MqA1BABMUG9Xp9Tf8Le6NIzvPHy2tMcr27ceav57GqAuBABM0G33zMXM7vL+mn3n4aVW3yt/4Xurtf4iI2gSAQATVOYv+lk+NYgnv9L+j8xleI5QBgEAE3LwjpnYd0N537X11FeXY7De3lf/G44+di7OnS33txdCGwkAmJA7Snz1PxxE/OA/Xy/t8ao07I/i2UdXqr4MaDwBABMwu3cqDr3rqtIe77nHz8XKmTyvip9//FzVlwCNJwBgAm5671WlfuvfD/8rx6v/DcefWov1c+2/3QGTJABgAt7+3vJe/fdXR3H8yGppj1cHw/6old91AGUSAFCw3kwnbjg8U9rjHTuyGoN+vlfDJ34kAGAnBAAU7Ma7ZqI7Xd7+//nv5LwffsL3AcCOCAAo2E3vKW/9HxHxwhO51v8bTh3vV30J0GgCAAr2ttvK+61/y68NYvnUoLTHq5PlVwcpb31AUQQAFGhm91Tsva68L/85+WzeX44zGkWcPZEzfqAI5f2TChI4cPN0RIkf/8v+RriH/uRE1ZcAjWUDAAU6cPN0qY+XeQMA7IwAgAJd+47y7v9HRJw+LgCA8QgAKNC1JW4A+qujVF//CxRLAEBBur1O7F7olvZ4iyd8DA4YnwCAguze3y31DYCLL3sHPDA+AQAF2X1Nea/+IyLOnrQBAMYnAKAg8yUHwMqi+//A+AQAFKTsADh3VgAA4xMAUJCybwGsLgkAYHwCAAoyu7fcv042AMBOCAAoSG9XiR8BiIhzNgDADggAKEh3utwAGKz7TXjA+AQAFKQ3U24ADH0KENgBAQAF6ZW9AejbAADjEwBQkG7J7wEYCgBgBwQAFKTsNwG6BQDshACAgkyV+zUAMRrZAADjEwAAkJAAAICEBAAAJCQAACAhAQAACQkAAEhIAABAQgIAABISAACQkAAAgIQEAAAkJAAAICEBAAAJCQAASEgAAEBCAgAAEhIAAJCQAACAhAQAACQkAAAgIQEAAAkJAABISAAAQEICAAASEgAAkJAAAICEBAAAJCQAACAhAQAACQkAAEhIAABAQgIAABISAACQkAAAgIQEAAAkJAAAICEBAAAJCQAASEgAAEBCAgAAEupVfQEwSZ/+wtti/kC36suYiM8+cEPVlzBx3/uXpXjki4tVXwa0kg0AACQkAAAgIQEAAAkJAABISAAAQEICAAASEgAAkJAAAICEBAAAJCQAACAhAQAACQkAAEhIAABAQgIAABLq3H/fsVHVFwFtcN9fXB8z8+U19d985ngMB6U9HNAyNgAAkJAAAICEBAAAJCQAACAhAQAACQkAAEhIAABAQgIAABISAACQkAAAgIQEAAAkJAAAICEBAAAJCQAASEgAAEBCAgAAEhIAAJCQAACAhAQAACQkAAAgIQEAAAkJAABISAAAQEICAAASEgAAkJAAAICEBAAAJCQAACAhAQAACQkAAEhIAABAQgIAABISAACQkAAAgIQEAAAkJAAAICEBAAAJCQAASEgAAEBCAgAAEhIAAJCQAACAhAQAACQkAAAgIQEAAAkJAABISAAAQEICAAAS6lV9AQA7cf3tu+Ljf3pg7P//oD+KBz77YoFXBM1gAwAACQkAAEhIAABAQgIAABISAACQkAAAgIQEAAAkJAAAICEBAAAJCQAASEgAAEBCAgAAEhIAAJCQAACAhAQAACQkAAAgIQEAAAkJAABISAAAQEICAAASEgAAkJAAAICEBAAAJCQAACAhAQAACQkAAEhIAABAQgIAABISAACQkAAAgIQEAAAk1Kv6AoDxfPaBG6q+BKDBbAAAICEbAFrt0194W8wf6FZ9GQC1YwMAAAkJAABISAAAQEICAAASEgAAkJAAAICEBAAAJCQAACAhAQAACQkAAEhIAABAQgIAABISAACQkAAAgIQ69993bFT1RQAA5bIBAICEBAAAJCQAACAhAQAACQkAAEhIAABAQgIAABISAACQkAAAgIQEAAAkJAAAICEBAAAJCQAASEgAAEBCAgAAEhIAAJCQAACAhAQAACQkAAAgIQEAAAkJAABISAAAQEICAAASEgAAkJAAAICEBAAAJCQAACAhAQAACQkAAEhIAABAQgIAABISAACQkAAAgIQEAAAkJAAAICEBAAAJCQAASEgAAEBCAgAAEhIAAJCQAACAhAQAACQkAAAgIQEAAAkJAABISAAAQEICAAASEgAAkJAAAICEBAAAJCQAACAhAQAACQkAAEhIAABAQgIAABISAACQkAAAgISmPvfgwU7VFwEAlOdzDx7s2AAAQEICAAASEgAAkJAAAICEBAAAJCQAACAhAQAACU1FnP88YNUXAgBM3sbMtwEAgIQEAAAkJAAAICEBAAAJvRkA3ggIAO22edbbAABAQgIAABISAACQ0AUB4H0AANBOPz3jbQAAICEBAAAJCQAASOgtAeB9AADQLheb7TYAAJCQAACAhC4aAG4DAEA7XGqm2wAAQEICAAASumQAuA0AAM12uVluAwAACQkAAEjosgHgNgAANNOVZrgNAAAkdMUAsAUAgGbZyuy2AQCAhAQAACS0pQBwGwAAmmGrM9sGAAAS2nIA2AIAQL1tZ1bbAABAQtsKAFsAAKin7c5oGwAASGjbAWALAAD1Ms5stgEAgITGCgBbAACoh3Fnsg0AACQ0dgDYAgBAtXYyi3e0ARABAFCNnc5gtwAAIKEdB4AtAACUq4jZawMAAAkVEgC2AABQjqJmbmEbABEAAJNV5Kx1CwAAEio0AGwBAGAyip6xhW8ARAAAFGsSs3UitwBEAAAUY1Iz1XsAACChiQWALQAA7MwkZ+lENwAiAADGM+kZOvFbACIAALanjNnpPQAAkFApAWALAABbU9bMLG0DIAIA4PLKnJWl3gIQAQBwcWXPyNLfAyACAOBCVczGSt4EKAIA4LyqZmJlnwIQAQBkV+UsrPRjgCIAgKyqnoGVfw9A1QcAAGWrw+yrPAAi6nEQAFCGusy8WgRARH0OBAAmpU6zrjYBEFGvgwGAItVtxtUqACLqd0AAsFN1nG21C4CIeh4UAIyjrjOtlgEQUd8DA4CtqvMsq20ARNT74ADgcuo+w2odABH1P0AA+GlNmF21v8DN7r/v2KjqawCAS2nC4N9Q+w3AZk06WAByadqMalQARDTvgAFovybOpsZd8GZuCQBQpSYO/g2N2wBs1uSDB6DZmj6DGh0AEc3/AQDQPG2YPY1/Apu5JQDAJLVh8G9o/AZgszb9YACol7bNmFY9mc1sAwAoQtsG/4ZWPqnNhAAA42jr4N/QqlsAF9P2HyAAxcswO1r/BDezDQDgcjIM/g1pnuhmQgCAzTIN/g3pnvBmQgAgt4yDf0PaJ76ZEADIJfPg35D+ADYTAgDtZvD/hIO4BDEA0A6G/sU5lCsQAgDNZPBfnsPZBjEAUG+G/tY5qDGJAYB6MPTH49AKIAYAymXo75wDnABBAFAsA794DrQEggBgewz8yXPAFREFAOcZ9tVw6DUlEIC2MODr6f8BChOF/qxxPEQAAAAASUVORK5CYII=';
     const manifest={
       name:'Household Budget Ledger', short_name:'Budget',
       description:'Private household budget & scenario planner',
       start_url:'.', scope:'.', display:'standalone',
       background_color:'#f0edf9', theme_color:'#9b5de5', orientation:'portrait',
       icons:[
-        {src:icon,sizes:'192x192',type:'image/svg+xml',purpose:'any maskable'},
-        {src:icon,sizes:'512x512',type:'image/svg+xml',purpose:'any maskable'}
+        {src:icon192,sizes:'192x192',type:'image/png',purpose:'any'},
+        {src:icon512,sizes:'512x512',type:'image/png',purpose:'any'},
+        {src:icon512,sizes:'512x512',type:'image/png',purpose:'maskable'}
       ]
     };
     const blob=new Blob([JSON.stringify(manifest)],{type:'application/manifest+json'});
