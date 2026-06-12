@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#05060f">
+<meta name="theme-color" content="#8ecdf0">
 <title>Leigh-Bedford</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
@@ -13,56 +13,57 @@ html { scroll-behavior:smooth; }
 html, body { overflow-x:hidden; }
 body {
   font-family:'Inter', Arial, sans-serif;
-  background:#05060f;
-  color:#e8e8f0;
+  background:#dfeef7;
+  color:#2c3a2e;
   min-height:100vh;
   position:relative;
 }
 
-/* ───────────────────────── FIXED CITY SCENE ───────────────────────── */
+/* ───────────────────────── FIXED PARK SCENE ───────────────────────── */
 .scene { position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
 .layer { position:absolute; inset:0; will-change:transform; }
 .layer svg { position:absolute; bottom:0; left:-5%; width:110%; height:100%; display:block; }
 .l-sky svg { height:100%; }
-/* sink each layer by its parallax travel so buildings never lift off the road */
+/* sink each layer by its parallax travel so the park never lifts off the ground */
 .l-far svg { bottom:-4vh; }
 .l-mid svg { bottom:-9vh; }
 .l-near svg { bottom:-16vh; }
-.haze {
-  position:absolute; left:0; right:0; bottom:0; height:55vh;
-  background:linear-gradient(to top, rgba(245,166,35,0.07), rgba(99,102,241,0.04) 45%, transparent);
+.light-haze {
+  position:absolute; left:0; right:0; bottom:0; height:45vh;
+  background:linear-gradient(to top, rgba(255,250,220,0.35), transparent);
 }
-.road {
+.ground {
   position:absolute; left:0; right:0; bottom:0; height:11vh; min-height:64px;
-  background:linear-gradient(#0d101e, #07090f);
-  border-top:2px solid #1c2240;
+  background:linear-gradient(#58974e, #477f40);
+  border-top:2px solid #6aa75e;
 }
-.road::before {
-  content:""; position:absolute; left:0; right:0; top:46%; height:3px;
-  background:repeating-linear-gradient(90deg, #353d6b 0 42px, transparent 42px 84px);
-  opacity:.75;
+.ground::before {
+  content:""; position:absolute; left:0; right:0; top:34%; height:26%;
+  background:linear-gradient(#e0cda5, #d2bb8e);
+  border-top:2px solid #c3ab7e; border-bottom:2px solid #b89a6d;
 }
-.car {
-  position:absolute; bottom:18%; left:0; font-size:clamp(1.3rem, 2.6vw, 2rem);
-  filter:drop-shadow(0 0 10px rgba(255,212,121,0.35));
-  transform:translateX(-120px);
+.stroller {
+  position:absolute; bottom:26%; left:0; font-size:clamp(1.3rem, 2.6vw, 1.9rem);
+  filter:drop-shadow(0 2px 3px rgba(40,60,40,0.3));
+  transform:translateX(-140px);
 }
-.car.flip { transform:translateX(-120px) scaleX(-1); }
+.stroller.flip { transform:translateX(-140px) scaleX(-1); }
 .spotlight {
-  position:fixed; top:0; left:0; width:52vmax; height:52vmax;
-  margin:-26vmax 0 0 -26vmax; border-radius:50%;
-  background:radial-gradient(circle, rgba(255,214,130,0.10) 0%, rgba(125,211,252,0.05) 35%, transparent 65%);
-  mix-blend-mode:screen; pointer-events:none; opacity:0;
+  position:fixed; top:0; left:0; width:55vmax; height:55vmax;
+  margin:-27.5vmax 0 0 -27.5vmax; border-radius:50%;
+  background:radial-gradient(circle, rgba(255,244,190,0.5) 0%, rgba(255,250,225,0.2) 38%, transparent 65%);
+  mix-blend-mode:soft-light; pointer-events:none; opacity:0;
 }
 @media (hover:none) { .spotlight { display:none; } }
 
 /* ───────────────────────── WALKING ROUTE ───────────────────────── */
 .walkpath { position:absolute; top:0; left:0; z-index:1; pointer-events:none; }
-#routeGlow { fill:none; stroke:rgba(245,166,35,0.18); stroke-width:9; stroke-linecap:round; }
-#route { fill:none; stroke:#f5a623; stroke-width:2.5; stroke-linecap:round;
-  stroke-dasharray:1 0; filter:drop-shadow(0 0 6px rgba(245,166,35,0.8)); }
-#walker { fill:rgba(245,166,35,0.25); }
-#walkerCore { fill:#ffd479; filter:drop-shadow(0 0 8px #ffd479); }
+#routeGlow { fill:none; stroke:rgba(46,125,50,0.18); stroke-width:10; stroke-linecap:round; }
+#route { fill:none; stroke:#2e7d32; stroke-width:3; stroke-linecap:round;
+  stroke-dasharray:1 0; filter:drop-shadow(0 1px 3px rgba(46,125,50,0.5)); }
+#walker { fill:rgba(46,125,50,0.22); }
+#walkerCore { fill:#2e7d32; stroke:#fffdf7; stroke-width:1.5;
+  filter:drop-shadow(0 1px 3px rgba(30,60,30,0.5)); }
 
 /* ───────────────────────── CONTENT ───────────────────────── */
 main { position:relative; z-index:2; }
@@ -74,28 +75,29 @@ main { position:relative; z-index:2; }
 }
 .eyebrow {
   font-family:'Oswald', sans-serif; font-size:.8rem; letter-spacing:.45em;
-  color:#7dd3fc; text-transform:uppercase; margin-bottom:14px; opacity:.85;
+  color:#2e7d32; text-transform:uppercase; margin-bottom:14px;
 }
-h1.neon {
+h1.parksign {
   font-family:'Oswald', sans-serif; font-weight:700;
   font-size:clamp(2.6rem, 9vw, 6.5rem); line-height:.98;
-  letter-spacing:.04em; text-transform:uppercase; color:#fff;
-  text-shadow:0 0 8px rgba(245,166,35,.55), 0 0 28px rgba(245,166,35,.35), 0 0 70px rgba(245,166,35,.22);
+  letter-spacing:.04em; text-transform:uppercase; color:#20351f;
+  text-shadow:0 2px 0 rgba(255,255,255,0.55), 0 6px 22px rgba(255,255,255,0.45);
 }
-h1.neon span {
-  display:block; color:#f5a623; font-size:.52em; letter-spacing:.42em; margin-top:8px;
+h1.parksign span {
+  display:block; color:#2e7d32; font-size:.52em; letter-spacing:.42em; margin-top:8px;
 }
-.hero .sub { color:#9aa3c7; max-width:480px; margin-top:22px; font-size:1.02rem; }
+.hero .sub { color:#3a5236; max-width:480px; margin-top:22px; font-size:1.02rem;
+  text-shadow:0 1px 0 rgba(255,255,255,.7), 0 0 14px rgba(255,255,255,.8); }
 .scroll-hint {
   position:absolute; bottom:13vh; left:50%; transform:translateX(-50%);
-  display:flex; flex-direction:column; align-items:center; gap:8px; opacity:.55;
+  display:flex; flex-direction:column; align-items:center; gap:8px; opacity:.7;
 }
 .scroll-hint small {
   font-family:'Oswald', sans-serif; letter-spacing:.3em; font-size:.65rem;
-  text-transform:uppercase; color:#9aa3c7;
+  text-transform:uppercase; color:#44603f;
 }
 .scroll-hint .chev {
-  width:14px; height:14px; border-right:2px solid #f5a623; border-bottom:2px solid #f5a623;
+  width:14px; height:14px; border-right:2px solid #2e7d32; border-bottom:2px solid #2e7d32;
   transform:rotate(45deg); animation:dip 1.8s ease-in-out infinite;
 }
 @keyframes dip { 0%,100%{transform:rotate(45deg) translate(0,0)} 50%{transform:rotate(45deg) translate(5px,5px)} }
@@ -108,66 +110,64 @@ h1.neon span {
 .stop.right .stop-marker { flex-direction:row-reverse; }
 .stop-no {
   font-family:'Oswald', sans-serif; font-size:.72rem; letter-spacing:.35em;
-  color:#9aa3c7; text-transform:uppercase;
-  border:1px solid #2a3050; padding:5px 12px 4px; border-radius:4px;
-  background:rgba(10,13,26,.7);
+  color:#44603f; text-transform:uppercase;
+  border:1px solid #a9c4a0; padding:5px 12px 4px; border-radius:4px;
+  background:rgba(255,253,247,.88);
 }
 .stop-dot {
-  width:12px; height:12px; border-radius:50%; background:#f5a623;
-  box-shadow:0 0 12px rgba(245,166,35,.9); flex-shrink:0;
+  width:12px; height:12px; border-radius:50%; background:#2e7d32;
+  border:2px solid #fffdf7; box-shadow:0 1px 5px rgba(30,60,30,.45); flex-shrink:0;
 }
 
-/* neon shop sign cards */
+/* park noticeboard cards */
 .sign {
   display:block; text-decoration:none; color:inherit;
-  background:rgba(9,12,24,0.82); backdrop-filter:blur(6px);
-  border:1px solid var(--neon); border-radius:14px; padding:26px;
-  box-shadow:0 0 14px color-mix(in srgb, var(--neon) 30%, transparent),
-             inset 0 0 22px color-mix(in srgb, var(--neon) 8%, transparent);
+  background:rgba(255,253,247,0.94); backdrop-filter:blur(4px);
+  border:2px solid color-mix(in srgb, var(--accent) 55%, #fffdf7);
+  border-radius:14px; padding:26px;
+  box-shadow:0 8px 24px rgba(40,70,40,0.14), 0 2px 6px rgba(40,70,40,0.10);
   transition:transform .25s ease, box-shadow .25s ease;
 }
 .sign:hover, .sign:focus-visible {
   transform:translateY(-5px);
-  box-shadow:0 0 30px color-mix(in srgb, var(--neon) 55%, transparent),
-             inset 0 0 28px color-mix(in srgb, var(--neon) 12%, transparent);
+  box-shadow:0 16px 36px rgba(40,70,40,0.20), 0 4px 10px rgba(40,70,40,0.12);
 }
 .sign-icon {
   width:58px; height:58px; margin-bottom:14px; display:flex;
   align-items:center; justify-content:center; font-size:2rem;
-  border-radius:12px; background:color-mix(in srgb, var(--neon) 12%, transparent);
-  border:1px solid color-mix(in srgb, var(--neon) 35%, transparent);
+  border-radius:12px; background:color-mix(in srgb, var(--accent) 12%, #ffffff);
+  border:1px solid color-mix(in srgb, var(--accent) 35%, transparent);
 }
 .sign-icon img { width:42px; height:42px; object-fit:contain; }
 .sign h2 {
   font-family:'Oswald', sans-serif; font-size:1.35rem; font-weight:600;
-  letter-spacing:.05em; text-transform:uppercase; color:var(--neon);
-  text-shadow:0 0 10px color-mix(in srgb, var(--neon) 65%, transparent);
+  letter-spacing:.05em; text-transform:uppercase; color:var(--accent);
 }
 .badge {
   display:inline-block; font-family:'Oswald', sans-serif; font-size:.6rem;
   letter-spacing:.22em; text-transform:uppercase; vertical-align:middle;
-  border:1px solid color-mix(in srgb, var(--neon) 50%, transparent);
-  color:var(--neon); border-radius:4px; padding:3px 7px 2px; margin-left:8px;
-  opacity:.85;
+  border:1px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  color:var(--accent); border-radius:4px; padding:3px 7px 2px; margin-left:8px;
 }
-.sign p { color:#9aa3c7; font-size:.93rem; margin-top:8px; line-height:1.55; }
+.sign p { color:#5a6a58; font-size:.93rem; margin-top:8px; line-height:1.55; }
 .visit {
   display:inline-block; margin-top:16px; font-family:'Oswald', sans-serif;
-  font-size:.78rem; letter-spacing:.25em; text-transform:uppercase; color:#e8e8f0;
-  opacity:.7; transition:opacity .2s, letter-spacing .2s;
+  font-size:.78rem; letter-spacing:.25em; text-transform:uppercase; color:#2c3a2e;
+  opacity:.65; transition:opacity .2s, letter-spacing .2s;
 }
 .sign:hover .visit { opacity:1; letter-spacing:.32em; }
 
 footer {
   min-height:55vh; display:flex; flex-direction:column;
   justify-content:center; align-items:center; gap:10px;
-  text-align:center; padding:40px 20px 16vh; color:#9aa3c7; font-size:.9rem;
+  text-align:center; padding:40px 20px 16vh; color:#33492f; font-size:.9rem;
+  text-shadow:0 1px 0 rgba(255,255,255,.7), 0 0 14px rgba(255,255,255,.85);
 }
-.end-dot { width:14px; height:14px; border-radius:50%; background:#f5a623;
-  box-shadow:0 0 16px rgba(245,166,35,.9); margin-bottom:8px; }
+.end-dot { width:14px; height:14px; border-radius:50%; background:#2e7d32;
+  border:2px solid #fffdf7; box-shadow:0 1px 6px rgba(30,60,30,.45); margin-bottom:8px; }
 footer .end {
   font-family:'Oswald', sans-serif; letter-spacing:.35em; font-size:.72rem;
-  text-transform:uppercase; color:#f5a623;
+  text-transform:uppercase; color:#2e7d32;
 }
 
 @media (max-width:640px) {
@@ -185,41 +185,41 @@ footer .end {
 </head>
 <body>
 
-<!-- fixed city backdrop -->
+<!-- fixed daytime park backdrop -->
 <div class="scene" aria-hidden="true">
   <div class="layer l-sky"><svg id="skySvg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice"></svg></div>
   <div class="layer l-far"><svg id="farSvg" viewBox="0 0 1400 400" preserveAspectRatio="xMidYMax slice"></svg></div>
   <div class="layer l-mid"><svg id="midSvg" viewBox="0 0 1400 460" preserveAspectRatio="xMidYMax slice"></svg></div>
-  <div class="haze"></div>
+  <div class="light-haze"></div>
   <div class="layer l-near"><svg id="nearSvg" viewBox="0 0 1400 520" preserveAspectRatio="xMidYMax slice"></svg></div>
-  <div class="road">
-    <div class="car" id="carA">🚕</div>
-    <div class="car flip" id="carB">🚗</div>
+  <div class="ground">
+    <div class="stroller" id="strollerA">🚶🐕</div>
+    <div class="stroller flip" id="strollerB">🏃</div>
   </div>
   <div class="spotlight" id="spotlight"></div>
 </div>
 
-<!-- glowing walking route, drawn as you scroll -->
+<!-- park path route, drawn as you scroll -->
 <svg class="walkpath" id="walkpath" aria-hidden="true">
   <path id="routeGlow" d=""></path>
   <path id="route" d=""></path>
   <circle id="walker" r="9"></circle>
-  <circle id="walkerCore" r="3.5"></circle>
+  <circle id="walkerCore" r="4"></circle>
 </svg>
 
 <main id="content">
 
   <header class="hero">
     <p class="eyebrow">Welcome to</p>
-    <h1 class="neon">Leigh-Bedford<span>Street</span></h1>
-    <p class="sub">HTML tools &amp; pages, four stops down the block. Scroll to take a walk.</p>
+    <h1 class="parksign">Leigh-Bedford<span>Park</span></h1>
+    <p class="sub">HTML tools &amp; pages, four stops along the path. Scroll to take a walk.</p>
     <div class="scroll-hint"><small>Start walking</small><div class="chev"></div></div>
   </header>
 
   <section class="stop left">
     <div class="stop-inner">
       <div class="stop-marker"><span class="stop-no">Stop 01</span><span class="stop-dot"></span></div>
-      <a class="sign" style="--neon:#7dd3fc" href="https://arlo.leighbedford.com">
+      <a class="sign" style="--accent:#1d6fb8" href="https://arlo.leighbedford.com">
         <div class="sign-icon"><img src="https://raw.githubusercontent.com/davidleighbedford/arlo/main/icon-192.png" alt=""></div>
         <h2>Arlo</h2>
         <p>Play &amp; progress guide for Arlo.</p>
@@ -231,7 +231,7 @@ footer .end {
   <section class="stop right">
     <div class="stop-inner">
       <div class="stop-marker"><span class="stop-no">Stop 02</span><span class="stop-dot"></span></div>
-      <a class="sign" style="--neon:#34d399" href="/household-budget.html">
+      <a class="sign" style="--accent:#2e7d32" href="/household-budget.html">
         <div class="sign-icon">💰</div>
         <h2>Household Budget Tool<span class="badge">In development</span></h2>
         <p>Plan and track household income and expenses.</p>
@@ -243,7 +243,7 @@ footer .end {
   <section class="stop left">
     <div class="stop-inner">
       <div class="stop-marker"><span class="stop-no">Stop 03</span><span class="stop-dot"></span></div>
-      <a class="sign" style="--neon:#f5a623" href="https://training.leighbedford.com">
+      <a class="sign" style="--accent:#c97a00" href="https://training.leighbedford.com">
         <div class="sign-icon">🚴</div>
         <h2>Power Plan</h2>
         <p>13-week personalized training program.</p>
@@ -255,7 +255,7 @@ footer .end {
   <section class="stop right">
     <div class="stop-inner">
       <div class="stop-marker"><span class="stop-no">Stop 04</span><span class="stop-dot"></span></div>
-      <a class="sign" style="--neon:#f472b6" href="/wc2026.html">
+      <a class="sign" style="--accent:#c2185b" href="/wc2026.html">
         <div class="sign-icon">🏆</div>
         <h2>WC 2026 Intelligence Report</h2>
         <p>48 teams, press consensus, power rankings &amp; predictions.</p>
@@ -266,7 +266,7 @@ footer .end {
 
   <footer>
     <div class="end-dot" id="endDot"></div>
-    <p class="end">End of the street</p>
+    <p class="end">End of the path</p>
     <p>© 2026 Leigh-Bedford</p>
   </footer>
 
@@ -282,7 +282,7 @@ footer .end {
   var finePointer = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
   var hasGsap = typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined';
 
-  // deterministic rng so the skyline is identical on every visit
+  // deterministic rng so the park is identical on every visit
   function rng(seed) {
     return function () {
       seed = (seed * 1664525 + 1013904223) >>> 0;
@@ -296,67 +296,165 @@ footer .end {
     return n;
   }
 
-  /* ── sky: stars + moon ── */
-  var litWindows = [];
-  var stars = [];
+  /* ── sky: summer blue, sun, drifting clouds, birds ── */
+  var clouds = [], birds = [];
   (function buildSky() {
     var svg = document.getElementById('skySvg');
+    var defs = el('defs', {}, svg);
+    var sky = el('linearGradient', { id: 'skyGrad', x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
+    el('stop', { offset: '0%', 'stop-color': '#7ec3ee' }, sky);
+    el('stop', { offset: '70%', 'stop-color': '#bfe0ea' }, sky);
+    el('stop', { offset: '100%', 'stop-color': '#e4f1de' }, sky);
+    var sun = el('radialGradient', { id: 'sunGlow', cx: '50%', cy: '50%', r: '50%' }, defs);
+    el('stop', { offset: '0%', 'stop-color': 'rgba(255,246,200,0.95)' }, sun);
+    el('stop', { offset: '40%', 'stop-color': 'rgba(255,246,200,0.4)' }, sun);
+    el('stop', { offset: '100%', 'stop-color': 'rgba(255,246,200,0)' }, sun);
+    el('rect', { x: 0, y: 0, width: 1200, height: 800, fill: 'url(#skyGrad)' }, svg);
+    el('circle', { cx: 940, cy: 140, r: 150, fill: 'url(#sunGlow)' }, svg);
+    el('circle', { cx: 940, cy: 140, r: 46, fill: '#fff6c8', opacity: 0.95 }, svg);
+
     var r = rng(7);
-    var grad = el('radialGradient', { id: 'moonGlow', cx: '50%', cy: '50%', r: '50%' }, el('defs', {}, svg));
-    el('stop', { offset: '0%', 'stop-color': 'rgba(230,235,255,0.35)' }, grad);
-    el('stop', { offset: '100%', 'stop-color': 'rgba(230,235,255,0)' }, grad);
-    for (var i = 0; i < 110; i++) {
-      stars.push(el('circle', {
-        cx: (r() * 1200).toFixed(1),
-        cy: (r() * 520).toFixed(1),
-        r: (0.5 + r() * 1.1).toFixed(2),
-        fill: '#cdd6f4',
-        opacity: (0.15 + r() * 0.7).toFixed(2)
-      }, svg));
+    for (var i = 0; i < 7; i++) {
+      var cx = 80 + r() * 1040, cy = 60 + r() * 260, s = 0.7 + r() * 0.9;
+      var g = el('g', { transform: 'translate(' + cx.toFixed(0) + ' ' + cy.toFixed(0) + ') scale(' + s.toFixed(2) + ')', opacity: 0.88 }, svg);
+      el('ellipse', { cx: 0, cy: 0, rx: 46, ry: 17, fill: '#ffffff' }, g);
+      el('ellipse', { cx: -30, cy: 7, rx: 30, ry: 12, fill: '#ffffff' }, g);
+      el('ellipse', { cx: 30, cy: 6, rx: 32, ry: 13, fill: '#ffffff' }, g);
+      el('ellipse', { cx: 4, cy: -10, rx: 26, ry: 12, fill: '#fbfdff' }, g);
+      clouds.push(g);
     }
-    el('circle', { cx: 950, cy: 130, r: 110, fill: 'url(#moonGlow)' }, svg);
-    el('circle', { cx: 950, cy: 130, r: 34, fill: '#e6ebff', opacity: 0.92 }, svg);
-    el('circle', { cx: 938, cy: 122, r: 6, fill: '#c3cbe8', opacity: 0.5 }, svg);
-    el('circle', { cx: 962, cy: 142, r: 4, fill: '#c3cbe8', opacity: 0.4 }, svg);
+    for (var b = 0; b < 3; b++) {
+      var bg = el('g', { transform: 'translate(-60 ' + (120 + b * 70) + ')' }, svg);
+      el('path', { d: 'M0 0 Q7 -7 14 0 Q21 -7 28 0', stroke: '#41524a', 'stroke-width': 2.4, fill: 'none', 'stroke-linecap': 'round' }, bg);
+      birds.push(bg);
+    }
   })();
 
-  /* ── skyline layers ── */
-  function buildCity(svgId, opts) {
-    var svg = document.getElementById(svgId);
-    var r = rng(opts.seed);
-    var vbW = 1400, vbH = opts.vbH;
+  /* ── far layer: hazy London skyline, the view from the top of the hill ── */
+  (function buildSkyline() {
+    var svg = document.getElementById('farSvg');
+    var C = '#a2b6c6', H = 400;
+    var r = rng(11);
+    // generic city blocks
     var x = -40;
-    while (x < vbW + 40) {
-      var w = opts.minW + r() * (opts.maxW - opts.minW);
-      var h = opts.minH + r() * (opts.maxH - opts.minH);
-      el('rect', { x: x.toFixed(1), y: (vbH - h).toFixed(1), width: w.toFixed(1), height: h.toFixed(1), fill: opts.color }, svg);
-      if (r() < 0.3) { // antenna
-        el('rect', { x: (x + w / 2).toFixed(1), y: (vbH - h - 14 - r() * 18).toFixed(1), width: 2, height: 30, fill: opts.color }, svg);
-      }
-      if (opts.windows) {
-        var cols = Math.floor((w - 12) / 15);
-        var rows = Math.floor((h - 20) / 19);
-        for (var c = 0; c < cols; c++) {
-          for (var row = 0; row < rows; row++) {
-            if (r() < opts.litChance) {
-              var win = el('rect', {
-                x: (x + 8 + c * 15).toFixed(1),
-                y: (vbH - h + 10 + row * 19).toFixed(1),
-                width: 6, height: 9,
-                fill: r() < 0.18 ? '#7dd3fc' : '#ffd479',
-                opacity: (0.35 + r() * 0.55).toFixed(2)
-              }, svg);
-              litWindows.push(win);
-            }
-          }
-        }
-      }
-      x += w + 3 + r() * 12;
+    while (x < 1440) {
+      var w = 45 + r() * 90, h = 50 + r() * 130;
+      el('rect', { x: x.toFixed(1), y: (H - h).toFixed(1), width: w.toFixed(1), height: h.toFixed(1), fill: C, opacity: 0.8 }, svg);
+      x += w + 4 + r() * 14;
     }
-  }
-  buildCity('farSvg',  { seed: 11, vbH: 400, minW: 50, maxW: 110, minH: 110, maxH: 320, color: '#0a0d1c', windows: false });
-  buildCity('midSvg',  { seed: 23, vbH: 460, minW: 70, maxW: 150, minH: 130, maxH: 380, color: '#10142a', windows: true, litChance: 0.10 });
-  buildCity('nearSvg', { seed: 42, vbH: 520, minW: 110, maxW: 220, minH: 150, maxH: 430, color: '#161b36', windows: true, litChance: 0.16 });
+    // The Shard
+    el('polygon', { points: '300,118 270,400 330,400', fill: C }, svg);
+    el('line', { x1: 300, y1: 118, x2: 300, y2: 100, stroke: C, 'stroke-width': 2.5 }, svg);
+    // The Gherkin
+    el('ellipse', { cx: 520, cy: 330, rx: 26, ry: 86, fill: C }, svg);
+    // St Paul's dome
+    el('rect', { x: 658, y: 330, width: 84, height: 70, fill: C }, svg);
+    el('path', { d: 'M666 330 A34 34 0 0 1 734 330 Z', fill: C }, svg);
+    el('rect', { x: 696, y: 272, width: 8, height: 26, fill: C }, svg);
+    el('circle', { cx: 700, cy: 268, r: 4, fill: C }, svg);
+    // BT Tower
+    el('rect', { x: 858, y: 200, width: 16, height: 200, fill: C }, svg);
+    el('rect', { x: 851, y: 218, width: 30, height: 14, fill: C }, svg);
+    // London Eye
+    el('circle', { cx: 1090, cy: 318, r: 52, fill: 'none', stroke: C, 'stroke-width': 5 }, svg);
+    for (var a = 0; a < 8; a++) {
+      var ang = a * Math.PI / 4;
+      el('line', { x1: 1090, y1: 318, x2: (1090 + Math.cos(ang) * 50).toFixed(1), y2: (318 + Math.sin(ang) * 50).toFixed(1), stroke: C, 'stroke-width': 2 }, svg);
+    }
+    el('polygon', { points: '1090,318 1064,400 1116,400', fill: C }, svg);
+    // haze over the whole skyline
+    var defs = el('defs', {}, svg);
+    var hz = el('linearGradient', { id: 'hazeGrad', x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
+    el('stop', { offset: '0%', 'stop-color': 'rgba(223,238,247,0.15)' }, hz);
+    el('stop', { offset: '100%', 'stop-color': 'rgba(223,238,247,0.6)' }, hz);
+    el('rect', { x: 0, y: 0, width: 1400, height: 400, fill: 'url(#hazeGrad)' }, svg);
+  })();
+
+  /* ── mid layer: the hill, treeline, Brockwell Hall & clock tower ── */
+  (function buildHill() {
+    var svg = document.getElementById('midSvg');
+    var H = 460;
+    el('path', {
+      d: 'M0 ' + H + ' L0 392 Q180 326 380 348 Q560 366 760 340 Q980 312 1180 350 Q1300 370 1400 358 L1400 ' + H + ' Z',
+      fill: '#7fb069'
+    }, svg);
+    // treeline along the brow of the hill
+    var r = rng(23);
+    var tx = -20;
+    while (tx < 1440) {
+      var ty = 350 - 22 * Math.sin(tx / 230) + (r() - 0.5) * 26;
+      var tr = 16 + r() * 26;
+      el('circle', { cx: tx.toFixed(1), cy: (ty - tr * 0.5).toFixed(1), r: tr.toFixed(1), fill: r() < 0.3 ? '#558b4b' : '#5d9150', opacity: 0.95 }, svg);
+      tx += tr * 1.1 + r() * 30;
+    }
+    // Brockwell Hall on the hilltop
+    var hx = 250, hy = 296;
+    el('rect', { x: hx, y: hy, width: 110, height: 46, fill: '#f1e9d8' }, svg);
+    el('polygon', { points: (hx - 6) + ',' + hy + ' ' + (hx + 116) + ',' + hy + ' ' + (hx + 96) + ',' + (hy - 18) + ' ' + (hx + 14) + ',' + (hy - 18), fill: '#857a64' }, svg);
+    el('polygon', { points: (hx + 33) + ',' + hy + ' ' + (hx + 77) + ',' + hy + ' ' + (hx + 55) + ',' + (hy - 14), fill: '#9c9078' }, svg);
+    for (var c = 0; c < 4; c++) el('rect', { x: hx + 36 + c * 11, y: hy + 14, width: 4, height: 32, fill: '#d8cdb6' }, svg);
+    for (var wdw = 0; wdw < 3; wdw++) {
+      el('rect', { x: hx + 8 + wdw * 9, y: hy + 12, width: 6, height: 12, fill: '#6f7d6a' }, svg);
+      el('rect', { x: hx + 80 + wdw * 9, y: hy + 12, width: 6, height: 12, fill: '#6f7d6a' }, svg);
+    }
+    // Victorian clock tower
+    el('rect', { x: 1042, y: 286, width: 20, height: 70, fill: '#8a7f6a' }, svg);
+    el('polygon', { points: '1038,286 1066,286 1052,266', fill: '#6b6354' }, svg);
+    el('circle', { cx: 1052, cy: 300, r: 6.5, fill: '#fffdf7' }, svg);
+    el('line', { x1: 1052, y1: 300, x2: 1052, y2: 296, stroke: '#41524a', 'stroke-width': 1.4 }, svg);
+    el('line', { x1: 1052, y1: 300, x2: 1055, y2: 301, stroke: '#41524a', 'stroke-width': 1.4 }, svg);
+  })();
+
+  /* ── near layer: big park trees, lido wall, pond, flowers ── */
+  (function buildPark() {
+    var svg = document.getElementById('nearSvg');
+    var H = 520;
+    el('rect', { x: 0, y: H - 64, width: 1400, height: 64, fill: '#4c8a44' }, svg);
+    var r = rng(42);
+    function tree(x, base, s) {
+      var g = el('g', {}, svg);
+      el('rect', { x: x - 7 * s, y: base - 92 * s, width: 14 * s, height: 92 * s, rx: 4, fill: '#6b4a2f' }, g);
+      el('circle', { cx: x - 30 * s, cy: base - 108 * s, r: 38 * s, fill: '#3c7a36' }, g);
+      el('circle', { cx: x + 32 * s, cy: base - 104 * s, r: 36 * s, fill: '#347031' }, g);
+      el('circle', { cx: x, cy: base - 140 * s, r: 44 * s, fill: '#418540' }, g);
+      el('circle', { cx: x + 6 * s, cy: base - 120 * s, r: 30 * s, fill: '#4c9347', opacity: 0.85 }, g);
+    }
+    tree(110, H - 40, 1.25);
+    tree(420, H - 46, 0.85);
+    tree(580, H - 38, 1.45);
+    tree(1110, H - 44, 1.0);
+    tree(1340, H - 40, 1.3);
+    // bushes
+    for (var b = 0; b < 12; b++) {
+      var bx = r() * 1400, brr = 14 + r() * 22;
+      el('ellipse', { cx: bx.toFixed(1), cy: (H - 52).toFixed(1), rx: brr.toFixed(1), ry: (brr * 0.6).toFixed(1), fill: r() < 0.4 ? '#3f7a3a' : '#478743' }, svg);
+    }
+    // the lido wall, art-deco cream
+    el('rect', { x: 540, y: H - 110, width: 190, height: 58, fill: '#f2e3c4' }, svg);
+    el('rect', { x: 540, y: H - 118, width: 44, height: 12, fill: '#f2e3c4' }, svg);
+    el('rect', { x: 686, y: H - 118, width: 44, height: 12, fill: '#f2e3c4' }, svg);
+    el('rect', { x: 612, y: H - 122, width: 46, height: 18, fill: '#f2e3c4' }, svg);
+    el('rect', { x: 622, y: H - 86, width: 26, height: 34, fill: '#7db8d8' }, svg);
+    el('text', { x: 635, y: H - 104, 'text-anchor': 'middle', 'font-family': 'Oswald, sans-serif', 'font-size': 11, 'letter-spacing': 2, fill: '#5a6a58' }, svg).textContent = 'LIDO';
+    // the pond
+    el('ellipse', { cx: 980, cy: H - 38, rx: 95, ry: 16, fill: '#7db8d8' }, svg);
+    el('ellipse', { cx: 980, cy: H - 40, rx: 95, ry: 14, fill: '#8ec4e0', opacity: 0.6 }, svg);
+    for (var d = 0; d < 3; d++) {
+      var dx = 940 + d * 38;
+      el('circle', { cx: dx, cy: H - 42, r: 4, fill: '#fffdf7' }, svg);
+      el('circle', { cx: dx + 4, cy: H - 46, r: 2.5, fill: '#fffdf7' }, svg);
+    }
+    // reeds
+    for (var rd = 0; rd < 5; rd++) {
+      var rx2 = 878 + rd * 6;
+      el('line', { x1: rx2, y1: H - 36, x2: rx2 + 3, y2: H - 62 - rd * 3, stroke: '#3f7a3a', 'stroke-width': 2.4, 'stroke-linecap': 'round' }, svg);
+    }
+    // flowers in the grass
+    var cols = ['#fff7ae', '#ffffff', '#f3a6c0', '#ffd166'];
+    for (var f = 0; f < 36; f++) {
+      el('circle', { cx: (r() * 1400).toFixed(1), cy: (H - 12 - r() * 44).toFixed(1), r: 2.4, fill: cols[Math.floor(r() * cols.length)] }, svg);
+    }
+  })();
 
   /* ── walking route through the stops ── */
   var routeEl = document.getElementById('route');
@@ -436,53 +534,53 @@ footer .end {
     });
   });
 
-  /* hero entrance: neon sign flickering on */
+  /* hero entrance: a fresh morning fade-up */
   gsap.timeline()
     .from('.eyebrow', { opacity: 0, y: 12, duration: 0.6, ease: 'power2.out' })
-    .fromTo('h1.neon', { opacity: 0 }, { keyframes: { opacity: [0, 1, 0.25, 1, 0.6, 1] }, duration: 1.1 }, '-=0.2')
-    .from('.hero .sub', { opacity: 0, y: 16, duration: 0.6, ease: 'power2.out' }, '-=0.4')
+    .from('h1.parksign', { opacity: 0, y: 24, duration: 0.9, ease: 'power3.out' }, '-=0.25')
+    .from('.hero .sub', { opacity: 0, y: 16, duration: 0.6, ease: 'power2.out' }, '-=0.45')
     .from('.scroll-hint', { opacity: 0, duration: 0.6 }, '-=0.2');
 
-  /* each stop: marker slides in, sign flickers on like a shop neon */
+  /* each stop: marker slides in, noticeboard pops up from the grass */
   document.querySelectorAll('.stop').forEach(function (stop) {
     var sign = stop.querySelector('.sign');
     var marker = stop.querySelector('.stop-marker');
     gsap.timeline({ scrollTrigger: { trigger: stop, start: 'top 68%' } })
       .from(marker, { opacity: 0, x: stop.classList.contains('right') ? 30 : -30, duration: 0.5, ease: 'power2.out' })
-      .fromTo(sign, { opacity: 0, y: 56 },
-        { keyframes: { opacity: [0, 1, 0.3, 1], y: [56, 0, 0, 0] }, duration: 0.85, ease: 'power2.out' }, '-=0.25');
+      .from(sign, { opacity: 0, y: 56, scale: 0.96, duration: 0.8, ease: 'back.out(1.4)' }, '-=0.25');
   });
   gsap.from('footer', {
     opacity: 0, y: 30, duration: 0.8,
     scrollTrigger: { trigger: 'footer', start: 'top 80%' }
   });
 
-  /* ambient: windows flicker, stars twinkle */
-  setInterval(function () {
-    if (litWindows.length === 0) return;
-    var win = litWindows[Math.floor(Math.random() * litWindows.length)];
-    gsap.to(win, { opacity: Math.random() < 0.35 ? 0.05 : 0.35 + Math.random() * 0.55, duration: 0.4 });
-  }, 600);
-  stars.forEach(function (s) {
-    gsap.to(s, {
-      opacity: 0.1 + Math.random() * 0.8,
-      duration: 1.5 + Math.random() * 3,
-      repeat: -1, yoyo: true, ease: 'sine.inOut', delay: Math.random() * 3
+  /* ambient: clouds drift, birds glide across the sky */
+  clouds.forEach(function (c, i) {
+    gsap.to(c, {
+      x: 40 + (i % 3) * 30, duration: 30 + i * 7,
+      repeat: -1, yoyo: true, ease: 'sine.inOut'
     });
   });
+  birds.forEach(function (b, i) {
+    gsap.fromTo(b, { x: -80 }, {
+      x: 1330, duration: 38 + i * 9, ease: 'none',
+      repeat: -1, delay: i * 11, repeatDelay: 6
+    });
+    gsap.to(b, { y: '+=14', duration: 2.2 + i * 0.5, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+  });
 
-  /* traffic */
-  function drive(car, dir, dur, delay) {
+  /* park life on the path */
+  function stroll(who, dir, dur, delay) {
     var vw = window.innerWidth;
-    gsap.fromTo(car,
-      { x: dir > 0 ? -140 : vw + 140 },
-      { x: dir > 0 ? vw + 140 : -140, duration: dur, ease: 'none',
-        delay: delay, repeat: -1, repeatDelay: 5 + Math.random() * 6 });
+    gsap.fromTo(who,
+      { x: dir > 0 ? -160 : vw + 160 },
+      { x: dir > 0 ? vw + 160 : -160, duration: dur, ease: 'none',
+        delay: delay, repeat: -1, repeatDelay: 6 + Math.random() * 6 });
   }
-  drive(document.getElementById('carA'), 1, 9, 1.5);
-  drive(document.getElementById('carB'), -1, 12, 6);
+  stroll(document.getElementById('strollerA'), 1, 26, 1.5);
+  stroll(document.getElementById('strollerB'), -1, 14, 8);
 
-  /* mouse: depth parallax + light spotlight that wakes the street up */
+  /* mouse: depth parallax + a patch of sunlight following the cursor */
   if (finePointer) {
     var spot = document.getElementById('spotlight');
     var toFar = gsap.quickTo('.l-far', 'x', { duration: 0.9, ease: 'power2.out' });
