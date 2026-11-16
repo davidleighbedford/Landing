@@ -804,6 +804,58 @@
   .dock .dock-side{grid-area:1/2;padding-bottom:0;align-self:center}
   .dock .du-v{grid-area:2/1/3/3;margin-top:2px;overflow:hidden;text-overflow:ellipsis}
   .dock .stack{grid-row:3}
+
+  /* pass 10: Budget / Actual switches glide like the person switch */
+  .seg.glide{position:relative;gap:0}
+  .seg.glide button{position:relative;z-index:1;transition:color .2s}
+  .seg.glide button.on{background:transparent;box-shadow:none}
+
+  /* pass 10: spending doughnut */
+  :root{--dn1:#2a78d6;--dn2:#eb6834;--dn3:#1baf7a;--dn4:#eda100;--dn5:#e87ba4;--dn6:#008300;--dn7:#6250d6;--dn8:#e34948;--dn-other:#b4b0c8}
+  @media (prefers-color-scheme: dark){ :root{--dn1:#3987e5;--dn2:#d95926;--dn3:#199e70;--dn4:#c98500;--dn5:#d55181;--dn6:#0ca30c;--dn7:#9085e9;--dn8:#e66767;--dn-other:#6c6590} }
+  .dn-head{display:flex;align-items:center;gap:10px;min-height:40px;margin-bottom:10px}
+  .dn-head .donut-hint{flex:1;min-width:0}
+  .dn-back,.dn-freq{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--field);color:var(--ink);font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+  .dn-back{padding-left:12px;min-width:0;max-width:62%}
+  .dn-back span:last-child{overflow:hidden;text-overflow:ellipsis}
+  .dn-freq{margin-left:auto;flex:none}
+  .dn-body{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 28px}
+  .dn-chart{position:relative;width:208px;height:208px;flex:0 0 auto}
+  .dn-ring{display:block;width:100%;height:100%;overflow:visible;transform-origin:50% 50%;transition:transform .5s cubic-bezier(.3,.7,.2,1)}
+  .dn-track{fill:none;stroke:var(--line-soft);stroke-width:20}
+  .dn-under{fill:none;stroke-width:20;opacity:0;pointer-events:none;transition:opacity .45s ease}
+  .dn-seg{fill:none;stroke-width:20;transition:stroke-dasharray .55s cubic-bezier(.3,.7,.2,1),stroke-dashoffset .55s cubic-bezier(.3,.7,.2,1),opacity .2s ease,stroke-width .15s ease}
+  .dn-seg[data-seg]{cursor:pointer}
+  @media (hover:hover){ .dn-seg[data-seg]:hover{stroke-width:24} }
+  .dn-centre{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;text-align:center;pointer-events:none;padding:0 36px;transition:opacity .35s ease .1s,transform .35s ease .1s}
+  .dn-c-l{max-width:100%;font-size:12px;font-weight:500;color:var(--ink-soft);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .dn-c-v{font-size:24px;font-weight:700;letter-spacing:-.02em;line-height:1.15;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .dn-c-v small{font-size:13px;font-weight:500;letter-spacing:0;color:var(--ink-soft)}
+  .dn-c-s{font-size:12px;color:var(--ink-soft)}
+  .dn-legend{flex:1 1 230px;min-width:0}
+  .dn-row{display:flex;align-items:center;gap:10px;width:100%;min-height:44px;padding:0 2px;border:0;border-bottom:1px solid var(--line-soft);border-radius:0;background:transparent;color:var(--ink);font-family:var(--font);text-align:left;transition:opacity .3s ease calc(var(--i,0)*28ms + 90ms),transform .3s ease calc(var(--i,0)*28ms + 90ms)}
+  .dn-row:last-child{border-bottom:0}
+  button.dn-row{cursor:pointer}
+  button.dn-row:active{background:var(--card-2)}
+  .dn-row i{width:10px;height:10px;border-radius:50%;flex:none}
+  .dn-n{flex:1;min-width:0;font-size:14px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .dn-n small{margin-left:8px;font-size:12px;font-weight:400;color:var(--ink-soft)}
+  .dn-p{min-width:36px;text-align:right;font-size:13px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+  .dn-a{min-width:60px;text-align:right;font-size:14px;font-weight:600;font-variant-numeric:tabular-nums}
+  .dn-chev{width:7px;height:7px;flex:none;margin:0 4px 0 2px;border-right:1.5px solid var(--ink-soft);border-bottom:1.5px solid var(--ink-soft);transform:rotate(-45deg)}
+  .dn-chev.none{visibility:hidden}
+  .dn-chev.back{margin:0 0 0 3px;transform:rotate(135deg)}
+  /* closed-up starting state, removed on the next frame so everything eases into place */
+  .dn-pre .dn-seg{stroke-dasharray:0 600 !important;stroke-dashoffset:0 !important}
+  .dn-pre .dn-centre{opacity:0;transform:scale(.92)}
+  .dn-pre .dn-row{opacity:0;transform:translateY(6px)}
+  .dn-pre.dn-m-in .dn-ring{transform:scale(.9)}
+  .dn-pre.dn-m-back .dn-ring{transform:scale(1.07)}
+  /* a tapped slice takes over the ring before it opens */
+  .dn-focus .dn-seg{opacity:0}
+  .dn-focus .dn-seg.dn-hit{opacity:1;transition-duration:.26s}
+  .dn-focus .dn-centre,.dn-focus .dn-legend{opacity:.35;transition:opacity .2s ease}
+  @media (prefers-reduced-motion: reduce){ .dn *{transition:none !important} }
 </style>
 </head>
 <body>
@@ -1652,10 +1704,10 @@ function panelAllowances(sc){
 function buildOutgoingsInner(sc){
   const c=calc(sc);
   const act=!!(sc.ragMode&&TXNS);
-  const sw=TXNS?`<div class="seg" role="group" aria-label="Show budget or actual spending"><button type="button" data-rag-toggle data-want="0" class="${act?'':'on'}">Budget</button><button type="button" data-rag-toggle data-want="1" class="${act?'on':''}">Actual</button></div>`:'';
+  const sw=TXNS?`<div class="seg glide" style="--n:2;--pos:${act?1:0}" role="group" aria-label="Show budget or actual spending"><span class="pthumb" aria-hidden="true"></span><button type="button" data-rag-toggle data-want="0" class="${act?'':'on'}">Budget</button><button type="button" data-rag-toggle data-want="1" class="${act?'on':''}">Actual</button></div>`:'';
   const tot=ptot("out","Total outgoings",inView(c.outAnnual));
-  if(act) return sw+buildActualsView(sc)+tot;
-  return sw+colhead("Needs")+`<div class="rows" data-rows="out">${sc.outgoings.map(o=>itemRow(sc,o,"out")).join("")}</div><button class="add" data-add="out">Add an outgoing</button>`+tot;
+  if(act) return sw+`<div class="view-slide">`+buildActualsView(sc)+tot+`</div>`;
+  return sw+`<div class="view-slide">`+colhead("Needs")+`<div class="rows" data-rows="out">${sc.outgoings.map(o=>itemRow(sc,o,"out")).join("")}</div><button class="add" data-add="out">Add an outgoing</button>`+tot+`</div>`;
 }
 
 function panelOutgoings(sc){
@@ -1676,36 +1728,115 @@ function swipeBlocked(t){
   const f=t.closest('input,textarea');
   return !!(f&&document.activeElement===f);
 }
+// ---- Budget / Actual on the outgoings and savings cards ----
+// Same behaviour as the person switch on the income card: the switch stays put and
+// its thumb glides, while the view underneath slides out and the other slides in.
+function setThumb(id, pos, ms){
+  const th=document.querySelector(`[data-panel="${id}"] .pthumb`); if(!th) return;
+  th.style.transition=ms?`transform ${ms}ms cubic-bezier(.3,.7,.3,1)`:'none';
+  th.parentElement.style.setProperty('--pos',pos);
+}
+function thumbPos(id){
+  // where the thumb is right now, measured in option widths
+  const th=document.querySelector(`[data-panel="${id}"] .pthumb`); if(!th) return null;
+  try{ return new DOMMatrixReadOnly(getComputedStyle(th).transform).m41/(th.offsetWidth||1); }catch(e){ return null; }
+}
+const CARD_VIEW={
+  outgoings:{key:'ragMode', build:sc=>buildOutgoingsInner(sc), rewire:sc=>{ wireRows(sc); wireRag(sc); wireOutgoingsSwipe(sc); }},
+  savings:{key:'potMode', build:sc=>buildSavingsInner(sc), rewire:sc=>{ wireRows(sc); wirePotToggle(sc); wireSavingsSwipe(sc); }}
+};
+const _cardAnim={}; // one lock per card, so switching one never blocks the other
+function cardViewNow(sc,id){ return (sc[CARD_VIEW[id].key]&&TXNS)?1:0; }
+function animateCardView(sc, id, want){
+  const cfg=CARD_VIEW[id]; if(!cfg||_cardAnim[id]) return;
+  const pinner=document.querySelector(`[data-panel="${id}"] .pinner`); if(!pinner) return;
+  const swap=()=>{
+    sc[cfg.key]=!!want;
+    pinner.innerHTML=cfg.build(sc); cfg.rewire(sc);
+    requestAnimationFrame(()=>{ const p=pinner.closest('.panel'); if(p) setBody(p); });
+    save();
+  };
+  const slide=pinner.querySelector('.view-slide');
+  const still=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!slide||still){ swap(); return; }
+  _cardAnim[id]=true;
+  const dir=want?1:-1, w=slide.offsetWidth||300; // Actual sits to the right of Budget
+  setThumb(id, want?1:0, 420);
+  slide.style.transition='transform .18s ease-in, opacity .18s ease-in';
+  slide.style.transform=`translateX(${dir<0?w:-w}px)`;
+  slide.style.opacity='0';
+  let swapped=false;
+  const afterOut=()=>{
+    if(swapped) return; swapped=true;
+    const pos=thumbPos(id);
+    swap();
+    if(pos!=null){ // carry the thumb on from where it had got to
+      setThumb(id,pos,0);
+      const th=document.querySelector(`[data-panel="${id}"] .pthumb`); if(th) void th.offsetWidth;
+      setThumb(id,want?1:0,300);
+    }
+    const fresh=pinner.querySelector('.view-slide');
+    if(!fresh){ _cardAnim[id]=false; return; }
+    fresh.style.transition='none';
+    fresh.style.transform=`translateX(${dir<0?-w:w}px)`;
+    fresh.style.opacity='0';
+    void fresh.offsetWidth;
+    let settled=false;
+    const settle=()=>{ if(settled) return; settled=true; fresh.style.transition=''; fresh.style.transform=''; fresh.style.opacity=''; _cardAnim[id]=false; };
+    requestAnimationFrame(()=>{
+      fresh.style.transition='transform .24s cubic-bezier(.32,.8,.4,1), opacity .24s ease-out';
+      fresh.style.transform='translateX(0)';
+      fresh.style.opacity='1';
+    });
+    setTimeout(settle,320);
+  };
+  setTimeout(afterOut,190);
+}
+function wireViewSwipe(sc, id, signal){
+  const panel=document.querySelector(`[data-panel="${id}"]`); if(!panel) return;
+  let sx=null,sy=null,locked=false;
+  const targetFor=dx=>{ const t=cardViewNow(sc,id)+(dx<0?1:-1); return (t===0||t===1)?t:null; }; // swipe left = Actual, right = Budget
+  const springBack=()=>{
+    const slide=panel.querySelector('.view-slide');
+    if(slide){ slide.style.transition='transform .2s ease-out, opacity .2s ease-out'; slide.style.transform='translateX(0)'; slide.style.opacity='1'; setTimeout(()=>{ if(!_cardAnim[id]){ slide.style.transition=''; slide.style.transform=''; slide.style.opacity=''; } },260); }
+    setThumb(id,cardViewNow(sc,id),220);
+  };
+  panel.addEventListener('touchstart',e=>{
+    if(_cardAnim[id] || swipeBlocked(e.target)) return;
+    sx=e.touches[0].clientX; sy=e.touches[0].clientY; locked=false;
+  },{passive:true,signal});
+  panel.addEventListener('touchmove',e=>{
+    if(sx==null) return;
+    const dx=e.touches[0].clientX-sx, dy=e.touches[0].clientY-sy;
+    if(!locked && Math.abs(dx)>10 && Math.abs(dx)>Math.abs(dy)){ locked=true; }
+    if(locked){
+      e.preventDefault();
+      const slide=panel.querySelector('.view-slide'); if(!slide) return;
+      const t=targetFor(dx), now=cardViewNow(sc,id);
+      slide.style.transition='none';
+      slide.style.transform=`translateX(${dx*(t==null?0.15:0.55)}px)`; // resists when there is nothing that way
+      if(t!=null){ const prog=Math.min(1,Math.abs(dx)/((slide.offsetWidth||300)*0.6)); slide.style.opacity=String(1-0.5*prog); setThumb(id,now+(t-now)*prog,0); }
+      else setThumb(id,now,0);
+    }
+  },{passive:false,signal});
+  const end=e=>{
+    if(sx==null) return;
+    const ct=e.changedTouches&&e.changedTouches[0];
+    const dx=ct?ct.clientX-sx:0, was=locked;
+    sx=null; locked=false;
+    if(!was) return;
+    const t=targetFor(dx);
+    if(e.type==='touchcancel'||Math.abs(dx)<30||t==null){ springBack(); return; }
+    animateCardView(sc,id,t===1);
+  };
+  panel.addEventListener('touchend',end,{signal});
+  panel.addEventListener('touchcancel',end,{signal});
+}
 function wireSavingsSwipe(sc){
   if(_savSwipeCtrl) _savSwipeCtrl.abort();
   _savSwipeCtrl=new AbortController();
   if(!TXNS) return;
-  const panel=document.querySelector('[data-panel="savings"]'); if(!panel) return;
-  let sx=null,sy=null,locked=false;
-  panel.addEventListener('touchstart',e=>{
-    if(swipeBlocked(e.target)) return;
-    sx=e.touches[0].clientX; sy=e.touches[0].clientY; locked=false;
-  },{passive:true,signal:_savSwipeCtrl.signal});
-  panel.addEventListener('touchmove',e=>{
-    if(sx==null) return;
-    const dx=e.touches[0].clientX-sx, dy=e.touches[0].clientY-sy;
-    if(!locked&&Math.abs(dx)>10&&Math.abs(dx)>Math.abs(dy)){locked=true;}
-    if(locked) e.preventDefault();
-  },{passive:false,signal:_savSwipeCtrl.signal});
-  panel.addEventListener('touchend',e=>{
-    if(sx==null) return;
-    const dx=e.changedTouches[0].clientX-sx, was=locked; sx=null; locked=false;
-    if(!was||Math.abs(dx)<30) return;
-    const want=dx<0;
-    if(want===!!sc.potMode) return;
-    sc.potMode=want;
-    const pinner=document.querySelector('[data-panel="savings"] .pinner');
-    if(pinner){
-      pinner.innerHTML=buildSavingsInner(sc);
-      wireRows(sc); wirePotToggle(sc); wireSavingsSwipe(sc);
-      requestAnimationFrame(()=>{ const p=pinner.closest('.panel'); if(p) setBody(p); });
-    } save();
-  },{signal:_savSwipeCtrl.signal});
+  wireViewSwipe(sc,'savings',_savSwipeCtrl.signal);
 }
 function buildPotDetail(potName, sc){
   if(!TXNS) return '<p class="act-note">Load a statement in the Actuals tab to see this.</p>';
@@ -1810,9 +1941,9 @@ function buildSavingsPotSummary(sc){
 function buildSavingsInner(sc){
   const c=calc(sc);
   const act=!!(sc.potMode&&TXNS);
-  const sw=TXNS?`<div class="seg" role="group" aria-label="Show budget or actual pot transfers"><button type="button" data-pot-toggle data-want="0" class="${act?'':'on'}">Budget</button><button type="button" data-pot-toggle data-want="1" class="${act?'on':''}">Actual</button></div>`:'';
-  if(act) return sw+buildSavingsPotSummary(sc)+ptot("sav","Budget savings",inView(c.savAnnual));
-  return sw+colhead("Savings")+`<div class="rows" data-rows="sav">${sc.savings.map(o=>itemRow(sc,o,"sav")).join("")}</div><button class="add" data-add="sav">Add a saving</button>`+ptot("sav","Total set aside",inView(c.savAnnual));
+  const sw=TXNS?`<div class="seg glide" style="--n:2;--pos:${act?1:0}" role="group" aria-label="Show budget or actual pot transfers"><span class="pthumb" aria-hidden="true"></span><button type="button" data-pot-toggle data-want="0" class="${act?'':'on'}">Budget</button><button type="button" data-pot-toggle data-want="1" class="${act?'on':''}">Actual</button></div>`:'';
+  if(act) return sw+`<div class="view-slide">`+buildSavingsPotSummary(sc)+ptot("sav","Budget savings",inView(c.savAnnual))+`</div>`;
+  return sw+`<div class="view-slide">`+colhead("Savings")+`<div class="rows" data-rows="sav">${sc.savings.map(o=>itemRow(sc,o,"sav")).join("")}</div><button class="add" data-add="sav">Add a saving</button>`+ptot("sav","Total set aside",inView(c.savAnnual))+`</div>`;
 }
 function panelSavings(sc){
   const c=calc(sc);
@@ -2084,12 +2215,7 @@ let _incSwipeCtrl=null;
 function wireRag(sc){
   document.querySelectorAll('[data-rag-toggle]').forEach(btn=>{ btn.onclick=()=>{
     const want=btn.dataset.want==='1'; if(want===!!(sc.ragMode&&TXNS)) return;
-    sc.ragMode=want;
-    const pinner=document.querySelector('[data-panel="outgoings"] .pinner');
-    if(pinner){
-      pinner.innerHTML=buildOutgoingsInner(sc); wireRows(sc); wireRag(sc); wireOutgoingsSwipe(sc);
-      requestAnimationFrame(()=>{ const p=pinner.closest('.panel'); if(p) setBody(p); });
-    } save();
+    animateCardView(sc,'outgoings',want);
   }; });
   document.querySelectorAll('[data-outinfo]').forEach(b=>{ b.onclick=()=>openLineDetail(b.dataset.outinfo,sc); });
   wireTxExclude(sc);
@@ -2097,13 +2223,7 @@ function wireRag(sc){
 function wirePotToggle(sc){
   document.querySelectorAll('[data-pot-toggle]').forEach(btn=>{ btn.onclick=()=>{
     const want=btn.dataset.want==='1'; if(want===!!(sc.potMode&&TXNS)) return;
-    sc.potMode=want;
-    const pinner=document.querySelector('[data-panel="savings"] .pinner');
-    if(pinner){
-      pinner.innerHTML=buildSavingsInner(sc);
-      wireRows(sc); wirePotToggle(sc); wireSavingsSwipe(sc);
-      requestAnimationFrame(()=>{ const p=pinner.closest('.panel'); if(p) setBody(p); });
-    } save(); }; });
+    animateCardView(sc,'savings',want); }; });
   document.querySelectorAll('[data-potinfo]').forEach(b=>{ b.onclick=()=>{
     const potName=b.dataset.potinfo;
     const bd=document.getElementById('detailBackdrop'), dc=document.getElementById('detailContent'), dt=document.getElementById('detailTitle');
@@ -2123,30 +2243,7 @@ function wireOutgoingsSwipe(sc){
   if(_outSwipeCtrl) _outSwipeCtrl.abort();
   _outSwipeCtrl=new AbortController();
   if(!TXNS) return;
-  const panel=document.querySelector('[data-panel="outgoings"]'); if(!panel) return;
-  let sx=null,sy=null,locked=false;
-  panel.addEventListener('touchstart',e=>{
-    if(swipeBlocked(e.target)) return;
-    sx=e.touches[0].clientX; sy=e.touches[0].clientY; locked=false;
-  },{passive:true,signal:_outSwipeCtrl.signal});
-  panel.addEventListener('touchmove',e=>{
-    if(sx==null) return;
-    const dx=e.touches[0].clientX-sx, dy=e.touches[0].clientY-sy;
-    if(!locked&&Math.abs(dx)>10&&Math.abs(dx)>Math.abs(dy)){locked=true;}
-    if(locked) e.preventDefault();
-  },{passive:false,signal:_outSwipeCtrl.signal});
-  panel.addEventListener('touchend',e=>{
-    if(sx==null) return;
-    const dx=e.changedTouches[0].clientX-sx, was=locked; sx=null; locked=false;
-    if(!was||Math.abs(dx)<30) return;
-    const want=dx<0; if(want===!!sc.ragMode) return;
-    sc.ragMode=want;
-    const pinner=document.querySelector('[data-panel="outgoings"] .pinner');
-    if(pinner){
-      pinner.innerHTML=buildOutgoingsInner(sc); wireRows(sc); wireRag(sc); wireOutgoingsSwipe(sc);
-      requestAnimationFrame(()=>{ const p=pinner.closest('.panel'); if(p) setBody(p); });
-    } save();
-  },{signal:_outSwipeCtrl.signal});
+  wireViewSwipe(sc,'outgoings',_outSwipeCtrl.signal);
 }
 function wireTxExclude(sc){
   // Ignore checkboxes (legacy — categorise page)
@@ -2252,17 +2349,8 @@ function wireIncomeToggle(sc){
 // The person switch: the selector stays where it is and its thumb glides across,
 // while the person's details slide out and the other person's slide in.
 // dir>0: details leave to the left (going to the next person). dir<0: to the right.
-function setIncThumb(pos, ms){
-  const ps=document.querySelector('[data-panel="income"] .pselect'); if(!ps) return;
-  const th=ps.querySelector('.pthumb');
-  if(th) th.style.transition=ms?`transform ${ms}ms cubic-bezier(.3,.7,.3,1)`:'none';
-  ps.style.setProperty('--pos',pos);
-}
-function incThumbPos(){
-  // where the thumb is right now, measured in person widths
-  const th=document.querySelector('[data-panel="income"] .pthumb'); if(!th) return null;
-  try{ return new DOMMatrixReadOnly(getComputedStyle(th).transform).m41/(th.offsetWidth||1); }catch(e){ return null; }
-}
+function setIncThumb(pos, ms){ setThumb('income',pos,ms); }
+function incThumbPos(){ return thumbPos('income'); }
 function animateIncomeSwitch(sc, newIdx, dir){
   if(window._incAnimating) return;
   const slide=document.querySelector('[data-panel="income"] .inc-slide');
@@ -2298,11 +2386,9 @@ function animateIncomeSwitch(sc, newIdx, dir){
       fresh.style.transform='translateX(0)';
       fresh.style.opacity='1';
     });
-    fresh.addEventListener('transitionend',settle,{once:true});
-    setTimeout(settle,420); // never leave the switch locked if the transition is skipped
+    setTimeout(settle,320);
   };
-  slide.addEventListener('transitionend',afterOut,{once:true});
-  setTimeout(afterOut,260);
+  setTimeout(afterOut,190);
 }
 function wireIncomeSwipe(sc){
   if(_incSwipeCtrl) _incSwipeCtrl.abort();
@@ -3489,135 +3575,162 @@ function buildActualsView(sc){
 }
 
 
-const DPAL=['#6366f1','#10b981','#f59e0b','#3b82f6','#ec4899','#8b5cf6','#14b8a6','#f97316','#06b6d4','#84cc16','#a855f7','#ef4444'];
 
-function donutPath(cx,cy,R,ri,sa,ea){
-  const x1=cx+R*Math.cos(sa),y1=cy+R*Math.sin(sa),x2=cx+R*Math.cos(ea),y2=cy+R*Math.sin(ea);
-  const x3=cx+ri*Math.cos(ea),y3=cy+ri*Math.sin(ea),x4=cx+ri*Math.cos(sa),y4=cy+ri*Math.sin(sa);
-  const lg=ea-sa>Math.PI?1:0;
-  return `M${x1},${y1}A${R},${R} 0 ${lg} 1 ${x2},${y2}L${x3},${y3}A${ri},${ri} 0 ${lg} 0 ${x4},${y4}Z`;
-}
+const DNPAL=['var(--dn1)','var(--dn2)','var(--dn3)','var(--dn4)','var(--dn5)','var(--dn6)','var(--dn7)','var(--dn8)'];
+const DN_R=88, DN_C=2*Math.PI*DN_R;
 function _segmentData(byObj,thresh){
-  const tot=Object.values(byObj).reduce((s,v)=>s+v,0);
-  const main=[]; let othTot=0; const othItems=[];
-  Object.entries(byObj).sort((a,b)=>b[1]-a[1]).forEach(([n,v])=>{
-    if(v/tot<thresh){othTot+=v;othItems.push({name:n,val:v});}else main.push({name:n,val:v});
-  });
+  // Biggest first. At most eight slices get their own colour; small or surplus items fold into "Other".
+  const tot=Object.values(byObj).reduce((s,v)=>s+v,0)||1;
+  const sorted=Object.entries(byObj).sort((a,b)=>b[1]-a[1]).map(([name,val])=>({name,val}));
+  let main=sorted.filter(x=>x.val/tot>=thresh), othItems=sorted.filter(x=>x.val/tot<thresh);
+  if(main.length>DNPAL.length){ othItems=main.slice(DNPAL.length).concat(othItems); main=main.slice(0,DNPAL.length); }
+  if(othItems.length===1&&main.length<DNPAL.length){ main.push(othItems[0]); othItems=[]; } // one small item is clearer as itself
+  if(!main.length&&othItems.length){ main=othItems.slice(0,DNPAL.length); othItems=othItems.slice(DNPAL.length); }
+  const othTot=othItems.reduce((s,x)=>s+x.val,0);
   return {main,othTot,othItems,tot};
+}
+function lineByPayee(line, sc){
+  // One budget line split by payee, using the same rules as the line totals:
+  // the last 12 months, single-transaction overrides, assigned transfers, and refunds taken off.
+  const a=getAnalysis(sc); if(!a||!TXNS) return {};
+  const parseD=s=>{const[d,m,y]=s.split('/');return new Date(+y,+m-1,+d);};
+  const cutoff=new Date(a.maxD); cutoff.setFullYear(cutoff.getFullYear()-1);
+  const isTransfer=r=>r.Type==='Monzo-to-Monzo'||EXCL_TRANSFER_CAT.has(r.Category)||r.Type==='Pot transfer';
+  const by={}; const add=(r,v)=>{ const n=r.Name||'Unknown'; by[n]=(by[n]||0)+v; };
+  TXNS.forEach(r=>{
+    const amt=parseFloat(r.Amount||0); if(!amt||parseD(r.Date)<cutoff) return;
+    if(amt<0){
+      if(isTransfer(r)){ if(r.Type!=='Pot transfer'&&(S.txnAssign||{})[r['Transaction ID']]===line) add(r,-amt); return; }
+      if(EXCL_CAT.has(r.Category)||EXCL_TYPE.has(r.Type)) return;
+      if(effLine(r,sc)===line) add(r,-amt);
+    } else {
+      if(isTransfer(r)||EXCL_CAT.has(r.Category)) return;
+      if(effLine(r,sc)===line) add(r,-amt); // a refund
+    }
+  });
+  Object.keys(by).forEach(k=>{ if(by[k]<=0.005) delete by[k]; });
+  return by;
 }
 function buildDonutHTML(){
   const st=window._donutState||{level:'top',line:null,fromOther:false};
   const dfreq=window._donutFreq||'monthly';
   const DFLBL={monthly:'/mo',annual:'/yr',weekly:'/wk'};
-  const DFCYC={monthly:'annual',annual:'weekly',weekly:'monthly'};
+  const DFWORD={monthly:'Per month',annual:'Per year',weekly:'Per week'};
   const DFDIV={monthly:window._analysisMonths12||1,annual:(window._analysisMonths12||1)/12,weekly:(window._analysisMonths12||1)*52/12};
-  const fmt=n=>gbp(Math.round(n));
-  const fmtD=n=>gbp(Math.round(n/DFDIV[dfreq]))+DFLBL[dfreq];
-  const freqToggle=`<button class="donut-back-btn" onclick="window._donutFreqCyc()" style="margin-left:auto;float:right">${DFLBL[dfreq]} ↻</button>`;
-  let rawData=[],navHTML='';
+  const fmtD=n=>gbp(Math.round(n/DFDIV[dfreq]));
+  let seg=null, nested=false, label='', backLbl='', noun='line';
   if(st.level==='top'){
     // Use getAnalysis so we get the 12-month window, effLine overrides, and refund netting
     const _a=getAnalysis(SC()); const byLine=_a?{..._a.byLine}:{};
-    if(!Object.keys(byLine).length) return '<p class="act-note">No categorised transactions. Assign vendors in Categorise first.</p>';
-    const {main,othTot,othItems}=_segmentData(byLine,0.05);
-    window._donutOtherItems=othItems;
-    rawData=[...main];
-    if(othTot>0) rawData.push({name:'Other',val:othTot,isOther:true,canDrill:true});
-    navHTML=`<p class="donut-hint">Tap segment or key to drill down</p>`;
+    if(!Object.keys(byLine).length) return '<p class="act-note">Nothing is matched to a budget line yet. Match payees in Categorise first.</p>';
+    seg=_segmentData(byLine,0.05);
+    window._donutOtherItems=seg.othItems;
+    label='Matched spending';
   } else if(st.level==='other'){
     const items=window._donutOtherItems||[];
     if(!items.length) return '<p class="act-note">Nothing here.</p>';
     const byObj={}; items.forEach(x=>byObj[x.name]=x.val);
-    const {main,othTot}=_segmentData(byObj,0.05);
-    rawData=[...main];
-    if(othTot>0) rawData.push({name:'Other',val:othTot,isOther:true,canDrill:false});
-    navHTML=`<button class="donut-back-btn" onclick="window._donutBack()">\u2190 All lines</button> <span class="donut-crumb">Other categories</span>`;
+    seg=_segmentData(byObj,0.05); nested=true;
+    label='Other lines'; backLbl='All lines';
   } else if(st.level==='vendors'){
-    const vends=Object.entries(S.vendorMap||{}).filter(([,l])=>l===st.line).map(([v])=>v);
-    const _da=getAnalysis(SC()); const _pD=s=>{const[d,m,y]=s.split('/');return new Date(+y,+m-1,+d);};
-    const _cutoff=_da?new Date(_da.maxD):null; if(_cutoff) _cutoff.setFullYear(_cutoff.getFullYear()-1);
-    const byV={};
-    (TXNS||[]).filter(r=>vends.includes(r.Name)&&parseFloat(r.Amount||0)<0&&(!_cutoff||_pD(r.Date)>=_cutoff)).forEach(r=>{byV[r.Name]=(byV[r.Name]||0)+Math.abs(parseFloat(r.Amount));});
-    const {main,othTot,othItems}=_segmentData(byV,0.05);
-    window._donutVendorOtherItems=othItems;
-    rawData=[...main];
-    if(othTot>0) rawData.push({name:'Other',val:othTot,isOther:true,canDrill:othItems.length>0});
-    const bk=st.fromOther?'\u2190 Other categories':'\u2190 All lines';
-    navHTML=`<button class="donut-back-btn" onclick="window._donutBack()">${bk}</button> <span class="donut-crumb">${esc(st.line)}</span>`;
+    const byV=lineByPayee(st.line,SC());
+    seg=_segmentData(byV,0.05);
+    window._donutVendorOtherItems=seg.othItems;
+    label=st.line; backLbl=st.fromOther?'Other lines':'All lines'; noun='payee';
   } else if(st.level==='vendorother'){
     const items=window._donutVendorOtherItems||[];
     if(!items.length) return '<p class="act-note">Nothing here.</p>';
     const byObj={}; items.forEach(x=>byObj[x.name]=x.val);
-    const {main,othTot}=_segmentData(byObj,0.05);
-    rawData=[...main];
-    if(othTot>0) rawData.push({name:'Other',val:othTot,isOther:true,canDrill:false});
-    navHTML=`<button class="donut-back-btn" onclick="window._donutBack()">${st.fromOther?'\u2190 Other categories':'\u2190 '+esc(st.line)}</button> <span class="donut-crumb">Other vendors</span>`;
+    seg=_segmentData(byObj,0.05); nested=true;
+    label='Other payees'; backLbl=st.line; noun='payee';
   }
-  if(!rawData.length) return '<p class="act-note">No data for this view.</p>';
-  const total=rawData.reduce((s,x)=>s+x.val,0);
-  const segs=rawData.map((x,i)=>({...x,color:DPAL[i%DPAL.length],pct:Math.round(x.val/total*100)}));
-  // Modern thin-ring donut with segment gaps
-  const cx=115,cy=115,R=102,ri=70,GAP=0.024;
-  let angle=-Math.PI/2;
-  const paths=segs.map((seg,i)=>{
-    const slice=(seg.val/total)*2*Math.PI;
-    const sa=angle+GAP/2, ea=angle+slice-GAP/2; angle+=slice;
-    if(ea<=sa) return '';
-    const d=donutPath(cx,cy,R,ri,sa,ea);
-    const clickable=!seg.isOther||seg.canDrill;
-    const segAttr=clickable?`data-seg="${esc(seg.name)}"`:'' ;
-    return `<path d="${d}" fill="${seg.color}" ${segAttr} style="cursor:${clickable?'pointer':'default'};transition:filter .15s" onmouseenter="if(this.dataset.seg)this.style.filter='brightness(1.18)'" onmouseleave="this.style.filter=''"/>`;
+  const head=(inner)=>`<div class="dn-head">${backLbl?`<button type="button" class="dn-back" onclick="window._donutBack()"><span class="dn-chev back"></span><span>${esc(backLbl)}</span></button>`:inner}<button type="button" class="dn-freq" onclick="window._donutFreqCyc()" title="Change the period">${DFWORD[dfreq]}</button></div>`;
+  if(!seg||!seg.main.length) return `<div class="dn">${head('<span class="donut-hint">Nothing to show here.</span>')}</div>`;
+  const slices=seg.main.map((x,i)=>({...x,color:DNPAL[i]}));
+  const canDrillOther=!nested&&seg.othItems.length>0;
+  if(seg.othTot>0) slices.push({name:'Other',val:seg.othTot,isOther:true,color:'var(--dn-other)',canDrill:canDrillOther});
+  const total=slices.reduce((s,x)=>s+x.val,0)||1;
+  const pctOf=v=>{ const p=v/total*100; return p>0&&p<0.5?'<1':String(Math.round(p)); };
+  // ring: one stroked circle per slice, so slices can grow, shrink and sweep
+  const GAP=slices.length>1?2.6:0; let acc=0;
+  const arcs=slices.map(x=>{
+    const full=x.val/total*DN_C, len=Math.max(full-GAP,0.8), start=acc+GAP/2; acc+=full;
+    const click=!x.isOther||x.canDrill;
+    return `<circle class="dn-seg" cx="110" cy="110" r="${DN_R}" data-name="${esc(x.name)}" ${click?`data-seg="${esc(x.name)}"`:''} style="stroke:${x.color};stroke-dasharray:${len.toFixed(2)} ${DN_C.toFixed(2)};stroke-dashoffset:${(-start).toFixed(2)}"><title>${esc(x.name)}: ${fmtD(x.val)}${DFLBL[dfreq]}, ${pctOf(x.val)}%</title></circle>`;
   }).join('');
-  const TS='text-anchor="middle" style="text-anchor:middle"';
-  const VY=cy+5; // value baseline sits at optical centre
-  const ctLabel=st.level==='top'?`<tspan x="${cx}" y="${VY-18}" ${TS} font-size="10" fill="var(--ink-soft)">Total spend</tspan><tspan x="${cx}" y="${VY}" ${TS} font-size="16" font-weight="700" fill="var(--ink)">${fmtD(total)}</tspan><tspan x="${cx}" y="${VY+15}" ${TS} font-size="9" fill="var(--ink-soft)">${segs.filter(s=>!s.isOther).length+' categories'}</tspan>`:
-    st.level==='other'?`<tspan x="${cx}" y="${VY-16}" ${TS} font-size="9" fill="var(--ink-soft)">Other</tspan><tspan x="${cx}" y="${VY}" ${TS} font-size="15" font-weight="700" fill="var(--ink)">${fmtD(total)}</tspan>`:
-    `<tspan x="${cx}" y="${VY-16}" ${TS} font-size="8" fill="var(--ink-soft)">${esc(st.line.slice(0,18))}</tspan><tspan x="${cx}" y="${VY}" ${TS} font-size="15" font-weight="700" fill="var(--ink)">${fmtD(total)}</tspan>`;
-  const svg=`<svg viewBox="0 0 230 230" width="220" height="220" style="display:block;flex-shrink:0;overflow:visible">
-    <circle cx="${cx}" cy="${cy}" r="${ri}" fill="var(--card-2)" opacity=".6"/>
-    ${paths}
-    <text>${ctLabel}</text>
-  </svg>`;
-  const legend=segs.map(seg=>{
-    const clickable=!seg.isOther||seg.canDrill;
-    const attr=clickable?`data-seg="${esc(seg.name)}"`:'' ;
-    return `<div class="donut-key-item" ${attr} style="display:flex;align-items:center;gap:8px;padding:5px 2px;border-bottom:1px solid var(--line-soft);cursor:${clickable?'pointer':'default'}">
-      <div style="width:10px;height:10px;border-radius:3px;flex-shrink:0;background:${seg.color}"></div>
-      <span style="flex:1;font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(seg.name)}</span>
-      <span class="mono" style="font-size:12px;color:var(--ink-soft)">${seg.pct}%</span>
-      <span class="mono" style="font-size:12px;font-weight:600;flex-shrink:0;margin-left:4px">${fmtD(seg.val)}</span>
-    </div>`;
-  }).join('');
-  return `<div>
-    <div style="margin-bottom:6px;min-height:20px;display:flex;align-items:center">${navHTML}${freqToggle}</div>
-    <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;justify-content:center">
-      ${svg}
-      <div style="flex:1;min-width:150px;max-height:220px;overflow-y:auto">${legend}</div>
-    </div>
+  const count=seg.main.length+seg.othItems.length;
+  const svg=`<svg class="dn-ring" viewBox="0 0 220 220" role="img" aria-label="${esc(label)}: ${fmtD(total)}${DFLBL[dfreq]} across ${count} ${noun}${count===1?'':'s'}"><g transform="rotate(-90 110 110)"><circle class="dn-track" cx="110" cy="110" r="${DN_R}"/><circle class="dn-under" cx="110" cy="110" r="${DN_R}"/>${arcs}</g></svg>`;
+  const centre=`<div class="dn-centre"><span class="dn-c-l">${esc(label)}</span><span class="dn-c-v">${fmtD(total)}<small>${DFLBL[dfreq]}</small></span><span class="dn-c-s">${count} ${noun}${count===1?'':'s'}</span></div>`;
+  let ri=0;
+  const row=(x,click,extra)=>`<${click?'button type="button"':'div'} class="dn-row donut-key-item" ${click?`data-seg="${esc(x.name)}"`:''} style="--i:${ri++}"><i style="background:${x.color}"></i><span class="dn-n">${esc(x.name)}${extra||''}</span><span class="dn-p">${pctOf(x.val)}%</span><span class="dn-a">${fmtD(x.val)}</span><span class="dn-chev${click?'':' none'}"></span></${click?'button':'div'}>`;
+  let legend=slices.filter(x=>!x.isOther).map(x=>row(x,st.level==='top'||st.level==='other')).join('');
+  if(seg.othTot>0){
+    // where "Other" cannot be opened any further, list what is in it instead
+    if(canDrillOther) legend+=row(slices[slices.length-1],true,`<small>${seg.othItems.length} smaller</small>`);
+    else legend+=seg.othItems.map(x=>row({...x,color:'var(--dn-other)'},st.level==='other')).join('');
+  }
+  return `<div class="dn">
+    ${head('<span class="donut-hint">Tap a slice or a row to open it.</span>')}
+    <div class="dn-body"><div class="dn-chart">${svg}${centre}</div><div class="dn-legend">${legend}</div></div>
   </div>`;
 }
-window._donutSeg=function(name){
-  const st=window._donutState||{level:'top',line:null,fromOther:false};
-  if(st.level==='top'){
-    window._donutState=name==='Other'?{level:'other',line:null,fromOther:false}:{level:'vendors',line:name,fromOther:false};
-  } else if(st.level==='other'){
-    window._donutState={level:'vendors',line:name,fromOther:true};
-  } else if(st.level==='vendors'&&name==='Other'){
-    window._donutState={level:'vendorother',line:st.line,fromOther:st.fromOther};
+// mode: 'in' (opening a slice), 'back', or 'none' (same slices, new numbers)
+function donutRender(mode, hitName){
+  const host=document.getElementById('donutSection'); if(!host) return;
+  const still=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const swap=(parentColour)=>{
+    window._donutBusy=false;
+    host.innerHTML=buildDonutHTML(); wireDonutAndPots();
+    if(still||mode==='none') return;
+    const wrap=host.querySelector('.dn'), under=host.querySelector('.dn-under');
+    if(!wrap) return;
+    wrap.classList.add('dn-pre', mode==='back'?'dn-m-back':'dn-m-in'); // slices closed up at the top, text hidden
+    if(under&&parentColour){ under.style.transition='none'; under.style.stroke=parentColour; under.style.opacity='1'; }
+    void wrap.offsetWidth;
+    requestAnimationFrame(()=>{
+      wrap.classList.remove('dn-pre','dn-m-back','dn-m-in'); // slices sweep open, rows step in
+      if(under&&parentColour){ under.style.transition=''; under.style.opacity='0'; }
+    });
+  };
+  if(mode==='in'&&hitName&&!still){
+    // first the tapped slice grows to fill the ring, then it opens into its parts
+    const old=host.querySelector('.dn');
+    const hit=old&&[...old.querySelectorAll('.dn-seg')].find(c=>c.dataset.name===hitName);
+    if(hit){
+      window._donutBusy=true;
+      const colour=hit.style.stroke;
+      old.classList.add('dn-focus'); hit.classList.add('dn-hit');
+      hit.style.strokeDasharray=`${DN_C.toFixed(2)} 0`; hit.style.strokeDashoffset='0';
+      setTimeout(()=>swap(colour),260);
+      return;
+    }
   }
-  const d=document.getElementById('donutSection'); if(d) d.innerHTML=buildDonutHTML(); wireDonutAndPots();
+  swap(null);
+}
+window._donutSeg=function(name){
+  if(window._donutBusy) return;
+  const st=window._donutState||{level:'top',line:null,fromOther:false};
+  let next=null;
+  if(st.level==='top') next=name==='Other'?{level:'other',line:null,fromOther:false}:{level:'vendors',line:name,fromOther:false};
+  else if(st.level==='other') next={level:'vendors',line:name,fromOther:true};
+  else if(st.level==='vendors'&&name==='Other') next={level:'vendorother',line:st.line,fromOther:st.fromOther};
+  if(!next) return;
+  window._donutState=next;
+  donutRender('in',name);
 };
 window._donutBack=function(){
+  if(window._donutBusy) return;
   const st=window._donutState||{level:'top'};
   if(st.level==='vendorother') window._donutState={level:'vendors',line:st.line,fromOther:st.fromOther};
   else if(st.level==='vendors'&&st.fromOther) window._donutState={level:'other',line:null,fromOther:false};
   else window._donutState={level:'top',line:null,fromOther:false};
-  const d=document.getElementById('donutSection'); if(d) d.innerHTML=buildDonutHTML(); wireDonutAndPots();
+  donutRender('back');
 };
 window._donutFreqCyc=function(){
+  if(window._donutBusy) return;
   const DFCYC2={monthly:'annual',annual:'weekly',weekly:'monthly'};
   window._donutFreq=DFCYC2[window._donutFreq||'monthly'];
-  const d=document.getElementById('donutSection'); if(d) d.innerHTML=buildDonutHTML(); wireDonutAndPots();
+  donutRender('none');
 };
 
 
@@ -3869,7 +3982,7 @@ function buildAnalysisPage(){
     <p class="act-note" style="margin:-8px 0 18px">Money moved into savings pots counts as kept, not spent.</p>
     <div class="det-lbl">Income and spending by month <span style="font-weight:400">(tap a bar for the value)</span></div>
     <div style="margin:8px 0 20px">${ioChart}</div>
-    <div class="det-lbl">Spending by budget line <span style="font-weight:400">(tap a segment for the payees)</span></div>
+    <div class="det-lbl">Spending by budget line</div>
     <div style="margin:8px 0 20px" id="donutSection">${buildDonutHTML()}</div>
     ${potNames.length?`<div class="det-lbl">Pot activity <span style="font-weight:400">(tap to expand)</span></div>
     <div style="margin:8px 0 20px" id="potSection">${buildPotCards()}</div>`:''}
@@ -3889,7 +4002,7 @@ function wireAnalysisPage(){
 }
 function wireDonutAndPots(){
   // Donut SVG segments
-  document.querySelectorAll('#donutSection path[data-seg]').forEach(el=>{
+  document.querySelectorAll('#donutSection .dn-seg[data-seg]').forEach(el=>{
     el.onclick=()=>{ window._donutSeg(el.dataset.seg); };
   });
   // Donut legend key items
