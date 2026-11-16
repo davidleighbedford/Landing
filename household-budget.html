@@ -857,6 +857,54 @@
   .dn-focus .dn-centre,.dn-focus .dn-legend{opacity:.35;transition:opacity .2s ease}
   @media (prefers-reduced-motion: reduce){ .dn *{transition:none !important} }
 
+  /* pass E: time window, trends, payments from another account */
+  .dn-ctl{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .dn-winsel{position:relative;display:inline-flex;align-items:center;min-width:0;min-height:36px;border-radius:999px;border:1px solid var(--line);background:var(--field)}
+  .dn-winsel.on{border-color:var(--clay)}
+  .dn-winsel select{-webkit-appearance:none;appearance:none;max-width:100%;min-height:36px;margin:0;padding:0 32px 0 14px;border:0;border-radius:999px;background:transparent;color:var(--ink);font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;text-overflow:ellipsis}
+  .dn-winsel::after{content:"";position:absolute;right:14px;top:50%;width:6px;height:6px;margin-top:-5px;border-right:1.5px solid var(--ink-soft);border-bottom:1.5px solid var(--ink-soft);transform:rotate(45deg);pointer-events:none}
+  .dn-range{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:13px;color:var(--ink-soft)}
+  .dn-head .donut-hint b{font-weight:700;color:var(--ink)}
+  .dn-row{gap:0;padding:0}
+  .dn-row .dn-p{min-width:32px}
+  .dn-row .dn-a{min-width:50px}
+  .dn-row .dn-chev{margin:0 2px 0 0}
+  .dn-main{display:flex;align-items:center;gap:10px;flex:1;min-width:0;min-height:44px;padding:0 2px;border:0;border-radius:0;background:transparent;color:var(--ink);font-family:var(--font);text-align:left}
+  button.dn-main{cursor:pointer}
+  button.dn-main:active{background:var(--card-2)}
+  .dn-i{position:relative;flex:none;display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;margin-left:2px;padding:0;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--ink-soft);font-family:var(--font);font-size:13px;font-weight:700;font-style:normal;line-height:1;cursor:pointer}
+  .dn-i::after{content:"";position:absolute;inset:-7px}
+  .dn-i:active{border-color:var(--clay);color:var(--clay)}
+  .dn-i.none{visibility:hidden}
+  .tr{padding:14px 18px 20px}
+  .tr-sum{margin:0 0 14px;font-size:15px;font-weight:600;line-height:1.4;color:var(--ink)}
+  .tr-per{font-size:12px;font-weight:400}
+  .tr-note{margin:8px 0 0;font-size:12px;line-height:1.5;color:var(--ink-soft)}
+  .tr-row{display:flex;align-items:center;gap:10px;min-height:44px;border-top:1px solid var(--line-soft)}
+  .tr-n{flex:1;min-width:0;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .tr-v{font-size:12px;color:var(--ink-soft);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .tr-d{min-width:54px;text-align:right;font-size:14px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .tr-d.up{color:var(--over)} .tr-d.down{color:var(--good)}
+  .tr-more{margin-top:18px;width:100%;justify-content:center}
+  .man{margin:8px 0 20px}
+  .man-hint{margin:0 0 6px;font-size:13px;line-height:1.5;color:var(--ink-soft)}
+  .man-row{display:flex;align-items:center;gap:10px;width:100%;min-height:54px;padding:7px 2px;border:0;border-bottom:1px solid var(--line-soft);border-radius:0;background:transparent;color:var(--ink);font-family:var(--font);text-align:left;cursor:pointer}
+  .man-row:active,.man-row.on{background:var(--card-2)}
+  .man-t{flex:1;min-width:0}
+  .man-n{display:block;font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .man-s{display:block;font-size:12px;line-height:1.4;color:var(--ink-soft)}
+  .man-a{font-size:14px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .man-add{margin-top:12px}
+  .man-form{display:grid;gap:12px;margin-top:12px;padding:14px;border:1px solid var(--line-soft);border-radius:16px;background:var(--field)}
+  .man-form label{display:grid;gap:5px;min-width:0;font-size:13px;font-weight:600;color:var(--ink-soft)}
+  .man-form input,.man-form select{width:100%;min-width:0;min-height:44px;margin:0;padding:0 12px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font-family:var(--font);font-size:16px}
+  .man-form input:focus,.man-form select:focus{outline:2px solid var(--clay);outline-offset:1px}
+  .man-form [hidden]{display:none}
+  .man-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .man-btns{display:flex;flex-wrap:wrap;gap:8px}
+  .man-btns .tool.del{margin-left:auto;color:var(--over)}
+  .man-err{margin:0;font-size:13px;font-weight:600;color:var(--over)}
+
   /* pass A: unmatched slice and one-offs */
   :root{--dn-unm:#5f534b}
   @media (prefers-color-scheme: dark){ :root{--dn-unm:#b3a79d} }
@@ -1047,6 +1095,7 @@
       <h4>Actuals</h4>
       <p>Upload a CSV exported from your banking app, or try the sample data. Monzo, Starling, Barclays, Halifax, NatWest, Nationwide and HSBC are recognised, and most other banks work too. Obvious payees are categorised for you. <b>Review queue</b> walks you through the rest, biggest first.</p>
       <p><b>Overview</b> shows income, spending and what you kept, then spending by budget line, pot activity, recurring payments and top payees. Money moved into savings pots counts as kept, not spent. <b>Categorise</b> lists every payee and large transfer so you can change where it counts.</p>
+      <p>The spending chart shows the last 12 months unless you pick another <b>time window</b> above it: the last 3 or 6 months, one month, or any run of months. Tap <b>i</b> on a row to see that line month by month, whether it is rising or falling, and which payees moved. Under <b>Paid from another account</b>, add things this statement cannot see, such as a mortgage. They count in the chart and against your budget lines.</p>
       <p>Similar payee names are grouped, and suggestions learn from what you have already matched. The review queue shows how much of your spending is matched. Use <b>Some of these belong elsewhere</b> to give single payments their own line, or mark one as a <b>One-off</b> to leave it out of the monthly averages. After a later upload, <b>Review new</b> shows only payees not seen before.</p>
       <p>Once a statement is loaded, the Outgoings and Savings cards on the Budget tab gain a <b>Budget / Actual</b> switch. Anything within 3% of budget counts as on budget.</p>
       <h4>Backup and privacy</h4>
@@ -1669,6 +1718,7 @@ function mergeState(inc){
   const theirsWin=(d.matchesAt||0)>=(S.matchesAt||0); // on a clash the more recently edited set of matches wins
   ['vendorMap','txnAssign','ignoredVendors','knownPayees','newPayees'].forEach(k=>{ S[k]=theirsWin?Object.assign({},S[k],d[k]):Object.assign({},d[k],S[k]); });
   S.matchesAt=Math.max(d.matchesAt||0,S.matchesAt||0)||undefined;
+  const mm=new Map((S.manual||[]).map(m=>[m.id,m])); (d.manual||[]).forEach(m=>{ const x=mm.get(m.id); if(!x||(m.updatedAt||0)>(x.updatedAt||0)) mm.set(m.id,m); }); S.manual=[...mm.values()]; // payments added by hand: keep both phones', newest edit wins
   S.baseSnap=null;
   return {added,updated};
 }
@@ -2854,6 +2904,7 @@ function mergeDefaults(d){
   d.txnAssign = d.txnAssign||{};
   d.knownPayees = d.knownPayees||{}; d.newPayees = d.newPayees||{};
   d.ignoredVendors = d.ignoredVendors||{};
+  d.manual = Array.isArray(d.manual)?d.manual.filter(m=>m&&m.id):[];
   if(typeof d._scaleToYear!=='boolean') d._scaleToYear=false;
   d.scenarios.forEach(s=>{
     s.id=s.id||uid(); s.name=s.name||"Budget";
@@ -3004,14 +3055,14 @@ function learnedSuggestion(vendorName, cat, sc, kind){
 }
 
 /* ---- spending not matched to any line (ignored payees and one-offs are left out) ---- */
-function unmatchedByPayee(sc){
-  const a=getAnalysis(sc); if(!a||!TXNS) return {};
+function unmatchedByPayee(sc, a){
+  a=a||getAnalysis(sc); if(!a||!TXNS) return {};
   const parseD=s=>{const[d,m,y]=s.split('/');return new Date(+y,+m-1,+d);};
-  const cutoff=new Date(a.maxD); cutoff.setFullYear(cutoff.getFullYear()-1);
+  const before=d=>d<a.cutoff||(a.upTo&&d>a.upTo); // outside the period being looked at
   const isTransfer=r=>r.Type==='Monzo-to-Monzo'||EXCL_TRANSFER_CAT.has(r.Category)||r.Type==='Pot transfer';
   const ig=S.ignoredVendors||{}, by={};
   TXNS.forEach(r=>{
-    const amt=parseFloat(r.Amount||0); if(!amt||parseD(r.Date)<cutoff) return;
+    const amt=parseFloat(r.Amount||0); if(!amt||before(parseD(r.Date))) return;
     if(isTransfer(r)||EXCL_CAT.has(r.Category)||(amt<0&&EXCL_TYPE.has(r.Type))) return;
     const n=r.Name||'Unknown'; if(ig[n]) return;
     if(effLine(r,sc)) return; // matched, ignored or one-off
@@ -3041,13 +3092,21 @@ window._catUncatOnly = false;
 let _analysisCache = null;
 let _analysisCacheKey = '';
 function getAnalysis(sc){
-  const key = JSON.stringify({vm:S.vendorMap,ta:S.txnAssign,sid:sc.id,outIds:sc.outgoings.map(o=>o.id+o.amount)});
+  const key = JSON.stringify({vm:S.vendorMap,ta:S.txnAssign,sid:sc.id,mn:S.manual,outIds:sc.outgoings.map(o=>o.id+o.amount)});
   if(_analysisCache && _analysisCacheKey===key) return _analysisCache;
   _analysisCache = TXNS ? analyseTxns(TXNS, sc) : null;
   _analysisCacheKey = key;
   return _analysisCache;
 }
-function invalidateCache(){ _analysisCache=null; _analysisCacheKey=''; }
+function invalidateCache(){ _analysisCache=null; _analysisCacheKey=''; _winCache=null; _winKey=''; }
+let _winCache=null, _winKey='';
+function getWinAnalysis(sc){ // the analysis for the window chosen on the spending chart, or the usual one
+  const w=donutWin(sc); if(!w) return getAnalysis(sc);
+  const key=w.key+'|'+JSON.stringify({vm:S.vendorMap,ta:S.txnAssign,sid:sc.id,mn:S.manual,n:TXNS?TXNS.length:0});
+  if(_winCache&&_winKey===key) return _winCache;
+  _winCache=TXNS?analyseTxns(TXNS,sc,w):null; _winKey=key;
+  return _winCache;
+}
 
 
 function positionCatFabs(){}
@@ -3354,27 +3413,125 @@ function suggestLine(vendorName, monzoCat, sc){
   return info && !info.isNew ? info.line : null;
 }
 
+/* ---- time window, month helpers and payments added by hand ---- */
+const _pD=s=>{const[d,m,y]=String(s).split('/');return new Date(+y,+m-1,+d);};
+function stmtSpan(){ // first and last day of the loaded statement
+  if(!TXNS||!TXNS.length) return null;
+  if(stmtSpan._for===TXNS&&stmtSpan._n===TXNS.length) return stmtSpan._v;
+  let lo=Infinity, hi=-Infinity;
+  TXNS.forEach(r=>{ const t=+_pD(r.Date); if(!isNaN(t)){ if(t<lo) lo=t; if(t>hi) hi=t; } });
+  stmtSpan._for=TXNS; stmtSpan._n=TXNS.length;
+  return (stmtSpan._v=isFinite(lo)?{min:new Date(lo),max:new Date(hi)}:null);
+}
+function stmtMonths(){ const sp=stmtSpan(); if(!sp) return []; const out=[]; for(let c=new Date(sp.min.getFullYear(),sp.min.getMonth(),1); c<=sp.max; c.setMonth(c.getMonth()+1)) out.push(monthKey(c)); return out; }
+function ymDate(k,end){ return end?new Date(+k.slice(0,4),+k.slice(5),0,23,59,59):new Date(+k.slice(0,4),+k.slice(5)-1,1); }
+function ymLabel(k,long){ return (long?MONF:MON)[+k.slice(5)-1]+' '+k.slice(0,4); }
+function dayLabel(d){ return d.getDate()+' '+MON[d.getMonth()]+' '+d.getFullYear(); }
+function shiftMonths(d,n){ const t=new Date(d.getFullYear(),d.getMonth()+n,1); const last=new Date(t.getFullYear(),t.getMonth()+1,0).getDate(); t.setDate(Math.min(d.getDate(),last)); return t; }
+function donutWin(sc){ // the window chosen on the spending chart as dates, or null for the usual last 12 months
+  const w=window._donutWin; if(!w||!TXNS) return null;
+  const a=getAnalysis(sc), sp=stmtSpan(); if(!a||!sp) return null;
+  if(w.mode==='roll'){
+    const from=shiftMonths(a.maxD,-w.n); from.setDate(from.getDate()+1);
+    const to=new Date(a.maxD); to.setHours(23,59,59);
+    return {from,to,months:w.n,key:'r'+w.n,part:false,label:dayLabel(from)+' to '+dayLabel(a.maxD)};
+  }
+  let f=w.from, t=w.to; if(!f||!t) return null; if(f>t){ const x=f; f=t; t=x; }
+  const from=ymDate(f), to=ymDate(t,true); let m=0, part=false;
+  for(let c=new Date(from); c<=to; c.setMonth(c.getMonth()+1)){ // a month the statement only partly covers counts as part of a month
+    const ms=+c, me=+new Date(c.getFullYear(),c.getMonth()+1,0,23,59,59);
+    const lo=Math.max(ms,+sp.min), hi=Math.min(me,+sp.max+86399000);
+    const fr=hi>lo?Math.min(1,(hi-lo)/(me-ms)):0; if(fr<0.92) part=true; m+=fr;
+  }
+  return {from,to,months:Math.max(1,m),key:f+'_'+t,part,single:f===t,label:f===t?ymLabel(f,true):ymLabel(f)+' to '+ymLabel(t)};
+}
+function manualLine(m){ return m.line||m.name; }
+// What the hand-added payments come to between two dates. A monthly one counts for the share of the period it covers,
+// so a payment made all the way through averages out at exactly the amount entered.
+function monthsBetween(lo,hi){ // length in calendar months, with part months as fractions
+  if(!(hi>lo)) return 0; let m=0; const a=new Date(lo), b=new Date(hi);
+  for(let c=new Date(a.getFullYear(),a.getMonth(),1); c<=b; c.setMonth(c.getMonth()+1)){ const ms=+c, me=+new Date(c.getFullYear(),c.getMonth()+1,1); m+=Math.max(0,Math.min(me,+hi)-Math.max(ms,+lo))/(me-ms); }
+  return m;
+}
+function manualTotals(from,to,months){
+  const out=[], span=monthsBetween(from,to);
+  (S.manual||[]).forEach(m=>{
+    const amt=Number(m.amount)||0; if(amt<=0) return; let tot=0;
+    if(m.freq==='monthly'){
+      if(span<=0) return;
+      const lo=Math.max(+from,m.from?+ymDate(m.from):-Infinity), hi=Math.min(+to,m.to?+ymDate(m.to,true):Infinity);
+      if(hi>lo) tot=amt*months*Math.min(1,monthsBetween(lo,hi)/span);
+    } else if(m.freq==='yearly'){
+      for(let y=from.getFullYear(); y<=to.getFullYear(); y++){ const d=new Date(y,(m.month||1)-1,15); if(d>=from&&d<=to) tot+=amt; }
+    } else { const d=m.date?new Date(m.date+'T12:00:00'):null; if(d&&d>=from&&d<=to) tot+=amt; }
+    if(tot>0) out.push({id:m.id,line:manualLine(m),name:m.name,total:tot});
+  });
+  return out;
+}
+function manualEvents(){ // the same payments month by month, for the month charts
+  const sp=stmtSpan(), mons=stmtMonths(), out=[]; if(!sp) return out;
+  const end=+sp.max+86399000;
+  (S.manual||[]).forEach(m=>{
+    const amt=Number(m.amount)||0; if(amt<=0) return;
+    mons.forEach(k=>{
+      let hit=false;
+      if(m.freq==='monthly') hit=(!m.from||k>=m.from)&&(!m.to||k<=m.to);
+      else if(m.freq==='yearly'){ const d=new Date(+k.slice(0,4),(m.month||1)-1,15); hit=+k.slice(5)===(m.month||1)&&d>=sp.min&&+d<=end; }
+      else if(m.date){ const d=new Date(m.date+'T12:00:00'); hit=m.date.slice(0,7)===k&&d>=sp.min&&+d<=end; }
+      if(hit) out.push({ym:k,line:manualLine(m),name:m.name,v:amt,manual:true});
+    });
+  });
+  return out;
+}
+// Every payment that counts, across the whole statement, with the budget line it lands on (null when unmatched).
+// Refunds are negative. Follows the same rules as the line totals.
+function spendEvents(sc){
+  const out=[]; if(!TXNS) return out;
+  const isTransfer=r=>r.Type==='Monzo-to-Monzo'||EXCL_TRANSFER_CAT.has(r.Category)||r.Type==='Pot transfer';
+  const ig=S.ignoredVendors||{}, ta=S.txnAssign||{};
+  TXNS.forEach(r=>{
+    const amt=parseFloat(r.Amount||0); if(!amt) return;
+    const d=_pD(r.Date); if(isNaN(d)) return;
+    let line=null;
+    if(isTransfer(r)){
+      if(amt>0||r.Type==='Pot transfer') return;
+      const ov=ta[r['Transaction ID']]; if(!ov||ov==='__exclude__'||ov==='__oneoff__') return;
+      line=ov;
+    } else {
+      if(EXCL_CAT.has(r.Category)||(amt<0&&EXCL_TYPE.has(r.Type))) return;
+      line=effLine(r,sc); if(line==='__exclude__') return;
+      if(!line&&ig[r.Name||'Unknown']) return;
+    }
+    out.push({ym:monthKey(d),line:line||null,name:r.Name||'Unknown',v:-amt});
+  });
+  manualEvents().forEach(e=>out.push(e));
+  return out;
+}
+
 function effLine(txn, sc) {
   const override=(S.txnAssign||{})[txn['Transaction ID']]; if(override) return override==='__oneoff__'?'__exclude__':override; // a one-off is left out of line averages
   const v=(S.vendorMap||{})[txn.Name||'']; if(v) return v;
   return null; // unmapped
 }
 
-function analyseTxns(rows, sc) {
+function analyseTxns(rows, sc, win) {
   const isTransfer=r=>r.Type==='Monzo-to-Monzo'||EXCL_TRANSFER_CAT.has(r.Category)||r.Type==='Pot transfer';
   const allSpend=rows.filter(r=>!EXCL_CAT.has(r.Category)&&!EXCL_TYPE.has(r.Type)&&parseFloat(r.Amount||0)<0&&!isTransfer(r));
   if(!allSpend.length) return null;
   const parseD=s=>{const[d,m,y]=s.split('/');return new Date(+y,+m-1,+d);};
   const allDates=allSpend.map(r=>parseD(r.Date));
   const maxD=new Date(Math.max(...allDates));
-  const cutoff=new Date(maxD); cutoff.setFullYear(cutoff.getFullYear()-1);
-  const spend=allSpend.filter(r=>parseD(r.Date)>=cutoff);
+  // win: an optional window {from,to,months}. Without one this is the last 12 months of the statement.
+  const cutoff=win?new Date(win.from):new Date(maxD); if(!win) cutoff.setFullYear(cutoff.getFullYear()-1);
+  const inWin=d=>d>=cutoff&&(!win||d<=win.to);
+  const spend=allSpend.filter(r=>inWin(parseD(r.Date)));
   const dates=spend.map(r=>parseD(r.Date));
-  const minD=new Date(Math.min(...dates));
-  const fullMonths=(maxD-new Date(Math.min(...allDates)))/(1000*60*60*24*30.44);
-  const months=Math.max(1,(maxD-minD)/(1000*60*60*24*30.44));
+  const firstD=new Date(Math.min(...allDates));
+  const minD=dates.length?new Date(Math.min(...dates)):new Date(Math.max(+cutoff,+firstD));
+  const fullMonths=(maxD-firstD)/(1000*60*60*24*30.44);
+  const months=win?win.months:Math.max(1,(maxD-minD)/(1000*60*60*24*30.44));
   const isPartialYear=fullMonths<11;
-  const scaleFactor=S._scaleToYear&&isPartialYear?12/months:1;
+  const scaleFactor=!win&&S._scaleToYear&&isPartialYear?12/months:1;
   // by Monzo category (overview)
   const byCat={};
   spend.forEach(r=>{const c=r.Category||'General';byCat[c]=(byCat[c]||0)+Math.abs(parseFloat(r.Amount));});
@@ -3389,7 +3546,7 @@ function analyseTxns(rows, sc) {
   rows.filter(r=>{
     if(parseFloat(r.Amount||0)>=0 || r.Type==='Pot transfer') return false;
     if(!isTransfer(r)) return false;               // non-transfers already counted above
-    if(parseD(r.Date)<cutoff) return false;
+    if(!inWin(parseD(r.Date))) return false;
     const ov=(S.txnAssign||{})[r['Transaction ID']];
     return ov && ov!=='__exclude__' && ov!=='__oneoff__';
   }).forEach(r=>{
@@ -3397,10 +3554,13 @@ function analyseTxns(rows, sc) {
     byLine[line]=(byLine[line]||0)+Math.abs(parseFloat(r.Amount));
   });
   // Subtract refunds (credits) from same vendors mapped to same lines
-  rows.filter(r=>parseFloat(r.Amount||0)>0&&r.Type!=='Pot transfer'&&r.Type!=='Monzo-to-Monzo'&&!EXCL_TRANSFER_CAT.has(r.Category)&&!EXCL_CAT.has(r.Category)&&parseD(r.Date)>=cutoff).forEach(r=>{
+  rows.filter(r=>parseFloat(r.Amount||0)>0&&r.Type!=='Pot transfer'&&r.Type!=='Monzo-to-Monzo'&&!EXCL_TRANSFER_CAT.has(r.Category)&&!EXCL_CAT.has(r.Category)&&inWin(parseD(r.Date))).forEach(r=>{
     const line=effLine(r,sc);
     if(line&&line!=='__exclude__') byLine[line]=Math.max(0,(byLine[line]||0)-parseFloat(r.Amount));
   });
+  // payments made from another account, added by hand
+  const mFrom=win?new Date(Math.max(+win.from,+firstD)):minD, mTo=new Date(Math.min(win?+win.to:Infinity,+maxD+86399000));
+  manualTotals(mFrom,mTo,months).forEach(m=>{ byLine[m.line]=(byLine[m.line]||0)+m.total; });
   // vendor summary for categorise panel
   const vendors={};
   spend.forEach(r=>{
@@ -3430,7 +3590,7 @@ function analyseTxns(rows, sc) {
   });
   const totalPotIn=Object.values(potIn).reduce((a,b)=>a+b,0);
   if(scaleFactor!==1){ [byCat,byLine].forEach(obj=>{for(const k in obj)obj[k]*=scaleFactor;}); for(const k in potIn)potIn[k]*=scaleFactor; }
-  return {byCat,byLine,vendorList,byMo,top10,flagged,total:total*scaleFactor,months:scaleFactor===1?months:12,fullMonths:Math.round(fullMonths*10)/10,minD,maxD,potIn,totalPotIn:totalPotIn*scaleFactor,isPartialYear,scaleFactor};
+  return {byCat,byLine,vendorList,byMo,top10,flagged,total:total*scaleFactor,months:scaleFactor===1?months:12,fullMonths:Math.round(fullMonths*10)/10,minD,maxD,potIn,totalPotIn:totalPotIn*scaleFactor,isPartialYear,scaleFactor,rawMonths:months,cutoff,upTo:win?win.to:null,mFrom,mTo};
 }
 
 function updateCsvBar(){
@@ -3935,9 +4095,12 @@ function buildLineDetail(oid, sc){
   txnsAll.forEach(r=>{const k=mkey(parseD(r.Date));byMonth[k]=(byMonth[k]||0)+Math.abs(parseFloat(r.Amount));});
   // Net refunds across all months (unfiltered)
   txnsRefunds.forEach(r=>{const k=mkey(parseD(r.Date));byMonth[k]=Math.max(0,(byMonth[k]||0)-parseFloat(r.Amount));});
+  // payments made from another account, added by hand under Actuals
+  const manHere=manualEvents().filter(e=>e.line===lineName);
+  manHere.forEach(e=>{ byMonth[e.ym]=(byMonth[e.ym]||0)+e.v; });
   const vals=allMonths.map(k=>byMonth[k]||0);
   const bmo=annual(o)/12;
-  const total=vals.reduce((s,v)=>s+v,0);  // full period
+  const total=a.byLine[lineName]!=null?a.byLine[lineName]:vals.reduce((s,v)=>s+v,0);  // the same figure the budget row shows
   const nmo=a.months;
   const avgMo=total/nmo;
   const diffPct=bmo>0?Math.round((avgMo/bmo-1)*100):null;
@@ -3972,18 +4135,22 @@ function buildLineDetail(oid, sc){
   const zeros=allMonths.filter((_,i)=>vals[i]===0);
   const totalRefunds=txnsRefunds.reduce((s,r)=>s+parseFloat(r.Amount),0);
   const refundNote=totalRefunds>0?`<p class="act-note" style="margin:4px 0 0;font-size:12px">&#8635; ${fmt(totalRefunds)} in refunds netted from vendor totals</p>`:'';
-  const zeroNote=zeros.length&&bmo>0?`<p class="act-note" style="background:rgba(212,120,74,.07);border-color:var(--wants);margin:10px 0 0">\u26a0\ufe0f ${zeros.length} month${zeros.length>1?'s':''} with \u00a30 (${zeros.map(m=>(+m.slice(5))+'').join(', ')}). It may be paid from another account.</p>`:'';
+  const zeroNote=zeros.length&&bmo>0?`<p class="act-note" style="background:rgba(212,120,74,.07);border-color:var(--wants);margin:10px 0 0">\u26a0\ufe0f ${zeros.length} month${zeros.length>1?'s':''} with \u00a30 (${zeros.map(m=>(+m.slice(5))+'').join(', ')}). It may be paid from another account. If so, add it under Actuals, Paid from another account.</p>`:'';
   // Vendors
   const byV={};
   // By payee uses filtered txns so selection scopes the vendor view
   txns.forEach(r=>{byV[r.Name]=(byV[r.Name]||0)+Math.abs(parseFloat(r.Amount));});
   (_mf?txnsRefunds.filter(r=>mkey2(parseD2(r.Date))===_mf):txnsRefunds).forEach(r=>{if(byV[r.Name]!=null)byV[r.Name]=Math.max(0,byV[r.Name]-parseFloat(r.Amount));});
+  if(_mf) manHere.filter(e=>e.ym===_mf).forEach(e=>{ byV[e.name]=(byV[e.name]||0)+e.v; });
+  else manualTotals(a.mFrom,a.mTo,a.rawMonths).forEach(m=>{ if(m.line===lineName) byV[m.name]=(byV[m.name]||0)+m.total*(a.scaleFactor||1); });
   const byVtotal=Object.values(byV).reduce((s,v)=>s+v,0)||1;
   const vendRows=Object.entries(byV).sort((a,b)=>b[1]-a[1]).map(([v,tot])=>{
     const pct=Math.round(tot/byVtotal*100);
     const valTxt=_mf?fmt(tot):fmt(tot/nmo)+'/mo';
     return `<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-top:1px solid var(--line-soft)"><span style="font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;margin-right:10px">${esc(v)}</span><span class="mono" style="font-size:12px;color:var(--ink-soft);margin-right:10px">${pct}%</span><span class="mono" style="font-size:12.5px;font-weight:600;flex-shrink:0">${valTxt}</span></div>`;
   }).join('');
+  const manNames=[...new Set(manHere.map(e=>e.name))];
+  const manNote=manNames.length?`<p class="act-note" style="margin:4px 0 0;font-size:12px">Includes ${manNames.map(esc).join(', ')}, added by hand as paid from another account.</p>`:'';
   const noVend=`<p class="act-note" style="margin-top:4px">No payees assigned yet. Match payees in Categorise to see the breakdown.</p>`;
   // Group transactions by vendor, sorted by group total desc
   const openVends=window._openDetailVendors||(window._openDetailVendors=new Set());
@@ -4028,7 +4195,7 @@ function buildLineDetail(oid, sc){
     </div>
     <div class="det-lbl">Monthly spend, all ${allMonths.length} months${bmo>0?' (dashed = budget)':''}</div>
     <div style="margin:8px 0 2px;overflow:visible">${chart}</div>
-    ${zeroNote}${refundNote}
+    ${zeroNote}${refundNote}${manNote}
     <div class="det-lbl" style="margin-top:16px">By payee${_mf?(", month "+(+_mf.slice(5))):""}</div>
     <div style="margin-top:4px;max-height:140px;overflow-y:auto;border:1px solid var(--line-soft);border-radius:10px;padding:4px 8px">${vendRows||noVend}</div>
     <p class="act-note" style="margin:12px 0 8px;font-size:12px">Payee assignments apply to all scenarios. Tap <b>&#9658;</b> to expand a payee, then change individual transactions or reassign the whole payee.</p>
@@ -4075,16 +4242,16 @@ function _segmentData(byObj,thresh){
   const othTot=othItems.reduce((s,x)=>s+x.val,0);
   return {main,othTot,othItems,tot};
 }
-function lineByPayee(line, sc){
+function lineByPayee(line, sc, a){
   // One budget line split by payee, using the same rules as the line totals:
-  // the last 12 months, single-transaction overrides, assigned transfers, and refunds taken off.
-  const a=getAnalysis(sc); if(!a||!TXNS) return {};
+  // the same period, single-transaction overrides, assigned transfers, and refunds taken off.
+  a=a||getAnalysis(sc); if(!a||!TXNS) return {};
   const parseD=s=>{const[d,m,y]=s.split('/');return new Date(+y,+m-1,+d);};
-  const cutoff=new Date(a.maxD); cutoff.setFullYear(cutoff.getFullYear()-1);
+  const before=d=>d<a.cutoff||(a.upTo&&d>a.upTo);
   const isTransfer=r=>r.Type==='Monzo-to-Monzo'||EXCL_TRANSFER_CAT.has(r.Category)||r.Type==='Pot transfer';
   const by={}; const add=(r,v)=>{ const n=r.Name||'Unknown'; by[n]=(by[n]||0)+v; };
   TXNS.forEach(r=>{
-    const amt=parseFloat(r.Amount||0); if(!amt||parseD(r.Date)<cutoff) return;
+    const amt=parseFloat(r.Amount||0); if(!amt||before(parseD(r.Date))) return;
     if(amt<0){
       if(isTransfer(r)){ if(r.Type!=='Pot transfer'&&(S.txnAssign||{})[r['Transaction ID']]===line) add(r,-amt); return; }
       if(EXCL_CAT.has(r.Category)||EXCL_TYPE.has(r.Type)) return;
@@ -4094,49 +4261,59 @@ function lineByPayee(line, sc){
       if(effLine(r,sc)===line) add(r,-amt); // a refund
     }
   });
+  manualTotals(a.mFrom,a.mTo,a.rawMonths).forEach(m=>{ if(m.line===line) by[m.name]=(by[m.name]||0)+m.total; });
   Object.keys(by).forEach(k=>{ if(by[k]<=0.005) delete by[k]; else by[k]*=a.scaleFactor||1; });
   return by;
 }
 function buildDonutHTML(){
   const st=window._donutState||{level:'top',line:null,fromOther:false};
   const dfreq=window._donutFreq||'monthly';
-  const DFLBL={monthly:'/mo',annual:'/yr',weekly:'/wk'};
-  const DFWORD={monthly:'Per month',annual:'Per year',weekly:'Per week'};
-  const DFDIV={monthly:window._analysisMonths12||1,annual:(window._analysisMonths12||1)/12,weekly:(window._analysisMonths12||1)*52/12};
+  const DFLBL={monthly:'/mo',annual:'/yr',weekly:'/wk',total:''};
+  const DFWORD={monthly:'Per month',annual:'Per year',weekly:'Per week',total:'Total'};
+  // the period on show: a chosen window, or the usual last 12 months
+  const A=getWinAnalysis(SC()), WIN=donutWin(SC());
+  const MO=(A&&A.months)||window._analysisMonths12||1;
+  const DFDIV={monthly:MO,annual:MO/12,weekly:MO*52/12,total:1};
   const fmtD=n=>gbp(Math.round(n/DFDIV[dfreq]));
+  const _w=window._donutWin, wcur=!_w?'all':_w.mode==='roll'?'r'+_w.n:_w.mode==='month'?'m'+_w.from:'range';
+  const _mons=stmtMonths(), _mopt=sel=>_mons.map(k=>`<option value="${k}" ${k===sel?'selected':''}>${ymLabel(k)}</option>`).join('');
+  const ctl=`<div class="dn-ctl"><label class="dn-winsel${WIN?' on':''}"><select aria-label="Time window" onchange="window._donutWinSet(this.value)">${donutWinOptions(SC(),wcur)}</select></label><button type="button" class="dn-freq" onclick="window._donutFreqCyc()" title="Change how amounts are shown">${DFWORD[dfreq]}</button></div>`
+    +(wcur==='range'?`<div class="dn-range"><label class="dn-winsel"><select aria-label="From month" onchange="window._donutWinRange('from',this.value)">${_mopt(_w.from)}</select></label><span>to</span><label class="dn-winsel"><select aria-label="To month" onchange="window._donutWinRange('to',this.value)">${_mopt(_w.to)}</select></label></div>`:'');
+  const empty=msg=>`<div class="dn">${ctl}<p class="act-note">${msg}</p></div>`;
   let seg=null, nested=false, label='', backLbl='', noun='line', unmTot=0, unmN=0;
   if(st.level==='top'){
-    // Use getAnalysis so we get the 12-month window, effLine overrides, and refund netting
-    const _a=getAnalysis(SC()); const byLine=_a?{..._a.byLine}:{};
-    unmTot=Object.values(unmatchedByPayee(SC())).reduce((s,v)=>s+v,0); unmN=Object.keys(unmatchedByPayee(SC())).length;
-    if(!Object.keys(byLine).length&&!unmTot) return '<p class="act-note">Nothing to show yet.</p>';
+    // the analysis gives the period, effLine overrides, refund netting and anything added by hand
+    const _a=A; const byLine=_a?{..._a.byLine}:{};
+    const _unm=unmatchedByPayee(SC(),A);
+    unmTot=Object.values(_unm).reduce((s,v)=>s+v,0); unmN=Object.keys(_unm).length;
+    if(!Object.keys(byLine).length&&!unmTot) return empty(WIN?'Nothing was spent in this window.':'Nothing to show yet.');
     seg=_segmentData(byLine,0.05);
     window._donutOtherItems=seg.othItems;
     label=unmTot>0?'Spending':'Matched spending';
   } else if(st.level==='unmatched'){
-    const by=unmatchedByPayee(SC());
-    if(!Object.keys(by).length) return '<p class="act-note">Everything is matched.</p>';
+    const by=unmatchedByPayee(SC(),A);
+    if(!Object.keys(by).length) return empty('Everything is matched.');
     seg=_segmentData(by,0.05); nested=true;
     label='Unmatched'; backLbl='All lines'; noun='payee';
   } else if(st.level==='other'){
     const items=window._donutOtherItems||[];
-    if(!items.length) return '<p class="act-note">Nothing here.</p>';
+    if(!items.length) return empty('Nothing here.');
     const byObj={}; items.forEach(x=>byObj[x.name]=x.val);
     seg=_segmentData(byObj,0.05); nested=true;
     label='Other lines'; backLbl='All lines';
   } else if(st.level==='vendors'){
-    const byV=lineByPayee(st.line,SC());
+    const byV=lineByPayee(st.line,SC(),A);
     seg=_segmentData(byV,0.05);
     window._donutVendorOtherItems=seg.othItems;
     label=st.line; backLbl=st.fromOther?'Other lines':'All lines'; noun='payee';
   } else if(st.level==='vendorother'){
     const items=window._donutVendorOtherItems||[];
-    if(!items.length) return '<p class="act-note">Nothing here.</p>';
+    if(!items.length) return empty('Nothing here.');
     const byObj={}; items.forEach(x=>byObj[x.name]=x.val);
     seg=_segmentData(byObj,0.05); nested=true;
     label='Other payees'; backLbl=st.line; noun='payee';
   }
-  const head=(inner)=>`<div class="dn-head">${backLbl?`<button type="button" class="dn-back" onclick="window._donutBack()"><span class="dn-chev back"></span><span>${esc(backLbl)}</span></button>`:inner}<button type="button" class="dn-freq" onclick="window._donutFreqCyc()" title="Change the period">${DFWORD[dfreq]}</button></div>`;
+  const head=(inner)=>`${ctl}<div class="dn-head">${backLbl?`<button type="button" class="dn-back" onclick="window._donutBack()"><span class="dn-chev back"></span><span>${esc(backLbl)}</span></button>`:inner}</div>`;
   if(!seg||(!seg.main.length&&!unmTot)) return `<div class="dn">${head('<span class="donut-hint">Nothing to show here.</span>')}</div>`;
   const slices=seg.main.map((x,i)=>({...x,color:DNPAL[i]}));
   const canDrillOther=!nested&&seg.othItems.length>0;
@@ -4155,17 +4332,19 @@ function buildDonutHTML(){
   const svg=`<svg class="dn-ring" viewBox="0 0 220 220" role="img" aria-label="${esc(label)}: ${fmtD(total)}${DFLBL[dfreq]} across ${count} ${noun}${count===1?'':'s'}"><g transform="rotate(-90 110 110)"><circle class="dn-track" cx="110" cy="110" r="${DN_R}"/><circle class="dn-under" cx="110" cy="110" r="${DN_R}"/>${arcs}</g></svg>`;
   const centre=`<div class="dn-centre"><span class="dn-c-l">${esc(label)}</span><span class="dn-c-v">${fmtD(total)}<small>${DFLBL[dfreq]}</small></span><span class="dn-c-s">${count} ${noun}${count===1?'':'s'}</span></div>`;
   let ri=0;
-  const row=(x,click,extra)=>`<${click?'button type="button"':'div'} class="dn-row donut-key-item" ${click?`data-seg="${esc(x.name)}"`:''} style="--i:${ri++}"><i style="background:${x.color}"></i><span class="dn-n">${esc(x.name)}${extra||''}</span><span class="dn-p">${pctOf(x.val)}%</span><span class="dn-a">${fmtD(x.val)}</span><span class="dn-chev${click?'':' none'}"></span></${click?'button':'div'}>`;
-  let legend=slices.filter(x=>!x.isOther&&!x.isUnm).map(x=>row(x,st.level==='top'||st.level==='other')).join('');
+  // each row: the main part opens the slice, the small i opens its trend
+  const TK=st.level==='top'||st.level==='other'?'line':st.level==='unmatched'?'unpayee':'payee';
+  const row=(x,click,extra,tk)=>`<div class="dn-row" style="--i:${ri++}"><${click?'button type="button"':'div'} class="dn-main donut-key-item" ${click?`data-seg="${esc(x.name)}"`:''}><i style="background:${x.color}"></i><span class="dn-n">${esc(x.name)}${extra||''}</span><span class="dn-p">${pctOf(x.val)}%</span><span class="dn-a">${fmtD(x.val)}</span><span class="dn-chev${click?'':' none'}"></span></${click?'button':'div'}>${tk?`<button type="button" class="dn-i" data-trend="${tk}" data-tname="${esc(x.name)}" data-tcol="${x.color}" aria-label="Trend for ${esc(x.name)}" title="Month by month">i</button>`:'<span class="dn-i none"></span>'}</div>`;
+  let legend=slices.filter(x=>!x.isOther&&!x.isUnm).map(x=>row(x,st.level==='top'||st.level==='other',null,TK)).join('');
   if(seg.othTot>0){
     // where "Other" cannot be opened any further, list what is in it instead
     if(canDrillOther) legend+=row(slices.find(x=>x.isOther),true,`<small>${seg.othItems.length} smaller</small>`);
-    else legend+=seg.othItems.map(x=>row({...x,color:'var(--dn-other)'},st.level==='other')).join('');
+    else legend+=seg.othItems.map(x=>row({...x,color:'var(--dn-other)'},st.level==='other',null,TK)).join('');
   }
-  if(unmTot>0) legend+=row(slices.find(x=>x.isUnm),true,`<small>${unmN} payee${unmN===1?'':'s'}</small>`);
+  if(unmTot>0) legend+=row(slices.find(x=>x.isUnm),true,`<small>${unmN} payee${unmN===1?'':'s'}</small>`,'unmatched');
   if(st.level==='unmatched') legend+=`<button type="button" class="tool primary dn-review" onclick="openReviewQueue(SC())">Review payees</button>`;
   return `<div class="dn">
-    ${head('<span class="donut-hint">Tap a slice or a row to open it.</span>')}
+    ${head(`<span class="donut-hint">${WIN?esc(WIN.label)+(WIN.part?(WIN.single?', not a full month':', includes a part month'):'')+'. ':''}Tap a slice to open it, or <b>i</b> for its trend.</span>`)}
     <div class="dn-body"><div class="dn-chart">${svg}${centre}</div><div class="dn-legend">${legend}</div></div>
   </div>`;
 }
@@ -4213,6 +4392,194 @@ window._donutSeg=function(name){
   window._donutState=next;
   donutRender('in',name);
 };
+function donutWinOptions(sc, cur){
+  const a=getAnalysis(sc), full=a?a.fullMonths:0, mons=stmtMonths().slice().reverse();
+  const o=(v,l)=>`<option value="${v}" ${cur===v?'selected':''}>${l}</option>`;
+  let h=o('all',full>=11.5?'Last 12 months':'Whole statement');
+  [[6,'Last 6 months'],[3,'Last 3 months']].forEach(([n,l])=>{ if(full>n+0.2) h+=o('r'+n,l); });
+  if(mons.length>1) h+=`<optgroup label="One month">${mons.map(k=>o('m'+k,ymLabel(k,true))).join('')}</optgroup>`;
+  if(mons.length>2) h+=o('range','Choose months');
+  return h;
+}
+window._donutWinSet=function(v){
+  const mons=stmtMonths();
+  if(v==='all') window._donutWin=null;
+  else if(v==='range') window._donutWin={mode:'range',from:mons[Math.max(0,mons.length-3)],to:mons[mons.length-1]};
+  else if(v[0]==='r') window._donutWin={mode:'roll',n:+v.slice(1)};
+  else window._donutWin={mode:'month',from:v.slice(1),to:v.slice(1)};
+  window._donutBusy=false; window._donutState={level:'top',line:null,fromOther:false};
+  donutRender('in');
+};
+window._donutWinRange=function(which,k){
+  const w=window._donutWin; if(!w||w.mode!=='range') return;
+  w[which]=k; if(w.from>w.to){ if(which==='from') w.to=k; else w.from=k; }
+  window._donutBusy=false; window._donutState={level:'top',line:null,fromOther:false};
+  donutRender('in');
+};
+
+/* ---- trend for one doughnut item ---- */
+function trendData(sc, kind, name, line){
+  const mons=stmtMonths(), sp=stmtSpan(); if(!mons.length||!sp) return null;
+  const want=e=>kind==='line'?e.line===name:kind==='payee'?(e.line===line&&e.name===name):kind==='unpayee'?(e.line===null&&e.name===name):e.line===null;
+  const split=kind==='line'||kind==='unmatched';
+  const by={}, parts={}; let count=0, paid=0;
+  spendEvents(sc).forEach(e=>{
+    if(!want(e)) return;
+    by[e.ym]=(by[e.ym]||0)+e.v; if(e.v>0){ count++; paid+=e.v; }
+    if(split){ const p=parts[e.name]||(parts[e.name]={}); p[e.ym]=(p[e.ym]||0)+e.v; }
+  });
+  const vals=mons.map(k=>Math.max(0,by[k]||0));
+  // the first and last months of a statement are often part months, so they stay out of the comparison
+  const lastDay=new Date(sp.max.getFullYear(),sp.max.getMonth()+1,0).getDate();
+  const full=mons.map((k,i)=>!(i===0&&sp.min.getDate()>3)&&!(i===mons.length-1&&sp.max.getDate()<lastDay-2));
+  const fi=mons.map((_,i)=>i).filter(i=>full[i]);
+  const n=fi.length>=6?3:Math.floor(fi.length/2);
+  const rec=n?fi.slice(-n):[], prev=n?fi.slice(-2*n,-n):[];
+  const avg=(idx,src)=>idx.length?idx.reduce((t,i)=>t+Math.max(0,src[mons[i]]||0),0)/idx.length:0;
+  const mn=i=>MON[+mons[i].slice(5)-1], rng=idx=>!idx.length?'':idx.length===1?mn(idx[0]):mn(idx[0])+' to '+mn(idx[idx.length-1]);
+  const movers=split&&n?Object.entries(parts).map(([nm,src])=>{ const r=avg(rec,src), q=avg(prev,src); return {name:nm,r,q,d:r-q}; }).filter(x=>Math.abs(x.d)>=1).sort((x,y)=>Math.abs(y.d)-Math.abs(x.d)).slice(0,6):[];
+  return {mons,vals,full,n,r:avg(rec,by),q:avg(prev,by),all:fi.length?avg(fi,by):vals.reduce((t,v)=>t+v,0)/Math.max(1,vals.length),movers,count,paid,recL:rng(rec),prevL:rng(prev)};
+}
+function buildTrendHTML(sc, t){
+  const d=trendData(sc,t.kind,t.name,t.line); if(!d) return '<p class="act-note" style="margin:18px">Nothing to show.</p>';
+  const fmt=v=>gbp(Math.round(v)), per='<span class="tr-per">/mo</span>';
+  const o=t.kind==='line'?sc.outgoings.find(x=>x.name===t.name):null, bmo=o?annual(o)/12:0;
+  const diff=d.r-d.q, state=!d.n?'none':Math.abs(diff)<Math.max(5,d.q*.1)?'flat':diff>0?'up':'down';
+  const pct=d.q>0?Math.round(Math.abs(diff)/d.q*100):null;
+  const sum=state==='none'?'This needs at least two full months of statement to show a trend.'
+    :state==='flat'?`Steady. ${d.recL} was about the same as ${d.prevL}.`
+    :`${state==='up'?'Up':'Down'} ${fmt(Math.abs(diff))} a month. ${d.recL} against ${d.prevL}${pct!=null?`, ${pct}% ${state==='up'?'more':'less'}`:''}.`;
+  const dcol=state==='up'?'var(--over)':state==='down'?'var(--good)':'var(--ink)';
+  const stats=d.n?`<div class="det-stat-grid">
+      <div class="det-stat-box"><div class="det-stat-l">${d.recL}</div><div class="det-stat-v">${fmt(d.r)}${per}</div></div>
+      <div class="det-stat-box"><div class="det-stat-l">${d.prevL}</div><div class="det-stat-v">${fmt(d.q)}${per}</div></div>
+      <div class="det-stat-box"><div class="det-stat-l">Change</div><div class="det-stat-v" style="color:${dcol}">${state==='flat'?'Steady':(diff>0?'+':'−')+fmt(Math.abs(diff))}</div></div>
+      <div class="det-stat-box"><div class="det-stat-l">${bmo?'Budget':'Statement average'}</div><div class="det-stat-v">${fmt(bmo||d.all)}${per}</div></div>
+    </div>`:`<div class="det-stat-grid"><div class="det-stat-box"><div class="det-stat-l">Statement average</div><div class="det-stat-v">${fmt(d.all)}${per}</div></div></div>`;
+  // month chart: one bar a month in the slice's colour. Part months are paler, the chosen window is underlined.
+  const N=d.mons.length, W=320, H=112, top=16, slot=W/N, bw=Math.min(22,Math.max(4,slot-5));
+  const maxV=Math.max(...d.vals,bmo,1), yOf=v=>top+(1-v/maxV)*(H-top);
+  const win=donutWin(sc), inW=k=>!!win&&ymDate(k,true)>=win.from&&ymDate(k)<=win.to;
+  const hi=Math.max(...d.vals); let labelled=false;
+  const bars=d.mons.map((k,i)=>{
+    const v=d.vals[i], x=i*slot+(slot-bw)/2, y=v>0?Math.min(yOf(v),H-2):H, h=H-y, r=Math.min(4,bw/2,h);
+    const bar=v>0?`<path d="M${x.toFixed(1)},${H} V${(y+r).toFixed(1)} Q${x.toFixed(1)},${y.toFixed(1)} ${(x+r).toFixed(1)},${y.toFixed(1)} H${(x+bw-r).toFixed(1)} Q${(x+bw).toFixed(1)},${y.toFixed(1)} ${(x+bw).toFixed(1)},${(y+r).toFixed(1)} V${H} Z" fill="${t.colour}" opacity="${d.full[i]?1:.45}"/>`:'';
+    let lab=''; if(v>0&&v===hi&&!labelled){ labelled=true; lab=`<text x="${(x+bw/2).toFixed(1)}" y="${(y-4).toFixed(1)}" text-anchor="middle" font-size="10" font-weight="600" fill="var(--ink)">${fmt(v)}</text>`; }
+    const tick=`<text x="${(i*slot+slot/2).toFixed(1)}" y="${H+13}" text-anchor="middle" font-size="10" fill="var(--ink-soft)">${MON[+k.slice(5)-1][0]}</text>`;
+    const hit=`<rect x="${(i*slot).toFixed(1)}" y="0" width="${slot.toFixed(1)}" height="${H+16}" fill="transparent" data-tip="${ymLabel(k)}${d.full[i]?'':' (part month)'}: ${fmt(v)}"/>`;
+    return bar+lab+tick+hit;
+  }).join('');
+  const wi=d.mons.map((k,i)=>inW(k)?i:-1).filter(i=>i>=0);
+  const under=wi.length?`<line x1="${(wi[0]*slot+3).toFixed(1)}" x2="${((wi[wi.length-1]+1)*slot-3).toFixed(1)}" y1="${H+19}" y2="${H+19}" stroke="var(--clay-fill)" stroke-width="2.5" stroke-linecap="round"/>`:'';
+  const bline=bmo>0?`<line x1="0" x2="${W}" y1="${yOf(bmo).toFixed(1)}" y2="${yOf(bmo).toFixed(1)}" stroke="var(--ink)" stroke-width="1" stroke-dasharray="3,3" opacity=".4"/>`:'';
+  const notes=[]; if(bmo>0) notes.push('The dashed line is the budget.'); if(d.full.includes(false)) notes.push('Paler bars are part months.'); if(wi.length) notes.push('The underline marks the window chosen on the chart.');
+  const chart=`<div class="chart-wrap"><svg class="tappable-chart" width="100%" viewBox="0 0 ${W} ${H+22}" style="display:block;overflow:visible" role="img" aria-label="Spending by month">${`<line x1="0" x2="${W}" y1="${H}" y2="${H}" stroke="var(--line)" stroke-width="1"/>`}${bline}${bars}${under}</svg><div class="chart-tip" hidden></div></div>${notes.length?`<p class="tr-note">${notes.join(' ')}</p>`:''}`;
+  const movers=d.movers.length?`<div class="det-lbl" style="margin-top:18px">What changed inside it</div><p class="tr-note" style="margin:2px 0 6px">Average a month, ${d.prevL} then ${d.recL}.</p>${d.movers.map(m=>`<div class="tr-row"><span class="tr-n">${esc(m.name)}</span><span class="tr-v">${fmt(m.q)} to ${fmt(m.r)}</span><span class="tr-d ${m.d>0?'up':'down'}">${m.d>0?'+':'−'}${fmt(Math.abs(m.d))}</span></div>`).join('')}`:'';
+  const pay=(t.kind==='payee'||t.kind==='unpayee')&&d.count?`<p class="tr-note" style="margin-top:14px">${d.count} payment${d.count===1?'':'s'} in the statement, about ${fmt(d.paid/d.count)} each.</p>`:'';
+  const more=o?`<button type="button" class="tool tr-more" data-trend-detail="${esc(o.id)}">See every payment</button>`:'';
+  return `<div class="tr"><p class="tr-sum">${sum}</p>${stats}<div class="det-lbl">Month by month <span style="font-weight:400">(tap a month for the amount)</span></div><div style="margin:10px 0 0">${chart}</div>${movers}${pay}${more}</div>`;
+}
+function openTrend(kind, name, colour){
+  const sc=SC(), st=window._donutState||{};
+  const bd=document.getElementById('detailBackdrop'), dc=document.getElementById('detailContent'), dt=document.getElementById('detailTitle');
+  if(!bd||!dc||!dt) return;
+  dt.textContent=kind==='unmatched'?'Unmatched spending':name;
+  dc.innerHTML=buildTrendHTML(sc,{kind,name,line:st.line,colour:colour||'var(--clay-fill)'});
+  bd.classList.add('show'); _detailOpen=true; _currentDetailOid=null;
+  wireChartTooltips();
+  const more=dc.querySelector('[data-trend-detail]'); if(more) more.onclick=()=>openLineDetail(more.dataset.trendDetail,sc);
+  document.getElementById('detailClose').onclick=closeLineDetail;
+  bd.onclick=e=>{ if(e.target===bd) closeLineDetail(); };
+}
+
+/* ---- payments from another account, added by hand ---- */
+function manualDesc(m){
+  const f=m.freq==='monthly'?'every month'+(m.from?' from '+ymLabel(m.from):'')+(m.to?' until '+ymLabel(m.to):'')
+    :m.freq==='yearly'?'once a year, in '+MONF[(m.month||1)-1]
+    :'one-off'+(m.date?' on '+dayLabel(new Date(m.date+'T12:00:00')):'');
+  return f.charAt(0).toUpperCase()+f.slice(1);
+}
+function manualFormHTML(sc, f){
+  const lines=[...new Set(allLineNames(sc))], mons=stmtMonths(), sp=stmtSpan();
+  const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  const cur=f.line||''; const extra=cur&&!lines.includes(cur)?[cur]:[];
+  const mo=(sel,first)=>`<option value="">${first}</option>`+mons.map(k=>`<option value="${k}" ${k===sel?'selected':''}>${ymLabel(k)}</option>`).join('');
+  return `<div class="man-form">
+    <label>Name<input id="manName" type="text" autocomplete="off" placeholder="For example Mortgage" value="${esc(f.name||'')}"></label>
+    <div class="man-2">
+      <label>Amount<input id="manAmt" type="number" inputmode="decimal" step="any" min="0" placeholder="0" value="${esc(String(f.amount||''))}"></label>
+      <label>How often<select id="manFreq"><option value="monthly" ${f.freq==='monthly'?'selected':''}>Every month</option><option value="yearly" ${f.freq==='yearly'?'selected':''}>Once a year</option><option value="once" ${f.freq==='once'?'selected':''}>One-off</option></select></label>
+    </div>
+    <label>Counts towards<select id="manLine">${lines.concat(extra).map(l=>`<option value="${esc(l)}" ${l===cur?'selected':''}>${esc(l)}</option>`).join('')}<option value="" ${cur?'':'selected'}>Its own item, not in the budget</option></select></label>
+    <div class="man-2" data-manfor="monthly">
+      <label>From<select id="manFrom">${mo(f.from,'First month')}</select></label>
+      <label>Until<select id="manTo">${mo(f.to,'Still paying')}</select></label>
+    </div>
+    <label data-manfor="yearly">Paid in<select id="manMonth">${MONF.map((n,i)=>`<option value="${i+1}" ${(f.month||1)===i+1?'selected':''}>${n}</option>`).join('')}</select></label>
+    <label data-manfor="once">Date<input id="manDate" type="date" ${sp?`min="${iso(sp.min)}" max="${iso(sp.max)}"`:''} value="${esc(f.date||(sp?iso(sp.max):''))}"></label>
+    <p class="man-err" id="manErr" hidden></p>
+    <div class="man-btns"><button type="button" class="tool primary" id="manSave">${f.id?'Save':'Add'}</button><button type="button" class="tool" id="manCancel">Cancel</button>${f.id?'<button type="button" class="tool del" id="manDel">Delete</button>':''}</div>
+  </div>`;
+}
+function manualHTML(sc){
+  const list=S.manual||[], f=window._manForm;
+  const rows=list.map(m=>`<button type="button" class="man-row${f&&f.id===m.id?' on':''}" data-manedit="${esc(m.id)}"><span class="man-t"><span class="man-n">${esc(m.name)}</span><span class="man-s">${esc(manualDesc(m))}${m.line?'. Counts towards '+esc(m.line):''}</span></span><span class="man-a">${gbp(Number(m.amount)||0)}</span><span class="dn-chev"></span></button>`).join('');
+  return `<p class="man-hint">Add payments this statement cannot see, such as a mortgage paid from a joint account. They count in the chart above and against your budget lines. Leave out anything already covered by a transfer you have matched to a line.</p>${rows}${f?manualFormHTML(sc,f):`<button type="button" class="tool man-add" data-manadd>Add a payment</button>`}`;
+}
+function refreshManual(){ const h=document.getElementById('manualSection'); if(h){ h.innerHTML=manualHTML(SC()); wireManual(); } }
+function wireManual(){
+  const host=document.getElementById('manualSection'); if(!host) return;
+  const add=host.querySelector('[data-manadd]');
+  if(add) add.onclick=()=>{ window._manForm={id:null,name:'',amount:'',freq:'monthly',line:null,from:'',to:'',month:new Date().getMonth()+1,date:''}; refreshManual(); const n=document.getElementById('manName'); if(n) n.focus(); };
+  host.querySelectorAll('[data-manedit]').forEach(b=>{ b.onclick=()=>{
+    const m=(S.manual||[]).find(x=>x.id===b.dataset.manedit); if(!m) return;
+    window._manForm={...m,amount:String(m.amount),line:m.line||''}; refreshManual();
+    const fm=document.querySelector('#manualSection .man-form'); if(fm) fm.scrollIntoView({block:'nearest',behavior:'smooth'});
+  }; });
+  const f=window._manForm; if(!f) return;
+  const $=id=>document.getElementById(id);
+  const show=()=>host.querySelectorAll('[data-manfor]').forEach(el=>{ el.hidden=el.dataset.manfor!==f.freq; });
+  show();
+  $('manName').oninput=()=>{
+    f.name=$('manName').value;
+    if(f.line===null){ // until a line is picked by hand, follow the name
+      const nm=f.name.trim().toLowerCase(), sel=$('manLine');
+      const hit=nm.length>=3?[...sel.options].find(o=>o.value&&(o.value.toLowerCase()===nm||o.value.toLowerCase().includes(nm)||nm.includes(o.value.toLowerCase()))):null;
+      sel.value=hit?hit.value:'';
+    }
+  };
+  $('manAmt').oninput=()=>{ limitDec($('manAmt')); f.amount=$('manAmt').value; };
+  $('manFreq').onchange=()=>{ f.freq=$('manFreq').value; show(); };
+  $('manLine').onchange=()=>{ f.line=$('manLine').value; };
+  $('manFrom').onchange=()=>{ f.from=$('manFrom').value; };
+  $('manTo').onchange=()=>{ f.to=$('manTo').value; };
+  $('manMonth').onchange=()=>{ f.month=+$('manMonth').value; };
+  $('manDate').onchange=()=>{ f.date=$('manDate').value; };
+  const fail=msg=>{ const e=$('manErr'); e.textContent=msg; e.hidden=false; };
+  host.querySelector('.man-form').addEventListener('input',()=>{ $('manErr').hidden=true; });
+  $('manSave').onclick=()=>{
+    const name=$('manName').value.trim(), amount=Math.round((parseFloat($('manAmt').value)||0)*100)/100, freq=$('manFreq').value;
+    if(!name) return fail('Give it a name.');
+    if(!(amount>0)) return fail('Enter an amount above zero.');
+    const m={id:f.id||uid(),name,amount,freq,line:$('manLine').value||'',updatedAt:Date.now()};
+    if(freq==='monthly'){ m.from=$('manFrom').value||''; m.to=$('manTo').value||''; if(m.from&&m.to&&m.from>m.to) return fail('Until is before From.'); }
+    else if(freq==='yearly') m.month=+$('manMonth').value||1;
+    else { m.date=$('manDate').value; if(!m.date) return fail('Pick a date.'); }
+    if(!S.manual) S.manual=[];
+    const i=S.manual.findIndex(x=>x.id===m.id); if(i>=0) S.manual[i]=m; else S.manual.push(m);
+    window._manForm=null; S.updatedAt=Date.now(); invalidateCache(); save(); renderActuals(true);
+    showToast(i>=0?'Saved':m.line?`Added. It now counts in ${m.line}`:'Added to the chart');
+  };
+  $('manCancel').onclick=()=>{ window._manForm=null; refreshManual(); };
+  const del=$('manDel');
+  if(del) del.onclick=()=>{
+    const i=(S.manual||[]).findIndex(x=>x.id===f.id); if(i<0) return;
+    const gone=S.manual.splice(i,1)[0];
+    window._manForm=null; S.updatedAt=Date.now(); invalidateCache(); save(); renderActuals(true);
+    showToast(`${gone.name} removed`,{label:'Undo',fn(){ S.manual.splice(Math.min(i,S.manual.length),0,gone); invalidateCache(); save(); renderActuals(true); }});
+  };
+}
+
 window._donutBack=function(){
   if(window._donutBusy) return;
   const st=window._donutState||{level:'top'};
@@ -4223,7 +4590,7 @@ window._donutBack=function(){
 };
 window._donutFreqCyc=function(){
   if(window._donutBusy) return;
-  const DFCYC2={monthly:'annual',annual:'weekly',weekly:'monthly'};
+  const DFCYC2={monthly:'annual',annual:'weekly',weekly:'total',total:'monthly'};
   window._donutFreq=DFCYC2[window._donutFreq||'monthly'];
   donutRender('none');
 };
@@ -4480,6 +4847,8 @@ function buildAnalysisPage(){
     ${oneOffsHTML()}
     <div class="det-lbl">Spending by budget line</div>
     <div style="margin:8px 0 20px" id="donutSection">${buildDonutHTML()}</div>
+    <div class="det-lbl">Paid from another account</div>
+    <div class="man" id="manualSection">${manualHTML(SC())}</div>
     ${potNames.length?`<div class="det-lbl">Pot activity <span style="font-weight:400">(tap to expand)</span></div>
     <div style="margin:8px 0 20px" id="potSection">${buildPotCards()}</div>`:''}
     ${subs.length?`<div class="det-lbl">Recurring payments${changed.length?' <span style="background:rgba(214,63,85,.1);color:var(--over);border-radius:5px;padding:2px 7px;font-size:12px;font-weight:400">'+(changed.length)+' price change'+(changed.length>1?'s':'')+'</span>':''}</div>
@@ -4494,6 +4863,7 @@ function wireAnalysisPage(){
   window._openPotCards=new Set();
   wireChartTooltips();
   wireDonutAndPots();
+  wireManual();
   wirePotSliders();
   document.querySelectorAll('[data-oneoff-undo]').forEach(b=>{ b.onclick=()=>{ if(S.txnAssign) delete S.txnAssign[b.dataset.oneoffUndo]; invalidateCache(); save(); renderActuals(true); showToast('Put back into the averages'); }; });
 }
@@ -4505,6 +4875,9 @@ function wireDonutAndPots(){
   // Donut legend key items
   document.querySelectorAll('#donutSection .donut-key-item[data-seg]').forEach(el=>{
     el.onclick=()=>{ window._donutSeg(el.dataset.seg); };
+  });
+  document.querySelectorAll('#donutSection [data-trend]').forEach(el=>{
+    el.onclick=()=>{ if(!window._donutBusy) openTrend(el.dataset.trend,el.dataset.tname,el.dataset.tcol); };
   });
   // Pot cards
   document.querySelectorAll('#potSection [data-pot]').forEach(el=>{
